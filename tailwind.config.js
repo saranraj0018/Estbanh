@@ -14,6 +14,11 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                primary: ['Instrument Sans', ...defaultTheme.fontFamily.sans], // Added Instrument Sans
+            },
+            colors: {
+                primary: "#2B2F37",
+                secondary: "#ffb02e",
             },
         },
     },
