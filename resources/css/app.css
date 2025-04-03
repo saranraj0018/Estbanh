@@ -49,3 +49,10 @@
 }
 
 /*----------------------------------- HOME SECTION 3 */
+
+.my-bg{
+    background-image: url('../../public/assets/home/feed-bg.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
