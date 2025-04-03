@@ -91,7 +91,7 @@ const Header = () => {
                         </div>
                     </div>
                 </section>
-                <section className="bg-primary py-2 px-[1em] lg:px-[6em] xl:px-[4em] 2xl:px-[10em]">
+                <section className="bg-primary py-4 px-[1em] lg:px-[6em] xl:px-[4em] 2xl:px-[10em]">
                     <div className="grid grid-cols-10 gap-2 lg:gap-5">
                         <div className="col-span-10 order-1 lg:order-1 md:col-span-3 lg:col-span-2">
                             <img src={Logo} alt="" className="w-40 md:w-100" />
