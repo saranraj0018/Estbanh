@@ -17,6 +17,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/product-details', [SasController::class, 'ProductDetails']);
+Route::get('/cart', [SasController::class, 'Cart']);
 
 
 Route::middleware('auth')->group(function () {
