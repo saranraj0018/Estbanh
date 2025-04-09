@@ -18,6 +18,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/product-details', [SasController::class, 'ProductDetails']);
 Route::get('/cart', [SasController::class, 'Cart']);
+Route::get('/checkout', [SasController::class, 'Checkout']);
 
 
 Route::middleware('auth')->group(function () {

@@ -13,4 +13,7 @@ class SasController extends Controller
     public function Cart() {
         return Inertia::render('Cart');
     }
+    public function Checkout() {
+        return Inertia::render('Checkout');
+    }
 }
