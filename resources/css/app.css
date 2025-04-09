@@ -2,17 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {}
+@layer components {
+}
 
 .footer-form-bg {
-    background-image: url('../../public/assets/general/Footer-form-bg.png');
+    background-image: url("../../public/assets/general/Footer-form-bg.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .footer-bg {
-    background-image: url('../../public/assets/general/FooterBg.png');
+    background-image: url("../../public/assets/general/FooterBg.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -50,9 +51,30 @@
 
 /*----------------------------------- HOME SECTION 3 */
 
-.my-bg{
-    background-image: url('../../public/assets/home/feed-bg.png');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+/*----------------------------------- PRODUCT DETAILS SECTION 1 */
+
+/* Custom Scrollbar for .c-scroller */
+.c-scroller::-webkit-scrollbar {
+    width: 4px; /* Thin scrollbar */
 }
+
+.c-scroller::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+}
+
+.c-scroller::-webkit-scrollbar-thumb {
+    background: #d2d2d2; /* #d2d2d2 scroller */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.c-scroller::-webkit-scrollbar-thumb:hover {
+    background: gold; /* Slightly darker #d2d2d2 on hover */
+}
+
+/* Firefox Scrollbar */
+.c-scroller {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #d2d2d2 transparent; /* Thumb color and track color */
+}
+
+/*----------------------------------- PRODUCT DETAILS SECTION 1 */
