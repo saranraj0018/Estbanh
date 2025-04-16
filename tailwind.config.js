@@ -9,12 +9,14 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
     ],
-
+    
     theme: {
-        extend: {
+        extend: { 
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 primary: ['Instrument Sans', ...defaultTheme.fontFamily.sans], // Added Instrument Sans
+                main: ['Lexend', ...defaultTheme.fontFamily.sans], // Added Instrument Sans
+                inter: ['Inter', ...defaultTheme.fontFamily.sans], // Added Instrument Sans
             },
             colors: {
                 primary: "#2B2F37",
