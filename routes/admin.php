@@ -1,15 +1,23 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return redirect()->route('admin.login');
-});
 
 
+Route::prefix('admin')
+    ->middleware(['auth:admin'])
+    ->group(function() {
+
+        Route::get('/', function () {
+            return redirect()->route('admin.dashboard');
+        });
+    
 
 
-
-// require __DIR__.'/auth.php';
+        Route::get('/dashboard', function () {
+            return Inertia::render('Dashboard');
+        })->name('admin.dashboard');
+    });
 

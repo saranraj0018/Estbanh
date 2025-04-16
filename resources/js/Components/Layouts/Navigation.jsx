@@ -1,11 +1,11 @@
 import React from "react";
 
-const Navigation = () => {
+const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
     return (
         <div
             className={`border-2 shadow-sm border-gray-200 h-[60px] flex justify-between items-center px-4`}
         >
-            <button className="bg-transparent border-0 outline-none">
+            <button className="bg-transparent border-0 outline-none" onClick={onOpenSideBar}>
                 <svg
                     width="25px"
                     height="25px"
@@ -35,7 +35,7 @@ const Navigation = () => {
             </button>
 
             <div className="flex gap-3">
-                <button className="bg-transparent border-0 outline-none">
+                <button className="bg-transparent border-0 outline-none" onClick={onNotificationClick}>
                     <svg
                         width="25px"
                         height="25px"
@@ -70,7 +70,7 @@ const Navigation = () => {
                         />
                     </svg>
                 </button>
-                <button className="bg-transparent border-0 outline-none">
+                <button className="bg-transparent border-0 outline-none" onClick={onSettingClick}>
                     <svg
                         width="25px"
                         height="25px"

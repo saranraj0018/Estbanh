@@ -5,10 +5,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import Heading from "@/Components/Heading";
 import Text from "@/Components/Text";
-import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import AdminGuestLayout from "@/Layouts/AdminGuestLayout";
 
 export default function Login({ status, canResetPassword }) {
+    
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -18,13 +19,13 @@ export default function Login({ status, canResetPassword }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("login"), {
+        post(route("admin.login"), {
             onFinish: () => reset("password"),
         });
     };
 
     return (
-        <GuestLayout>
+        <AdminGuestLayout>
             <Head title="Log in" />
 
             {status && (
@@ -110,6 +111,6 @@ export default function Login({ status, canResetPassword }) {
                     </Text>
                 </div>
             </form>
-        </GuestLayout>
+        </AdminGuestLayout>
     );
 }

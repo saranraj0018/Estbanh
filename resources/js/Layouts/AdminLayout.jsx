@@ -1,27 +1,41 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
+
 import Navigation from "@/Components/Layouts/Navigation";
 import Sidebar from "@/Components/Layouts/Sidebar";
-import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import Text from "@/Components/Text";
-import { Link, usePage } from "@inertiajs/react";
+import NotificationBar from "@/Components/Layouts/NotificationBar";
+
 import { useState } from "react";
+import SettingBar from "@/Components/Layouts/SettingBar";
+import Mobilebar from "@/Components/Layouts/Mobilebar";
 
 export default function AdminLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+    // const user = usePage().props.auth.user;
 
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+
+    const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+
+
+
+    const [settingBar, setSettingBar] =
         useState(false);
+
+    const [notificationBar, setNotificationBar] =
+        useState(false);
+
 
     return (
         <div className={`bg-gray-50 h-screen flex justify-start align-top`}>
-            
-            <Sidebar />
+            {
+                isSideBarOpen ? <Sidebar /> : <Mobilebar />
+            }
 
             <div className={`w-full `}>
-                <Navigation />
-                <div className="p-3">{children}</div>
+                <Navigation onOpenSideBar={() => setIsSideBarOpen(state => !state)} onNotificationClick={() => setNotificationBar((state) => !state)} onSettingClick={() => setSettingBar((state) => !state)} />
+                <div className="flex h-full">
+                    <div className="p-3 flex-1">{children}</div>
+                    { notificationBar && <NotificationBar onClick={() => setNotificationBar(() => false)} /> }
+                    { settingBar && <SettingBar onClick={() => setSettingBar(() => false)} /> }
+                </div>
             </div>
         </div>
     );

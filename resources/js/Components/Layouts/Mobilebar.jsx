@@ -1,9 +1,9 @@
 import React from "react";
 import ApplicationLogo from "../ApplicationLogo";
 
-const Sidebar = () => {
+const Mobilebar = () => {
     return (
-        <div className={`w-1/4 border-2 shadow-sm border-gray-200`}>
+        <div className={`w-fit border-2 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>
@@ -33,21 +33,14 @@ const Sidebar = () => {
                                 stroke-linecap="round"
                             />
                         </svg>
-                        <span className="text-[15px] font-[450] mt-[0.09em]">
-                            Dashboard
-                        </span>
                     </a>
                 </li>
 
-                <li className="w-full mt-3">
+                <li className="w-full mt-5">
                     <a
                         href=""
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
                     >
-                        <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
-                            Management Section
-                        </span>
-
                         <svg
                             width="20px"
                             height="20px"
@@ -112,9 +105,7 @@ const Sidebar = () => {
                                     stroke-linejoin="round"
                                 />
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
-                                Categories
-                            </span>
+                            
                         </a>
                     </li>
 
@@ -167,9 +158,7 @@ const Sidebar = () => {
                                     class="ci-primary"
                                 />
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
-                                Sub Categories
-                            </span>
+                            
                         </a>
                     </li>
 
@@ -194,21 +183,17 @@ const Sidebar = () => {
                                     />
                                 </g>
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
-                                Products
-                            </span>
+                           
                         </a>
                     </li>
                 </ul>
 
-                <li className="w-full mt-3">
+                <li className="w-full mt-5">
                     <a
                         href=""
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
                     >
-                        <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
-                            Transactions
-                        </span>
+                       
 
                         <svg
                             width="20px"
@@ -248,9 +233,7 @@ const Sidebar = () => {
                                     fill=""
                                 />
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
-                                Orders
-                            </span>
+                            
                         </a>
                     </li>
                 </ul>
@@ -259,4 +242,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default Mobilebar;
