@@ -1,19 +1,19 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function SubCategory() {
     return (
         <AdminLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
+                    SubCategory
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="SubCategory" />
 
             <div>
-                Hello
+            SubCategory
             </div>
         </AdminLayout>
     );

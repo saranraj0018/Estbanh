@@ -6,14 +6,14 @@ export default function Dashboard() {
         <AdminLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
+                    Order
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Order" />
 
             <div>
-                Hello
+            Order
             </div>
         </AdminLayout>
     );

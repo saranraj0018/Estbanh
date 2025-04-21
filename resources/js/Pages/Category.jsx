@@ -1,7 +1,7 @@
-import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
+import AdminLayout from "@/Layouts/AdminLayout";
+import { Head } from "@inertiajs/react";
 
-export default function Dashboard() {
+export default function Category() {
     return (
         <AdminLayout
             header={
@@ -10,11 +10,9 @@ export default function Dashboard() {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Category" />
 
-            <div>
-                Hello
-            </div>
+            <div>Category</div>
         </AdminLayout>
     );
 }

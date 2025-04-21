@@ -1,30 +1,61 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SasController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home', []);
+
+
+
+
+
+
+
+
+
+
+/**
+ * User login
+ */
+Route::middleware(['guest'])->group( function() {
+    
+    Route::get('/login', function () {
+        return Inertia::render('Auth/User/Login');
+    })->name('login');
+
+    Route::post('login', [AuthenticatedSessionController::class, 'login']);
 });
 
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/product-details', [SasController::class, 'ProductDetails']);
-Route::get('/cart', [SasController::class, 'Cart']);
-Route::get('/checkout', [SasController::class, 'Checkout']);
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-require __DIR__.'/auth.php';
+
+
+
+/**
+ * Admin Login
+ */
+Route::prefix('admin')
+    ->middleware(['guest:admin'])
+    ->group(function() {
+
+        Route::get('login', function () {
+            return Inertia::render('Auth/Admin/Login');
+        })->name('admin');
+
+        Route::post('login', [AdminAuthController::class, 'login'])
+        ->name('admin.login');
+    });
+
+
+
+
+
+
+require __DIR__ . "/admin.php";
+require __DIR__ . "/user.php";
+
+    
