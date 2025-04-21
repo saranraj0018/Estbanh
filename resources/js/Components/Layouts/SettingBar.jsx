@@ -65,7 +65,7 @@ const SettingBar = ({ onClick }) => {
 
             <ul className=" h-[90%] px-2 mt-3">
                 <li className="w-full rounded-md">
-                    <a
+                    <button
                         href=""
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                     >
@@ -99,7 +99,7 @@ const SettingBar = ({ onClick }) => {
                         <span className="text-[15px] font-[450] mt-[0.09em]">
                             Sign Out
                         </span>
-                    </a>
+                    </button>                                                          
                 </li>
             </ul>
         </div>

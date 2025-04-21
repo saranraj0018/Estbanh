@@ -1,17 +1,22 @@
 import React from "react";
 import ApplicationLogo from "../ApplicationLogo";
+import { Link, usePage } from '@inertiajs/react'
+
 
 const Sidebar = () => {
+    
+    const { route } = usePage().props
+
     return (
         <div className={`w-1/4 border-2 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>
             <ul className="mt-2 pt-2 h-[90%] px-2">
-                <li className="w-full bg-indigo-100 rounded-md">
-                    <a
-                        href=""
-                        className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                <li className={`w-full rounded-md ${route.uri == 'admin/dashboard' ? 'bg-indigo-100' : ''}`}>
+                    <Link
+                        href="/admin"
+                        className="w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                     >
                         <svg
                             width="20px"
@@ -36,12 +41,11 @@ const Sidebar = () => {
                         <span className="text-[15px] font-[450] mt-[0.09em]">
                             Dashboard
                         </span>
-                    </a>
+                    </Link>
                 </li>
 
-                <li className="w-full mt-3">
-                    <a
-                        href=""
+                <li className="w-full mt-3" >
+                    <span
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
                     >
                         <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
@@ -63,13 +67,13 @@ const Sidebar = () => {
                                 stroke-linejoin="round"
                             />
                         </svg>
-                    </a>
+                    </span>
                 </li>
 
                 <ul>
-                    <li className="w-full">
-                        <a
-                            href=""
+                    <li  className={`w-full rounded-md ${route.uri == 'admin/categories' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/categories"
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
@@ -115,12 +119,12 @@ const Sidebar = () => {
                             <span className="text-[15px] font-[450] mt-[0.09em]">
                                 Categories
                             </span>
-                        </a>
+                        </Link>
                     </li>
 
-                    <li className="w-full">
-                        <a
-                            href=""
+                    <li className={`w-full rounded-md ${route.uri == 'admin/sub-categories' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/sub-categories"
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
@@ -170,12 +174,12 @@ const Sidebar = () => {
                             <span className="text-[15px] font-[450] mt-[0.09em]">
                                 Sub Categories
                             </span>
-                        </a>
+                        </Link>
                     </li>
 
-                    <li className="w-full">
-                        <a
-                            href=""
+                    <li className={`w-full rounded-md ${route.uri == 'admin/products' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/products"
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
@@ -197,13 +201,12 @@ const Sidebar = () => {
                             <span className="text-[15px] font-[450] mt-[0.09em]">
                                 Products
                             </span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
 
                 <li className="w-full mt-3">
-                    <a
-                        href=""
+                    <span
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
                     >
                         <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
@@ -225,13 +228,13 @@ const Sidebar = () => {
                                 stroke-linejoin="round"
                             />
                         </svg>
-                    </a>
+                    </span>
                 </li>
 
                 <ul>
-                    <li className="w-full">
-                        <a
-                            href=""
+                    <li className={`w-full rounded-md ${route.uri == 'admin/orders' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/orders"
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
@@ -251,7 +254,7 @@ const Sidebar = () => {
                             <span className="text-[15px] font-[450] mt-[0.09em]">
                                 Orders
                             </span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </ul>
