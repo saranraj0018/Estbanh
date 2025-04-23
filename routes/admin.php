@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -13,7 +14,7 @@ Route::prefix('admin')
         Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         });
-    
+
 
         Route::get('/dashboard', function () {
             return Inertia::render('Admin/Dashboard');
@@ -41,6 +42,8 @@ Route::prefix('admin')
         Route::get('/orders', function () {
             return Inertia::render('Admin/Order');
         });
+
+        Route::post('/logout',[\App\Http\Controllers\Auth\AdminAuthController::class, 'destroy'])->name('admin.logout');
 
     });
 
