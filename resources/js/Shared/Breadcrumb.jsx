@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react'
 
 const Breadcrumb = ({ paths }) => {
   return (
-    <nav className="flex items-center space-x-3">
+    <nav className="flex items-center space-x-3 flex-1">
       {paths.map((crumb, index) => {
         const isLast = index === paths.length - 1;
         const to = '/' + paths.slice(0, index + 1).join('/');

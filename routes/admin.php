@@ -15,32 +15,31 @@ Route::prefix('admin')
         });
     
 
-
         Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard');
+            return Inertia::render('Admin/Dashboard');
         })->name('admin.dashboard');
 
-
         Route::get('/categories', function () {
-            return Inertia::render('Category');
+            return Inertia::render('Admin/Category', [
+                'categories' => Inertia::deepMerge(\App\Models\Category::latest()->paginate(10, page: 1))
+            ]);
         });
-    
 
 
         Route::get('/sub-categories', function () {
-            return Inertia::render('SubCategory');
+            return Inertia::render('Admin/SubCategory');
         });
 
 
 
         Route::get('/products', function () {
-            return Inertia::render('Product');
+            return Inertia::render('Admin/Product');
         });
 
 
 
         Route::get('/orders', function () {
-            return Inertia::render('Order');
+            return Inertia::render('Admin/Order');
         });
 
     });

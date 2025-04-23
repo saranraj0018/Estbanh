@@ -1,5 +1,5 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Card from '@/Components/Card';
+import ApplicationLogo from '@/Shared/ApplicationLogo';
+import Card from '@/Shared/Card';
 import { Link } from '@inertiajs/react';
 
 export default function AdminGuestLayout({ children }) {

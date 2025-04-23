@@ -21,7 +21,7 @@ use Inertia\Inertia;
 Route::middleware(['guest'])->group( function() {
     
     Route::get('/login', function () {
-        return Inertia::render('Auth/User/Login');
+        return Inertia::render('Auth/UserLogin');
     })->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
@@ -43,7 +43,7 @@ Route::prefix('admin')
     ->group(function() {
 
         Route::get('login', function () {
-            return Inertia::render('Auth/Admin/Login');
+            return Inertia::render('Auth/AdminLogin');
         })->name('admin');
 
         Route::post('login', [AdminAuthController::class, 'login'])

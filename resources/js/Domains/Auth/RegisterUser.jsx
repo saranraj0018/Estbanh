@@ -1,11 +1,11 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import InputError from '@/Shared/InputError';
+import InputLabel from '@/Shared/InputLabel';
+import PrimaryButton from '@/Shared/PrimaryButton';
+import TextInput from '@/Shared/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Register() {
+export default function RegisterUser() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
