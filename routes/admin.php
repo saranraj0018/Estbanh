@@ -16,18 +16,34 @@ Route::prefix('admin')
         });
 
 
-
         Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard', [
-                'admin' => Auth::guard('admin')->user(), 
-            ]);
+            return Inertia::render('Admin/Dashboard');
         })->name('admin.dashboard');
 
-        Route::post('/logout', function () {
-            Auth::guard('admin')->logout();
-            session()->invalidate();
-            session()->regenerateToken();
-            return redirect()->route('admin.login');
-        })->name('admin.logout');
+        Route::get('/categories', function () {
+            return Inertia::render('Admin/Category', [
+                'categories' => Inertia::deepMerge(\App\Models\Category::latest()->paginate(10, page: 1))
+            ]);
+        });
+
+
+        Route::get('/sub-categories', function () {
+            return Inertia::render('Admin/SubCategory');
+        });
+
+
+
+        Route::get('/products', function () {
+            return Inertia::render('Admin/Product');
+        });
+
+
+
+        Route::get('/orders', function () {
+            return Inertia::render('Admin/Order');
+        });
+
+        Route::post('/logout',[\App\Http\Controllers\Auth\AdminAuthController::class, 'destroy'])->name('admin.logout');
+
     });
 

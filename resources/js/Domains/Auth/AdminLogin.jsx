@@ -1,14 +1,14 @@
-import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import Heading from "@/Components/Heading";
-import Text from "@/Components/Text";
+import Checkbox from "@/Shared/Checkbox";
+import InputError from "@/Shared/InputError";
+import InputLabel from "@/Shared/InputLabel";
+import PrimaryButton from "@/Shared/PrimaryButton";
+import TextInput from "@/Shared/TextInput";
+import Heading from "@/Shared/Heading";
+import Text from "@/Shared/Text";
 import { Head, Link, useForm } from "@inertiajs/react";
 import AdminGuestLayout from "@/Layouts/AdminGuestLayout";
 
-export default function Login({ status, canResetPassword }) {
+export default function AdminLogin({ status, canResetPassword }) {
     
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",

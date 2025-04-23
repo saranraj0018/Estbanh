@@ -1,13 +1,13 @@
-import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/InputError";
-import TextInput from "@/Components/TextInput";
-import Text from "@/Components/Text";
+import Checkbox from "@/Shared/Checkbox";
+import InputError from "@/Shared/InputError";
+import TextInput from "@/Shared/TextInput";
+import Text from "@/Shared/Text";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import AppButton from "@/Components/AppButton";
+import ApplicationLogo from "@/Shared/ApplicationLogo";
+import AppButton from "@/Shared/AppButton";
 
-const Login = ({ status, canResetPassword }) => {
+const UserLogin = ({ status, canResetPassword }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -111,4 +111,4 @@ const Login = ({ status, canResetPassword }) => {
     );
 };
 
-export default Login;
+export default UserLogin;

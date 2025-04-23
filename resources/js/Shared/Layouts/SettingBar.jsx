@@ -18,8 +18,8 @@ const SettingBar = ({ onClick, onSignOut }) => {
     };
 
     return (
-        <div className="w-[250px] border-2 shadow-sm border-gray-200">
-            {/* Header */}
+        <div className={`w-[250px] border-2 shadow-sm border-gray-200`}>
+
             <div className="flex justify-start items-center gap-3 bg-gray-50 p-3 shadow-sm">
                 <button onClick={onClick}>
                     <svg
