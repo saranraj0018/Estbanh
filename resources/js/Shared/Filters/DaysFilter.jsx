@@ -29,9 +29,9 @@ const DaysFilter = () => {
                     >
                         <path
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="m1 1 4 4 4-4"
                         />
                     </svg>
@@ -64,7 +64,7 @@ const DaysFilter = () => {
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2  "
                                 />
                                 <label
-                                    for="filter-radio-example-1"
+                                    htmlFor="filter-radio-example-1"
                                     className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm "
                                 >
                                     Last day
@@ -81,7 +81,7 @@ const DaysFilter = () => {
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2  "
                                 />
                                 <label
-                                    for="filter-radio-example-2"
+                                    htmlFor="filter-radio-example-2"
                                     className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm "
                                 >
                                     Last 7 days
@@ -98,7 +98,7 @@ const DaysFilter = () => {
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2  "
                                 />
                                 <label
-                                    for="filter-radio-example-3"
+                                    htmlFor="filter-radio-example-3"
                                     className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm "
                                 >
                                     Last 30 days
@@ -115,7 +115,7 @@ const DaysFilter = () => {
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2  "
                                 />
                                 <label
-                                    for="filter-radio-example-4"
+                                    htmlFor="filter-radio-example-4"
                                     className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm "
                                 >
                                     Last month
@@ -132,7 +132,7 @@ const DaysFilter = () => {
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2  "
                                 />
                                 <label
-                                    for="filter-radio-example-5"
+                                    htmlFor="filter-radio-example-5"
                                     className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm "
                                 >
                                     Last year

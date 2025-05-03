@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Str;
+use function PHPUnit\Framework\stringStartsWith;
+
 class Category extends Model
 {
     use HasFactory;
@@ -12,6 +15,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
+        'image',
         'description',
         'is_active',
         'created_by',
@@ -23,6 +27,12 @@ class Category extends Model
         'created_at' => 'datetime',
     ];
 
+
+    public function subCategories()
+    {
+        return $this->hasMany(Subcategory::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -32,4 +42,11 @@ class Category extends Model
     {
         return $query->where('is_active', true);
     }
+
+
+
+    public function getImageAttribute(string $image) {
+        return Str::startsWith($image, 'http') ? $image : url('/storage/' . $image);
+    }
 }
+ 

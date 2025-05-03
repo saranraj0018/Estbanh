@@ -22,7 +22,10 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
+        "@heroicons/react": "^2.2.0",
+        "heroicons": "^2.2.0",
         "lucide-react": "^0.485.0",
-        "swiper": "^11.2.6"
+        "swiper": "^11.2.6",
+        "uuidv4": "^6.2.13"
     }
 }

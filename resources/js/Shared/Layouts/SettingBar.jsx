@@ -4,7 +4,7 @@ import Text from "../Text";
 
 const SettingBar = ({ onClick }) => {
     return (
-        <div className={`w-[250px] border-2 shadow-sm border-gray-200`}>
+        <div className={`w-[300px] border-2 shadow-sm border-gray-200`}>
 
             <div className="flex justify-start items-center gap-3 bg-gray-50 p-3 shadow-sm">
                 <button className="" onClick={onClick}>
@@ -18,9 +18,9 @@ const SettingBar = ({ onClick }) => {
                         <path
                             d="M9 5L14.15 10C14.4237 10.2563 14.6419 10.5659 14.791 10.9099C14.9402 11.2539 15.0171 11.625 15.0171 12C15.0171 12.375 14.9402 12.7458 14.791 13.0898C14.6419 13.4339 14.4237 13.7437 14.15 14L9 19"
                             stroke="#000000"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                     </svg>
                 </button>
@@ -38,11 +38,11 @@ const SettingBar = ({ onClick }) => {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                         <g
                             id="SVGRepo_tracerCarrier"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         ></g>
                         <g id="SVGRepo_iconCarrier">
                             <circle
@@ -50,13 +50,13 @@ const SettingBar = ({ onClick }) => {
                                 cy="6"
                                 r="4"
                                 stroke="#1C274C"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                             ></circle>
                             <path
                                 d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
                                 stroke="#1C274C"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
                             ></path>
                         </g>
                     </svg>
@@ -76,11 +76,11 @@ const SettingBar = ({ onClick }) => {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                         >
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                             <g
                                 id="SVGRepo_tracerCarrier"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             ></g>
                             <g id="SVGRepo_iconCarrier">
                                 <path
@@ -90,9 +90,9 @@ const SettingBar = ({ onClick }) => {
                                 <path
                                     d="M9.5 15C9.5 17.2091 11.2909 19 13.5 19H17.5C19.7091 19 21.5 17.2091 21.5 15V9C21.5 6.79086 19.7091 5 17.5 5H13.5C11.2909 5 9.5 6.79086 9.5 9"
                                     stroke="#000000"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 ></path>
                             </g>
                         </svg>
