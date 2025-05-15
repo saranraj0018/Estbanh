@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 const Suggestions = ({ Suggestions }) => {
     return (
         <>
@@ -5,17 +7,17 @@ const Suggestions = ({ Suggestions }) => {
                 {Suggestions.map((item, index) => (
                     <div
                         key={index}
-                        className="grid grid-cols-12 gap-3 p-2 border-2 border-[#f6f6f6] rounded-md"
+                        className="flex items-center gap-4 p-2 border-2 border-[#f6f6f6] rounded-md"
                     >
-                        <div className="col-span-5 md:col-span-3 bg-[#DBDBDB] rounded-md p-2">
-                            <img src={item.Image} alt="asa" />
+                        <div className="w-20 bg-[#DBDBDB] rounded-md p-2">
+                            <img src={item.image} alt="asa" />
                         </div>
-                        <div className="col-span-7 md:col-span-5 rounded-md p-2 space-y-1 my-auto">
+                        <div className=" rounded-md flex-1 space-y-1 my-auto">
                             <p className="text-[12px] font-primary text-[#556174]">
-                                {item.ProductCode}
+                                {item.part_number}
                             </p>
                             <p className="text-sm md:text-lg font-medium font-primary text-primary">
-                                {item.ProductName}
+                                {item.name}
                             </p>
                             <div className="flex space-x-2">
                                 <button className="px-2 md:px-3 rounded-md text-primary border-[1px] border-primary text-lg md:text-xl">
@@ -29,12 +31,14 @@ const Suggestions = ({ Suggestions }) => {
                                 </button>
                             </div>
                         </div>
-                        <div className="col-span-12 md:col-span-4 rounded-md p-0 md:p-2 my-auto flex md:block space-x-2 md:space-x-0 md:space-y-3">
-                            <button className="border-primary border-[1px] rounded-md text-[13px] w-full text-primary font-medium font-primary p-2">
-                                View Product
+                        <div className="rounded-md p-0 md:p-2 my-auto flex md:block space-x-2 md:space-x-0 md:space-y-3">
+                            <button className="border-primary border-[1px] rounded-md text-[13px] w-32 block text-primary font-medium font-primary p-2">
+                                <Link href={route('view-product', item.id)}>
+                                    View Product
+                                </Link>
                             </button>
-                            <button className="bg-secondary rounded-md text-[13px] w-full text-black font-medium font-primary p-2">
-                                Add to Cart
+                            <button className="bg-secondary rounded-md text-[13px] w-32 block text-black font-medium font-primary p-2">
+                               Add to Cart
                             </button>
                         </div>
                     </div>

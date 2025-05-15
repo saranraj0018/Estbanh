@@ -2,7 +2,7 @@ import Checkbox from "@/Shared/Checkbox";
 import InputError from "@/Shared/InputError";
 import TextInput from "@/Shared/TextInput";
 import Text from "@/Shared/Text";
-import GuestLayout from "@/Layouts/GuestLayout";
+import GuestLayout from "@/Layouts/UserLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import ApplicationLogo from "@/Shared/ApplicationLogo";
 import AppButton from "@/Shared/AppButton";

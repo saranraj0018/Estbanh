@@ -34,7 +34,7 @@ const DefaultPageLayout = ({
                     className={`${
                         false ? "pointer-events-none select-none" : ""
                     }`}
-                    style={{ width: `calc(100% - ${sideBarWidth})` }}
+                    style={{ width: `100%` }}
                 >
                     {children}
                 </div>

@@ -9,7 +9,19 @@ class Product extends Model
 {
     
 
-    protected $appends = ['images'];
+
+
+    protected $hidden = [
+        'created_by', 'updated_by', 'updated_at', 'is_active', 'user_id'
+    ];
+
+
+
+    
+
+
+
+    protected $appends = ['images', 'discount_price'];
 
 
     protected $fillable = [
@@ -45,5 +57,21 @@ class Product extends Model
 
     public function getImagesAttribute() {
         return $this->images()->pluck('image')->toArray();
+    }
+
+
+
+
+    public function getCreatedAtAttribute(string $created_at) {
+        return \Carbon\Carbon::parse($created_at)->format('Y-m-d H:i A');
+    }
+
+
+
+
+
+
+    public function getDiscountPriceAttribute() {
+        return $this->features?->first()->variants[0]['sale_price'] ?: 0.00;
     }
 }
