@@ -16,7 +16,7 @@ Route::prefix('admin')
         Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         });
-    
+
         Route::get('/dashboard', function () {
             return Inertia::render('Admin/Dashboard');
         })->name('admin.dashboard');

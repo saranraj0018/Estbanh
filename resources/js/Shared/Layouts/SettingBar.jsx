@@ -1,13 +1,27 @@
+import { usePage } from "@inertiajs/react";
 import React from "react";
-import Heading from "../Heading";
-import Text from "../Text";
 
-const SettingBar = ({ onClick }) => {
+const SettingBar = ({ onClick, onSignOut }) => {
+
+    const user = usePage().props.auth.user;
+
+    // Sign out functionality
+    const handleSignOut = async () => {
+        try {
+            const response = await axios.post('/admin/logout');
+            if (response.status === 200) {
+                window.location.href = "/admin/login";
+            }
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
+    };
+
     return (
         <div className={`w-[300px] border-2 shadow-sm border-gray-200`}>
 
             <div className="flex justify-start items-center gap-3 bg-gray-50 p-3 shadow-sm">
-                <button className="" onClick={onClick}>
+                <button onClick={onClick}>
                     <svg
                         width="25px"
                         height="25px"
@@ -25,10 +39,13 @@ const SettingBar = ({ onClick }) => {
                     </svg>
                 </button>
                 <div className="flex-1">
+                    {/* Display user's name and email */}
                     <span className="text-[15px] font-[450] mt-[0.09em]">
-                        Krishna
+                        {user?.name || "Guest"}
                     </span>
-                    <span className="mb-0 -mt-1 p-0 block text-[12px] text-gray-600">srik51977@gmail</span>
+                    <span className="mb-0 -mt-1 p-0 block text-[12px] text-gray-600">
+                        {user?.email || "guest@email.com"}
+                    </span>
                 </div>
                 <span className="rounded-xl" onClick={onClick}>
                     <svg
@@ -63,11 +80,12 @@ const SettingBar = ({ onClick }) => {
                 </span>
             </div>
 
-            <ul className=" h-[90%] px-2 mt-3">
+            {/* Menu */}
+            <ul className="h-[90%] px-2 mt-3">
                 <li className="w-full rounded-md">
                     <button
-                        href=""
-                        className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                        onClick={handleSignOut}  // Call sign out function here
+                        className="w-full px-2 py-2 rounded-lg flex gap-4 items-center hover:bg-gray-100"
                     >
                         <svg
                             width="30px"
@@ -99,7 +117,7 @@ const SettingBar = ({ onClick }) => {
                         <span className="text-[15px] font-[450] mt-[0.09em]">
                             Sign Out
                         </span>
-                    </button>                                                          
+                    </button>
                 </li>
             </ul>
         </div>

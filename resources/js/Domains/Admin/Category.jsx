@@ -59,7 +59,7 @@ export default function Category({ categories }) {
                     <StyledTableHeader>
                         <tr>
                             <StyledTableHeaderCell>Id</StyledTableHeaderCell>
-                           
+
                             <StyledTableHeaderCell>Name</StyledTableHeaderCell>
                             <StyledTableHeaderCell>Slug</StyledTableHeaderCell>
                             <StyledTableHeaderCell>
@@ -73,7 +73,7 @@ export default function Category({ categories }) {
                                  <StyledTableCell>
                                     {category.id}
                                 </StyledTableCell>
-                                
+
                                 <StyledTableCell>
                                     {category.name}
                                 </StyledTableCell>
