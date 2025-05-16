@@ -1,4 +1,4 @@
-import Logo from "/public/assets/general/logo.svg";
+import Logo from "@/Assets/general/logo.svg";
 
 export default function ApplicationLogo({ className }) {
     return (

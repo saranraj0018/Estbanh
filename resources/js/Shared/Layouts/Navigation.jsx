@@ -22,21 +22,72 @@ const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
     window.updateUnreadCount = fetchUnreadCount;
 
     return (
-        <div className="border-2 shadow-sm border-gray-200 h-[60px] flex justify-between items-center px-4">
-            <button onClick={onOpenSideBar}>
-                {/* Sidebar Icon */}
-                <svg width="25" height="25" fill="none" viewBox="0 0 24 24">
-                    <path d="M22 3H2M22 21H2M9 8H8C6.114 8 5.172 8 4.586 8.586C4 9.172 4 10.114 4 12C4 13.886 4 14.828 4.586 15.414C5.172 16 6.114 16 8 16H16C17.886 16 18.828 16 19.414 15.414C20 14.828 20 13.886 20 12C20 10.114 20 9.172 19.414 8.586C18.828 8 17.886 8 16 8H13" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" />
+        <div
+            className={`border-2 shadow-sm border-gray-200 h-[60px] flex justify-between items-center px-4`}
+        >
+            <button className="bg-transparent border-0 outline-none" onClick={onOpenSideBar}>
+                <svg
+                    width="25px"
+                    height="25px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M22 3L2 3"
+                        stroke="#1C274C"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                    />
+                    <path
+                        d="M22 21L18 21M2 21L14 21"
+                        stroke="#1C274C"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                    />
+                    <path
+                        d="M9 8L8 8C6.11438 8 5.17157 8 4.58579 8.58579C4 9.17157 4 10.1144 4 12C4 13.8856 4 14.8284 4.58579 15.4142C5.17157 16 6.11438 16 8 16H16C17.8856 16 18.8284 16 19.4142 15.4142C20 14.8284 20 13.8856 20 12C20 10.1144 20 9.17157 19.4142 8.58579C18.8284 8 17.8856 8 16 8L13 8"
+                        stroke="#1C274C"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                    />
                 </svg>
             </button>
 
             <div className="flex gap-3">
-                <button className="relative" onClick={onNotificationClick}>
-                    {/* Notification Icon */}
-                    <svg width="25" height="25" fill="none" viewBox="0 0 24 24">
-                        <circle cx="19" cy="5" r="3" stroke="#1C274C" strokeWidth="1.5" />
-                        <path d="M7 14H16M7 17.5H13M2 12C2 16.714 2 19.071 3.464 20.535C4.929 22 7.286 22 12 22C16.714 22 19.071 22 20.535 20.535C22 19.071 22 16.714 22 12V10.5M13.5 2H12C7.286 2 4.929 2 3.464 3.464C2.491 4.438 2.164 5.807 2.055 8"
-                            stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" />
+                <button className="bg-transparent border-0 outline-none" onClick={onNotificationClick}>
+                    <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle
+                            cx="19"
+                            cy="5"
+                            r="3"
+                            stroke="#1C274C"
+                            strokeWidth="1.5"
+                        />
+                        <path
+                            d="M7 14H16"
+                            stroke="#1C274C"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                        />
+                        <path
+                            d="M7 17.5H13"
+                            stroke="#1C274C"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                        />
+                        <path
+                            d="M2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12V10.5M13.5 2H12C7.28595 2 4.92893 2 3.46447 3.46447C2.49073 4.43821 2.16444 5.80655 2.0551 8"
+                            stroke="#1C274C"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                        />
                     </svg>
                     {unreadCount > 0 && (
                         <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
@@ -44,13 +95,27 @@ const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
                         </span>
                     )}
                 </button>
-
-                <button onClick={onSettingClick}>
-                    {/* Settings Icon */}
-                    <svg width="25" height="25" fill="none" viewBox="0 0 24 24">
-                        <circle cx="12" cy="6" r="4" stroke="#1C274C" strokeWidth="1.5" />
-                        <path d="M15 20.615C14.091 20.862 13.074 21 12 21C8.134 21 5 19.209 5 17C5 14.791 8.134 13 12 13C15.866 13 19 14.791 19 17C19 17.345 18.923 17.68 18.78 18"
-                            stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" />
+                <button className="bg-transparent border-0 outline-none" onClick={onSettingClick}>
+                    <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle
+                            cx="12"
+                            cy="6"
+                            r="4"
+                            stroke="#1C274C"
+                            strokeWidth="1.5"
+                        />
+                        <path
+                            d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
+                            stroke="#1C274C"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                        />
                     </svg>
                 </button>
             </div>

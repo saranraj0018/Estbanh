@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const NotificationBar = ({ onClick }) => {
     const [notifications, setNotifications] = useState([]);
@@ -54,35 +53,24 @@ const NotificationBar = ({ onClick }) => {
     };
 
     return (
-        <div className="w-[300px] border-2 shadow-sm border-gray-200 flex flex-col h-full">
-            {/* Header */}
-            <div className="p-2 flex justify-between items-center border-b">
-                <div className="flex items-center gap-3">
-                    <button onClick={onClick} className="flex items-center text-sm text-gray-600 hover:text-black">
-                        <svg
-                            width="25px"
-                            height="25px"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M9 5L14.15 10C14.4237 10.2563 14.6419 10.5659 14.791 10.9099C14.9402 11.2539 15.0171 11.625 15.0171 12C15.0171 12.375 14.9402 12.7458 14.791 13.0898C14.6419 13.4339 14.4237 13.7437 14.15 14L9 19"
-                                stroke="#000000"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                    </button>
-                    <span className="text-[15px] font-[450]">Notifications</span>
-                </div>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex gap-2 justify-between px-3 py-2 text-[12px]">
-                <button onClick={markAllAsRead} className="text-green-600 hover:underline">
-                    Mark all read
+        <div className={`w-[300px] border-2 shadow-sm border-gray-200`}>
+            <div className="p-2 flex justify-start items-center gap-3">
+            <button className="" onClick={onClick}>
+                    <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M9 5L14.15 10C14.4237 10.2563 14.6419 10.5659 14.791 10.9099C14.9402 11.2539 15.0171 11.625 15.0171 12C15.0171 12.375 14.9402 12.7458 14.791 13.0898C14.6419 13.4339 14.4237 13.7437 14.15 14L9 19"
+                            stroke="#000000"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
                 </button>
                 <button onClick={deleteAll} className="text-red-500 hover:underline">
                     Delete all
@@ -118,7 +106,7 @@ const NotificationBar = ({ onClick }) => {
                                 {/* Delete icon for individual notification */}
                                 <button
                                     onClick={(e) => {
-                                        e.stopPropagation(); 
+                                        e.stopPropagation();
                                         deleteNotification(n.id);
                                     }}
                                     className="text-red-500 hover:text-red-700 text-xs"
