@@ -13,7 +13,7 @@ Route::prefix('admin')
         Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         });
-    
+
 
         Route::get('/dashboard', function () {
             return Inertia::render('Admin/Dashboard');
@@ -21,7 +21,7 @@ Route::prefix('admin')
 
         Route::get('/categories', function () {
             return Inertia::render('Admin/Category', [
-                'categories' => Inertia::deepMerge(\App\Models\Category::latest()->paginate(10, page: 1))
+                'categories' => \App\Models\Category::latest()->paginate(10),
             ]);
         });
 

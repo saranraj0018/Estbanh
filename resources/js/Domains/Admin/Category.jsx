@@ -9,8 +9,10 @@ import StyledTableRow from "@/Components/Styled/StyledTableRow";
 import AdminLayout from "@/Layouts/AdminLayout";
 import PrimaryButton from "@/Shared/PrimaryButton";
 import { Head } from "@inertiajs/react";
+import { Link } from '@inertiajs/react';
 
-export default function Category({categories}) {
+
+export default function Category({ categories }) {
     return (
         <AdminLayout name="Category" text="Categories">
             <Head title="Category" />
@@ -18,8 +20,7 @@ export default function Category({categories}) {
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
                 <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 gap-2">
                     <DaysFilter />
-                    <SearchFilter/>
-
+                    <SearchFilter />
                     <PrimaryButton>
                         <svg
                             width="20px"
@@ -28,26 +29,17 @@ export default function Category({categories}) {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                         >
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g
-                                id="SVGRepo_tracerCarrier"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            ></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M6 12H18M12 6V18"
-                                    stroke="#ffffff"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                ></path>
-                            </g>
+                            <path
+                                d="M6 12H18M12 6V18"
+                                stroke="#ffffff"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
                         </svg>
                         Create Category
                     </PrimaryButton>
                 </div>
-
 
                 <StyledTable>
                     <StyledTableHeader>
@@ -60,9 +52,9 @@ export default function Category({categories}) {
                         </tr>
                     </StyledTableHeader>
                     <StyledTableBody>
-                        {categories.map((category, index) => (
-                            <StyledTableRow key={index}>
-                                <StyledTableCell>{index}</StyledTableCell>
+                        {categories.data.map((category, index) => (
+                            <StyledTableRow key={category.id}>
+                                <StyledTableCell>{index + 1}</StyledTableCell>
                                 <StyledTableCell>{category.name}</StyledTableCell>
                                 <StyledTableCell>{category.slug}</StyledTableCell>
                                 <StyledTableCell>{category.description}</StyledTableCell>
@@ -74,6 +66,24 @@ export default function Category({categories}) {
                         ))}
                     </StyledTableBody>
                 </StyledTable>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                    {categories.links.map((link, index) => (
+                        <Link
+                            key={index}
+                            href={link.url ?? '#'}
+                            className={`px-3 py-1 rounded text-sm ${
+                                link.active
+                                    ? 'bg-blue-600 text-white'
+                                    : link.url
+                                        ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                        : 'text-gray-400 cursor-not-allowed'
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: link.label }}
+                        />
+                    ))}
+                </div>
+
             </div>
         </AdminLayout>
     );
