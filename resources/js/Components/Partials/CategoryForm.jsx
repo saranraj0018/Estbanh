@@ -42,29 +42,7 @@ export default function CategoryForm({ data, errors, setData, onSubmit }) {
         <InputError message={errors.slug} className="mt-2" />
       </div>
 
-      <div className="mt-4">
-        <InputLabel htmlFor="description" value="Category Description *" />
-        <TextArea
-          id="description"
-          name="description"
-          value={data.description}
-          className="mt-1 block w-full"
-          onChange={(e) => setData("description", e.target.value)}
-          placeholder="Biggest Motor for your cycle"
-        />
-        <InputError message={errors.description} className="mt-2" />
-      </div>
-
-      <div className="mt-4">
-        <InputLabel htmlFor="image" value="Category Image *" />
-        <FileInput
-          onChange={(e) => setData("image", e.target.files[0])}
-          url={data?.image}
-        />
-        <InputError message={errors.image} className="mt-2" />
-      </div>
-
-      <div className="mt-10">
+      <div className="mt-[8em]">
         <FormSubmitButtons />
       </div>
     </form>

@@ -1,10 +1,11 @@
-import { SearchIcon } from "@/Components/icons";
+import { SearchIcon, TimeIcon } from "@/Components/icons";
 import UserLayout from "@/Layouts/UserLayout";
 import { PrimaryButton } from "@/Shared";
 import AppButton from "@/Shared/AppButton";
-import { Head, usePage } from "@inertiajs/react";
-import { Search } from "lucide-react";
+import { Head, Link, usePage } from "@inertiajs/react";
+import { Minus, Plus, Search } from "lucide-react";
 import React from "react";
+import ListItem from "./Partials/Products/ListItem";
 
 const ProductList = ({ products }) => {
     const { search } = usePage().props.route.parameters;
@@ -52,42 +53,8 @@ const ProductList = ({ products }) => {
                             </div>
 
                             <div className="mt-3">
-                                {products.map((product) => (
-                                    <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-40 mb-3">
-                                        <div className="bg-gray-300 w-1/4 h-40">
-                                            <img
-                                                src={product.image}
-                                                alt=""
-                                                className="w-full h-full object-contain"
-                                            />
-                                        </div>
-
-                                        <div className="w-3/4 h-40 py-3 px-5 flex items-start">
-                                            <div className="flex-1">
-                                                <p className="text-[14px] font-main text-gray-600 uppercase">
-                                                    {product.part_number}
-                                                </p>
-                                                <h1 className="text-2xl mt-1 font-main font-normal">
-                                                    {product.name}
-                                                </h1>
-
-                                                <div className="mt-3">
-                                                  <p>Warrent -</p>
-                                                </div>
-
-                                                <div className="flex gap-2 items-center mt-1 text-[14px] font-main text-gray-600">
-                                                    <span>
-                                                        ₹
-                                                        {product.discount_price}
-                                                        /peice
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div>
-                                              hello
-                                            </div>
-                                        </div>
-                                    </div>
+                                {products.map((product, index) => (
+                                    <ListItem product={product} key={index}/>
                                 ))}
                             </div>
                         </div>

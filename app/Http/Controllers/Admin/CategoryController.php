@@ -25,30 +25,17 @@ class CategoryController extends Controller
             'id' => 'nullable|integer',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:1000',
-            'description' => 'required|string|max:1000',
-            'image' => 'required',
         ]);
-        
-
-        $_image = null;
-        if ($request->image instanceof UploadedFile) {
-            $_image = $request->file('image')->storeAs('categories', now()->format('Y_m_d_His_') . str_replace(' ', '_', $request->file('image')->getClientOriginalName()), 'public');
-        } else if ($request->image)
-        $_image = $request->image;
 
         if(!($category = \App\Models\Category::find($request->get('id')))) {
             \App\Models\Category::create([
                 'name' => $request->name,
-                'slug' => $request->slug,
-                'description' => $request->description,
-                'image' => $_image
+                'slug' => $request->slug
             ]);    
         } else {
             $category->update([
                 'name' => $request->name,
-                'slug' => $request->slug,
-                'description' => $request->description,
-                'image' => $_image ?? $category->image
+                'slug' => $request->slug
             ]); 
         }
   

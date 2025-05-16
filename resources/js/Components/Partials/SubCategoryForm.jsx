@@ -6,7 +6,13 @@ import InputError from "@/Shared/InputError";
 import FormSubmitButtons from "@/Components/Shared/FormSubmitButtons";
 import SelectBox from "@/Shared/SelectBox";
 
-export default function SubCategoryForm({ data, errors, setData, onSubmit, categories }) {
+export default function SubCategoryForm({
+    data,
+    errors,
+    setData,
+    onSubmit,
+    categories,
+}) {
     return (
         <form
             onSubmit={(e) => {
@@ -34,10 +40,10 @@ export default function SubCategoryForm({ data, errors, setData, onSubmit, categ
                 <InputLabel htmlFor="name" value="Category *" />
 
                 <SelectBox
-                  placeholder={'Select a category'} 
-                  name="name"
-                  dataset={categories}
-                  onChange={(e) => setData('category_id', e.target.value)}
+                    placeholder="Select a Category"
+                    dataset={categories}
+                    value={data.category_id}
+                    onChange={(e) => setData("category_id", e.target.value)}
                 />
             </div>
 
@@ -56,32 +62,7 @@ export default function SubCategoryForm({ data, errors, setData, onSubmit, categ
                 <InputError message={errors.slug} className="mt-2" />
             </div>
 
-            <div className="mt-4">
-                <InputLabel
-                    htmlFor="description"
-                    value="Sub Category Description *"
-                />
-                <TextArea
-                    id="description"
-                    name="description"
-                    value={data.description}
-                    className="mt-1 block w-full"
-                    onChange={(e) => setData("description", e.target.value)}
-                    placeholder="Biggest Motor for your cycle"
-                />
-                <InputError message={errors.description} className="mt-2" />
-            </div>
-
-            <div className="mt-4">
-                <InputLabel htmlFor="image" value="Sub Category Image *" />
-                <FileInput
-                    onChange={(e) => setData("image", e.target.files[0])}
-                    url={data?.image}
-                />
-                <InputError message={errors.image} className="mt-2" />
-            </div>
-
-            <div className="mt-10">
+            <div className="mt-[8em]">
                 <FormSubmitButtons />
             </div>
         </form>

@@ -27,25 +27,16 @@ class SubCategoryController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required',
             'slug' => 'required|string|max:1000',
-            'description' => 'required|string|max:1000',
-            'image' => 'required',
         ]);
         
 
-        $_image = null;
-
-        if ($request->image instanceof UploadedFile) {
-            $_image = $request->file('image')->storeAs('sub-categories', now()->format('Y_m_d_His_') . str_replace(' ', '_', $request->file('image')->getClientOriginalName()), 'public');
-        } else if ($request->image)
-            $_image = $request->image;
+       
 
         if(!($subCategory = \App\Models\Subcategory::find($request->get('id')))) {
             \App\Models\Subcategory::create([
                 'name' => $request->name,
                 'category_id' => $request->category_id,
                 'slug' => $request->slug,
-                'description' => $request->description,
-                'image' => $_image,
                 'user_id' => auth()->id(),
             ]);    
         } else {
@@ -53,10 +44,7 @@ class SubCategoryController extends Controller
                 'name' => $request->name,
                 'category_id' => $request->category_id,
                 'slug' => $request->slug,
-                'description' => $request->description,
-                'image' => $_image ?? $subCategory->image,
                 'user_id' => auth()->id(),
-
             ]); 
         }
   

@@ -43,7 +43,12 @@ class Subcategory extends Model
 
 
 
-    public function getImageAttribute(string $image) {
+    public function getImageAttribute(string|null $image) {
+
+        if(!$image) {
+            return null;
+        }
+
         return Str::startsWith($image, 'http') ? $image : url('/storage/' . $image);
     }
 

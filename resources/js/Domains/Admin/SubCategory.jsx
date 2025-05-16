@@ -63,15 +63,11 @@ export default function SubCategory({ subCategories, categories }) {
                     <StyledTableHeader>
                         <tr>
                             <StyledTableHeaderCell>Id</StyledTableHeaderCell>
-                            <StyledTableHeaderCell>Image</StyledTableHeaderCell>
                             <StyledTableHeaderCell>
                                 Category
                             </StyledTableHeaderCell>
                             <StyledTableHeaderCell>Name</StyledTableHeaderCell>
                             <StyledTableHeaderCell>Slug</StyledTableHeaderCell>
-                            <StyledTableHeaderCell>
-                                Description
-                            </StyledTableHeaderCell>
                             <StyledTableHeaderCell>
                                 Action
                             </StyledTableHeaderCell>
@@ -84,9 +80,7 @@ export default function SubCategory({ subCategories, categories }) {
                                 <StyledTableCell>
                                     {subCategory.id}
                                 </StyledTableCell>
-                                <td className="ps-4">
-                                    <Image source={subCategory?.image} />
-                                </td>
+                              
                                 <StyledTableCell>
                                     {subCategory?.category?.name}
                                 </StyledTableCell>
@@ -96,9 +90,7 @@ export default function SubCategory({ subCategories, categories }) {
                                 <StyledTableCell>
                                     {subCategory.slug}
                                 </StyledTableCell>
-                                <StyledTableCell>
-                                    {subCategory.description}
-                                </StyledTableCell>
+                              
                                 <StyledTableCell className="flex gap-2">
                                     <ActionButtons
                                         object={subCategory}

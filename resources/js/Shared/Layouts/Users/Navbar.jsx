@@ -42,9 +42,9 @@ const Navbar = () => {
                 {/* main navbar */}
 
                 <section className="bg-primary py-2 px-[4em] md:px-[8em] flex items-center justify-between">
-                    <div className="flex items-center justify-between gap-5">
+                    <Link href={route('home')} className="flex items-center justify-between gap-5">
                         <img src={Logo} className="w-32 md:w-100" />
-                    </div>
+                    </Link>
                     <SearchBar />
                     <div className="flex items-center gap-10">
                         <div className="flex gap-5">

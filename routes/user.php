@@ -23,7 +23,7 @@ Route::get('/', function () {
     return Inertia::render('Users/Home', [
         'products' => \App\Models\Product::take(3)->get()
     ]);
-});
+})->name('home');
 
 
 

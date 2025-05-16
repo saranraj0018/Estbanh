@@ -16,7 +16,7 @@ const Suggestions = ({ Suggestions }) => {
                             <p className="text-[12px] font-primary text-[#556174]">
                                 {item.part_number}
                             </p>
-                            <p className="text-sm md:text-lg font-medium font-primary text-primary">
+                            <p className="text-sm font-medium font-main text-primary">
                                 {item.name}
                             </p>
                             <div className="flex space-x-2">
@@ -32,13 +32,13 @@ const Suggestions = ({ Suggestions }) => {
                             </div>
                         </div>
                         <div className="rounded-md p-0 md:p-2 my-auto flex md:block space-x-2 md:space-x-0 md:space-y-3">
-                            <button className="border-primary border-[1px] rounded-md text-[13px] w-32 block text-primary font-medium font-primary p-2">
-                                <Link href={route('view-product', item.id)}>
+                            <Link href={route("view-product", item.id)}>
+                                <button className="border-primary border-[1px] rounded-md text-[13px] w-32 block text-primary font-medium font-primary p-2">
                                     View Product
-                                </Link>
-                            </button>
+                                </button>
+                            </Link>
                             <button className="bg-secondary rounded-md text-[13px] w-32 block text-black font-medium font-primary p-2">
-                               Add to Cart
+                                Add to Cart
                             </button>
                         </div>
                     </div>

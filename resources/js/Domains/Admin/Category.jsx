@@ -19,8 +19,6 @@ export default function Category({ categories }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         slug: "",
-        description: "",
-        image: null,
     });
 
     const { getObjectMountState, dispatchSideBarState, object } =
@@ -61,12 +59,9 @@ export default function Category({ categories }) {
                     <StyledTableHeader>
                         <tr>
                             <StyledTableHeaderCell>Id</StyledTableHeaderCell>
-                            <StyledTableHeaderCell>Image</StyledTableHeaderCell>
+                           
                             <StyledTableHeaderCell>Name</StyledTableHeaderCell>
                             <StyledTableHeaderCell>Slug</StyledTableHeaderCell>
-                            <StyledTableHeaderCell>
-                                Description
-                            </StyledTableHeaderCell>
                             <StyledTableHeaderCell>
                                 Action
                             </StyledTableHeaderCell>
@@ -78,17 +73,12 @@ export default function Category({ categories }) {
                                  <StyledTableCell>
                                     {category.id}
                                 </StyledTableCell>
-                                <td className="ps-4">
-                                    <Image source={category.image} />
-                                </td>
+                                
                                 <StyledTableCell>
                                     {category.name}
                                 </StyledTableCell>
                                 <StyledTableCell>
                                     {category.slug}
-                                </StyledTableCell>
-                                <StyledTableCell>
-                                    {category.description}
                                 </StyledTableCell>
                                 <StyledTableCell className="flex gap-2">
                                     <ActionButtons

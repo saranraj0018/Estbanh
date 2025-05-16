@@ -320,11 +320,11 @@ export const SearchIcon = (
 
 
 
-export const TimeIcon = () => (
+export const TimeIcon = ({size}) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
+        width={size ?? 22}
+        height={size ?? 22}
         viewBox="0 0 22 22"
         fill="none"
     >

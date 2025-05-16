@@ -122,7 +122,7 @@ const ViewProduct = ({ product }) => {
                                 {product.created_at}
                             </span>
                         </div>
-                        <div className="flex space-x-3">
+                        <div className="flex space-x-3 mt-2">
                             <TradeIcon />
                             <span className="text-[13px] text-gray-600 font-light font-main">
                                 Item is not returnable or cancellable
