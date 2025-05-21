@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\LocationController;
 use Inertia\Inertia;
 
 /**
@@ -16,6 +17,24 @@ Route::middleware(['guest'])->group( function() {
     })->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
+
+
+  Route::get('/register', function () {
+      return Inertia::render('Auth/RegisterUser');
+  })->name('register');
+
+  Route::post('/register/data', [AuthenticatedSessionController::class, 'storeSession']);
+
+  Route::get('/register/step-one', function () {
+      return Inertia::render('Auth/RegisterAddress');
+  })->name('register.address');
+
+  Route::post('register', [AuthenticatedSessionController::class, 'register']);
+
+    Route::get('/locations/countries', [LocationController::class, 'countries']);
+    Route::get('/locations/states/{country}', [LocationController::class, 'states']);
+    Route::get('/locations/cities/{state}', [LocationController::class, 'cities']);
+
 });
 
 /**

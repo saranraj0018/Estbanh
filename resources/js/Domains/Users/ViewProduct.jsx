@@ -16,7 +16,7 @@ const ViewProduct = ({ product }) => {
     const decrement = (e) => {
         e.preventDefault();
         console.log(data);
-        
+
 
         if(data.quantity > 1) {
             setData("quantity", data.quantity - 1)
@@ -27,10 +27,7 @@ const ViewProduct = ({ product }) => {
 
     const increment = (e) => {
         e.preventDefault();
-        console.log(data);
-        
-            setData("quantity", data.quantity + 1)
-        
+        setData("quantity", data.quantity + 1)
         return true
     }
 
@@ -151,11 +148,11 @@ const ViewProduct = ({ product }) => {
                                 className="w-[45%] me-[2em]"
                             >
                                 <div className="flex items-center space-x-10">
-                                    
+
                                     <h4 className="text-[13px] w-1/4 font-main font-bold capitalize">
                                         {key.replace(/_/g, " ")}
                                     </h4>
-                                   
+
                                     <div className="w-full font-main font-normal text-primary">
                                         <p>{value}</p>
                                     </div>
