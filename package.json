@@ -25,6 +25,7 @@
         "@heroicons/react": "^2.2.0",
         "heroicons": "^2.2.0",
         "lucide-react": "^0.485.0",
+        "react-router-dom": "^7.6.0",
         "swiper": "^11.2.6",
         "uuidv4": "^6.2.13"
     }

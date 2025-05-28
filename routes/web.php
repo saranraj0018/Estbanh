@@ -18,18 +18,21 @@ Route::middleware(['guest'])->group( function() {
 
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
 
+    //Register page
+    Route::prefix('register')->name('register.')->controller(AuthenticatedSessionController::class)->group(function () {
+        Route::get('/', 'create')->name('');
+        Route::post('/data', 'storeSession')->name('data');
 
-  Route::get('/register', function () {
-      return Inertia::render('Auth/RegisterUser');
-  })->name('register');
+        Route::get('/address', 'createAddress')->name('address');
+        Route::post('/address/data', 'storeAddress')->name('address.data');
 
-  Route::post('/register/data', [AuthenticatedSessionController::class, 'storeSession']);
+        Route::get('/documents', 'createDocument')->name('documents');
+        Route::post('/documents/data', 'storeDocuments')->name('documents.data');
 
-  Route::get('/register/step-one', function () {
-      return Inertia::render('Auth/RegisterAddress');
-  })->name('register.address');
-
-  Route::post('register', [AuthenticatedSessionController::class, 'register']);
+        Route::get('/contact', 'createContact')->name('contact');
+        Route::post('/store', 'store')->name('store');
+    });
+    Route::get('/register/thank-you', fn () => Inertia::render('Auth/ThankYou'))->name('register.thank-you');
 
     Route::get('/locations/countries', [LocationController::class, 'countries']);
     Route::get('/locations/states/{country}', [LocationController::class, 'states']);
@@ -49,7 +52,7 @@ Route::prefix('admin')
         })->name('admin');
 
         Route::post('login', [AdminAuthController::class, 'login'])
-        ->name('admin.login');
+            ->name('admin.login');
 
     });
 
@@ -57,12 +60,12 @@ Route::prefix('admin')
  * Notification
 
  */
-    Route::get('/notifications', [NotificationController::class, 'index']);
-    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
-    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
-    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
-    Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAll']);
-    Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
+Route::get('/notifications', [NotificationController::class, 'index']);
+Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAll']);
+Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
 
 
 

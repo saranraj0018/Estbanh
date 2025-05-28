@@ -63,10 +63,10 @@ export default function FileInput({ className = "", onChange, urls = [] }) {
                 ref={inputRef}
                 onChange={handleFileChange}
                 className="hidden"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 multiple
             />
-    
+
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-2 w-full">
             {filesData.map((file, index) => (
                     <div
@@ -105,11 +105,11 @@ export default function FileInput({ className = "", onChange, urls = [] }) {
                         JPG, PNG, GIF up to 5MB
                     </span> */}
                 </div>
-    
-                
-                
+
+
+
             </div>
         </div>
     );
-    
+
 }

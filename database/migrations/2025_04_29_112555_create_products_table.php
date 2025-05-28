@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->longText('description')->nullable();
-
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('user_id');
             $table->boolean('is_active')->default(true);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
