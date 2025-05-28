@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Exception;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Models\UserDocument;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 
 class AuthenticatedSessionController extends Controller
@@ -36,15 +38,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeSession(Request $request)
     {
-        $validated = $request->validate([
+         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email',
             'cnr_number' => 'required|string',
             'vat_number' => 'required|string',
         ]);
-
-        session()->put('registration.step_one', $validated);
 
         return redirect()->route('register.address');
     }
@@ -69,7 +69,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeAddress(Request $request)
     {
-        $validated = $request->validate([
+       $request->validate([
             'address_line_1' => 'required|string',
             'address_line_2' => 'required|string',
             'country' => 'required|integer',
@@ -78,8 +78,6 @@ class AuthenticatedSessionController extends Controller
             'pin_code' => 'required|integer',
         ]);
 
-
-        session()->put('registration.address', $validated);
         return redirect()->route('register.documents');
     }
 
@@ -99,32 +97,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeDocuments(Request $request)
     {
-
-
         // Validate uploaded files
         $request->validate([
             'images'   => 'required|array',
             'images.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120', // Max 5MB per file
         ]);
-
-//        // Process and store each uploaded file
-//        $storedDocuments = [];
-//        $uniq_id = Str::random(6);
-//
-//        foreach ($request->file('documents') as $file) {
-//            $originalName = $file->getClientOriginalName();
-//            $fileName = $uniq_id . '_' . $originalName;
-//
-//            $file->storeAs('user-documents/', $fileName, 'public');
-//            $storedDocuments[] = $fileName;
-//        }
-//
-//        // Merge with any existing documents in session
-//        $existingDocuments = session('register.documents', []);
-//        $allDocuments = array_merge($existingDocuments, $storedDocuments);
-//
-//        // Store in session
-//        session()->put('register.documents', $allDocuments);
 
         return redirect()->route('register.contact');
     }
@@ -164,9 +141,15 @@ class AuthenticatedSessionController extends Controller
     }
 
 
+    /**
+     * Register customer store the data in database
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
 
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -180,7 +163,7 @@ class AuthenticatedSessionController extends Controller
             'city' => 'required|integer',
             'pin_code' => 'required|integer',
             'images'   => 'required|array',
-            'images.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120', // Max 5MB per file
+            'images.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120', // Max 5MB
             'issuer_name' => 'required|string|max:255',
             'issuer_phone' => 'required|string|max:20',
             'accountant_name' => 'required|string|max:255',
@@ -189,44 +172,52 @@ class AuthenticatedSessionController extends Controller
             'authority_phone' => 'required|string|max:20',
             'terms' => 'required',
         ]);
+        DB::beginTransaction();
 
+        try {
+            $user = new User();
+            $user->name = $request['first_name'].' '.$request['last_name'];
+            $user->email = $request['email'];
+            $user->cnr_number = $request['cnr_number'];
+            $user->vat_number = $request['vat_number'];
+            $user->address_line_1 = $request['address_line_1'].' '.$request['address_line_2'];
+            $user->country = $request['country'];
+            $user->state = $request['state'];
+            $user->city = $request['city'];
+            $user->pin_code = $request['pin_code'];
+            $user->issuer_name = $request['issuer_name'];
+            $user->issuer_phone = $request['issuer_phone'];
+            $user->accountant_name = $request['accountant_name'];
+            $user->accountant_phone = $request['accountant_phone'];
+            $user->authority_name = $request['authority_name'];
+            $user->authority_phone = $request['authority_phone'];
+            $user->save();
 
-       $user = new User();
-       $user->name = $request['first_name'].' '.$request['last_name'];
-       $user->email = $request['email'];
-       $user->cnr_number = $request['cnr_number'];
-       $user->vat_number = $request['vat_number'];
-       $user->address_line_1 = $request['address_line_1'].' '.$request['address_line_2'];
-       $user->country = $request['country'];
-       $user->state = $request['state'];
-       $user->city = $request['city'];
-       $user->pin_code = $request['pin_code'];
-       $user->issuer_name = $request['issuer_name'];
-       $user->issuer_phone = $request['issuer_phone'];
-       $user->accountant_name = $request['accountant_name'];
-       $user->accountant_phone = $request['accountant_phone'];
-       $user->authority_name = $request['authority_name'];
-       $user->authority_phone = $request['authority_phone'];
-       $user->save();
+            $uniq_id = Str::random(6);
+            foreach ($request->file('images') as $file) {
+                $originalName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $uniq_id . '_' . $originalName;
+                $file->storeAs('user-documents/', $fileName, 'public');
 
+                $doc = new UserDocument();
+                $doc->user_id = $user->id;
+                $doc->document_type = $extension;
+                $doc->name = $fileName;
+                $doc->save();
+            }
 
-       $uniq_id = Str::random(6);
-       foreach ($request->file('images') as $file) {
-           $originalName = $file->getClientOriginalName();
-           $extension = $file->getClientOriginalExtension();
-           $fileName = $uniq_id . '_' . $originalName;
-           $file->storeAs('user-documents/', $fileName, 'public');
-           $doc = new UserDocument();
-           $doc->user_id = $user->id;
-           $doc->document_type = $extension;
-           $doc->name = $fileName;
-           $doc->save();
-       }
+            DB::commit();
+            return redirect()->route('register.thank-you');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Registration failed: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
 
-
-       return redirect()->route('register.thank-you');
+            return back()->withErrors(['general' => 'Something went wrong. Please try again later.'])->withInput();
+        }
     }
-
 
 
 
