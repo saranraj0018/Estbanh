@@ -1,7 +1,11 @@
 import "@/Assets/Styles/style.css";
 import React from "react";
+import {RegisterProvider} from "@/Context/RegisterContext.jsx";
+
 
 export default function UserRegisterLayout({ children }) {
+
+
     return (
         <div className="min-h-screen gap-5 px-[1em] flex items-center justify-center bg-[#111827] text-white">
             {/* Left Section */}
@@ -32,14 +36,9 @@ export default function UserRegisterLayout({ children }) {
 
             <div className="p-[10em] bg-white h-full text-black rounded-[2rem]">
                 {/* Step progress bar (customizable via props or component) */}
-                <div className="flex items-center justify-between mb-8">
-                    <div className="h-3 w-3 bg-yellow-400 rounded-full" />
-                    <div className="h-1 w-full bg-gray-300 mx-2 rounded" />
-                    <div className="h-3 w-3 bg-gray-300 rounded-full" />
-                    <div className="h-1 w-full bg-gray-300 mx-2 rounded" />
-                    <div className="h-3 w-3 bg-gray-300 rounded-full" />
-                </div>
-                {children}
+                <RegisterProvider>
+                    {children}
+                </RegisterProvider>
             </div>
 
             </div>
