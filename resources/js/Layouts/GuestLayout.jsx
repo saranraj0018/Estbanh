@@ -3,10 +3,10 @@ import ApplicationLogo from "@/Shared/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 import React from "react";
 
-export default function GuestLayout({ children }) {
+export default function GuestLayout({ children, className }) {
     return (
         <>
-            <div className="bg-gradient-to-br from-[#111827] to-[#1f2937] flex items-start justify-between w-full h-screen p-[2em] gap-5">
+            <div className={`bg-gradient-to-br from-[#111827] to-[#1f2937] flex items-start justify-between w-full h-screen p-[2em] gap-5 overflow-hidden ` + className}>
                 <div className="w-2/5 h-full p-[3em] flex flex-col items-center justify-center rounded-xl gap-3">
                     <Link href="/">
                         <ApplicationLogo className="h-32 w-32 fill-current text-gray-500 mb-5" />
@@ -30,7 +30,7 @@ export default function GuestLayout({ children }) {
                         </p>
                     </div>
                 </div>
-                <div className="bg-white h-full w-3/5 rounded-xl p-[3em]">
+                <div className="bg-white h-full w-3/5 rounded-xl p-[3em] ">
                     {children}
                 </div>
             </div>

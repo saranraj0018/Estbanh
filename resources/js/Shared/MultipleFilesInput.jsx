@@ -1,7 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { useURIPathSegment } from "@/Hooks/useURIPathSegment";
 
-export default function FileInput({ className = "", onChange, urls = [] }) {
+export default function FileInput({
+    className = "",
+    onChange,
+    urls = [],
+    previewLayout,
+    handlerLayout,
+    previewClass
+}) {
     const inputRef = useRef(null);
     const [filesData, setFilesData] = useState([]);
 
@@ -67,49 +74,53 @@ export default function FileInput({ className = "", onChange, urls = [] }) {
                 multiple
             />
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-2 w-full">
-            {filesData.map((file, index) => (
-                    <div
-                        key={index}
-                        className="relative group rounded-md overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition"
-                    >
-                        <img
-                            src={file.src}
-                            alt={file.name}
-                            className="w-full h-36 object-cover"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[12px] px-2 py-1 opacity-0 group-hover:opacity-100 transition truncate">
-                            {file.name}
-                        </div>
-                        <button
-                            type="button"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                removeImage(index);
-                            }}
-                            className="absolute top-1.5 right-1.5 bg-red-500 hover:bg-red-600 text-white text-xs rounded-full p-1 shadow"
+            <div className={previewClass ?? `grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-2 w-full`}>
+                {filesData.map((file, index) =>
+                    previewLayout ? (
+                        previewLayout(file, index, removeImage)
+                    ) : (
+                        <div
+                            key={index}
+                            className="relative group rounded-md overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition"
                         >
-                            ✕
-                        </button>
-                    </div>
-                ))}
+                            <img
+                                src={file.src}
+                                alt={file.name}
+                                className="w-full h-36 object-cover"
+                            />
+                            <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[12px] px-2 py-1 opacity-0 group-hover:opacity-100 transition truncate">
+                                {file.name}
+                            </div>
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    removeImage(index);
+                                }}
+                                className="absolute top-1.5 right-1.5 bg-red-500 hover:bg-red-600 text-white text-xs rounded-full p-1 shadow"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    )
+                )}
 
-                <div
-                    onClick={triggerFileSelect}
-                    className="flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-36"
-                >
-                    <span className="text-indigo-600 font-medium text-sm">
-                        + Upload
-                    </span>
-                    {/* <span className="text-xs text-gray-500 mt-1">
+                {handlerLayout ? (
+                    handlerLayout(triggerFileSelect)
+                ) : (
+                    <div
+                        onClick={triggerFileSelect}
+                        className="flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-36"
+                    >
+                        <span className="text-indigo-600 font-medium text-sm">
+                            + Upload
+                        </span>
+                        {/* <span className="text-xs text-gray-500 mt-1">
                         JPG, PNG, GIF up to 5MB
-                    </span> */}
-                </div>
-
-
-
+                        </span> */}
+                    </div>
+                )}
             </div>
         </div>
     );
-
 }
