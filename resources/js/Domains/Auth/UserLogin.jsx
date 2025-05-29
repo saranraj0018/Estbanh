@@ -2,7 +2,7 @@ import Checkbox from "@/Shared/Checkbox";
 import InputError from "@/Shared/InputError";
 import TextInput from "@/Shared/TextInput";
 import Text from "@/Shared/Text";
-import GuestLayout from "@/Layouts/UserLayout";
+import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import ApplicationLogo from "@/Shared/ApplicationLogo";
 import AppButton from "@/Shared/AppButton";
@@ -26,7 +26,7 @@ const UserLogin = ({ status, canResetPassword }) => {
         <GuestLayout>
             <Head title="Log in" />
 
-            <div className="flex justify-center items-center h-screen flex-col">
+            <div className="flex justify-center items-center h-full flex-col">
                 <div className="mb-4">
                     <Link href="/">
                         <ApplicationLogo className="h-24 w-24 fill-current text-gray-500" />
@@ -101,7 +101,10 @@ const UserLogin = ({ status, canResetPassword }) => {
                         </AppButton>
                         <Text className="text-center mt-4 mb-3 font-bold hover:underline ">
                             <a href="#" className="font-medium text-gray-500">
-                                Dont have an account? <span className="font-semibold text-gray-900">Sign up</span>
+                                Dont have an account? 
+                                <Link href={route("register")}>
+                                    <span className="font-semibold text-gray-900">Sign up</span>
+                                </Link>
                             </a>
                         </Text>
                     </div>

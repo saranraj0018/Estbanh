@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RegisterLayout from "@/Layouts/UserRegister";
+import RegisterLayout from "@/Layouts/GuestLayout";
 import { router } from "@inertiajs/react";
 
 export default function AddressStep() {
