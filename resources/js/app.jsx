@@ -6,12 +6,13 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { AdminLayoutProvider } from './Context/AdminLayoutContext';
 import { AdminDefaultProvider } from './Context/AdminDefaultContext';
+import { RegisterProvider } from './Context/RegisterContext.jsx';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => 
+    resolve: (name) =>
         resolvePageComponent(
             `./Domains/${name}.jsx`,
             import.meta.glob('./Domains/**/*.jsx')
@@ -22,7 +23,9 @@ createInertiaApp({
         root.render(
             <AdminLayoutProvider>
                 <AdminDefaultProvider>
-                    <App {...props} />
+                    <RegisterProvider>
+                        <App {...props} />
+                    </RegisterProvider>
                 </AdminDefaultProvider>
             </AdminLayoutProvider>
         );

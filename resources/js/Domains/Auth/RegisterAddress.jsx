@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from "react";
+// import RegisterLayout from "@/Layouts/UserRegister";
+import {InputLabel, SecondaryButton, SelectBox, TextInput} from "@/Shared/index.js";
+import { router, usePage } from "@inertiajs/react";
+import {useRegisterContext} from "@/Context/RegisterContext.jsx";
 import RegisterLayout from "@/Layouts/GuestLayout";
-import { router } from "@inertiajs/react";
+// import { router } from "@inertiajs/react";
 
 export default function AddressStep() {
 
-    const [form, setForm] = useState({
-        address_line_1: "",
-        address_line_2: "",
-        country: "India",
-        state: "",
-        city: "",
-        pincode: "",
-    });
-
-    const [errors, setErrors] = useState({});
-
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+    const { data, setData, processing: loading, post, errors } = useRegisterContext();
 
     const [countries, setCountries] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
-
-    const [selectedCountry, setSelectedCountry] = useState('');
-    const [selectedState, setSelectedState] = useState('');
 
     useEffect(() => {
         fetch('/locations/countries')
@@ -33,150 +21,155 @@ export default function AddressStep() {
     }, []);
 
     useEffect(() => {
-        if (selectedCountry) {
-            fetch(`/locations/states/${selectedCountry}`)
+        if (data.country) {
+            fetch(`/locations/states/${data.country}`)
                 .then(res => res.json())
-                .then(data => setStates(data));
+                .then(data => {
+                    setStates(data);
+                });
         }
-    }, [selectedCountry]);
+    }, [data.country]);
 
     useEffect(() => {
-        if (selectedState) {
-            fetch(`/locations/cities/${selectedState}`)
+        if (data.state) {
+            fetch(`/locations/cities/${data.state}`)
                 .then(res => res.json())
-                .then(data => setCities(data));
+                .then(data => {
+                    setCities(data);
+                });
         }
-    }, [selectedState]);
+    }, [data.state]);
 
 
-    const validate = () => {
-        const newErrors = {};
-        if (!form.address_line_1) newErrors.address_line_1 = "Address Line 1 is required";
-        if (!form.pincode) newErrors.pincode = "Pincode is required";
-        if (!form.state) newErrors.state = "State is required";
-        if (!form.city) newErrors.city = "City is required";
-        return newErrors;
-    };
 
-    const handleSubmit = (e) => {
+    const submit = (e) => {
         e.preventDefault();
-        const validationErrors = validate();
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-        } else {
-            router.post("/register/step-two", form);
-        }
-    };
+        post(route('register.address.data'))
+    }
 
     return (
         <RegisterLayout>
+            <div className="flex items-center justify-between mb-8">
+                <div className="h-3 w-3 bg-yellow-400 rounded-full" />
+                <div className="h-1 w-full bg-yellow-400 mx-2 rounded" />
+                <div className="h-3 w-3 bg-yellow-400 rounded-full" />
+                <div className="h-1 w-full bg-gray-300 mx-2 rounded" />
+                <div className="h-3 w-3 bg-gray-300 rounded-full" />
+                <div className="h-1 w-full bg-gray-300 mx-2 rounded" />
+                <div className="h-3 w-3 bg-gray-300 rounded-full" />
+            </div>
             <h2 className="text-2xl font-bold mb-1">Your Address Details</h2>
             <p className="text-sm text-gray-500 mb-6">Tell us where you're from</p>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submit}>
                 <div className="mt-4">
-                    <label className="block text-sm font-medium mb-1">Address Line 1</label>
-                    <input
-                        type="text"
-                        name="address_line_1"
-                        value={form.address_line_1}
-                        onChange={handleChange}
+                    <InputLabel>Address Line 1</InputLabel>
+                    <TextInput
+                        value={data?.address_line_1}
+                        onChange={(e) => setData("address_line_1", e.target.value)}
                         className="w-full border rounded px-3 py-2 text-sm"
                     />
                     {errors.address_line_1 && <p className="text-red-500 text-xs">{errors.address_line_1}</p>}
                 </div>
 
                 <div className="mt-4">
-                    <label className="block text-sm font-medium mb-1">Address Line 2</label>
-                    <input
-                        type="text"
-                        name="address_line_2"
-                        value={form.address_line_2}
-                        onChange={handleChange}
+                    <InputLabel>Address Line 2</InputLabel>
+                    <TextInput
+                        value={data?.address_line_2}
+                        onChange={(e) => setData("address_line_2", e.target.value)}
                         className="w-full border rounded px-3 py-2 text-sm"
                     />
+                    {errors.address_line_2 && <p className="text-red-500 text-xs">{errors.address_line_2}</p>}
                 </div>
 
                 <div className="flex gap-4 mt-4">
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium mb-1">Country</label>
-                        <select className="w-full border rounded px-3 py-2 text-sm"
-                            name="country"
-                            value={form.country}
+                        <InputLabel>Country</InputLabel>
+                        <SelectBox
+                            placeholder="Select a Country Name"
+                            dataset={countries}
+                            value={data.country}
                             onChange={(e) => {
-                                handleChange(e);
-                                setSelectedCountry(e.target.value);
+                                const countryId = e.target.value;
+                                setData("country", countryId);
+                                setStates([]);
+                                setCities([]);
+                                setData("state", "");
+                                setData("city", "");
                             }}
-                        >
-                            <option value="">Select Country</option>
-                            {countries.map((country) => (
-                                <option key={country.id} value={country.id}>
-                                    {country.name}
-                                </option>
-                            ))}
-                        </select>
+                        />
+                        {errors.country && <p className="text-red-500 text-xs">{errors.country}</p>}
                     </div>
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium mb-1">State</label>
-                        <select className="w-full border rounded px-3 py-2 text-sm"
-                            name="state"
-                            value={form.state}
+                        <InputLabel>State</InputLabel>
+                        <SelectBox
+                            placeholder="Select a State Name"
+                            dataset={states}
+                            value={data.state}
                             onChange={(e) => {
-                                handleChange(e);
-                                setSelectedState(e.target.value);
+                                const stateId = e.target.value;
+                                setData("state", stateId);
+                                setCities([]);
+                                setData("city", "");
                             }}
-                            disabled={!selectedCountry}
-                        >
-                            <option value="">Select State</option>
-                            {states.map((state) => (
-                                <option key={state.id} value={state.id}>
-                                    {state.name}
-                                </option>
-                            ))}
-                        </select>
+                        />
+
                         {errors.state && <p className="text-red-500 text-xs">{errors.state}</p>}
                     </div>
                 </div>
 
                 <div className="flex gap-4 mt-4">
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium mb-1">City</label>
-                        <select className="w-full border rounded px-3 py-2 text-sm"
-                            name="city"
-                            value={form.city}
-                            onChange={handleChange}
-                            disabled={!selectedState}
-                        >
-                            <option value="">Select City</option>
-                            {cities.map((city) => (
-                                <option key={city.id} value={city.id}>
-                                    {city.name}
-                                </option>
-                            ))}
-                        </select>
+                        <InputLabel>City</InputLabel>
+                        <SelectBox
+                            placeholder="Select a City Name"
+                            dataset={cities}
+                            value={data.city}
+                            onChange={(e) => setData("city", e.target.value)}
+                        />
                         {errors.city && <p className="text-red-500 text-xs">{errors.city}</p>}
                     </div>
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium mb-1">Pincode</label>
-                        <input
-                            type="number"
-                            name="pincode"
-                            value={form.pincode}
-                            onChange={handleChange}
+                        <InputLabel>Pin Code</InputLabel>
+                        <TextInput
+                            type='number'
+                            value={data?.pin_code}
+                            onChange={(e) => setData("pin_code", e.target.value)}
                             className="w-full border rounded px-3 py-2 text-sm"
                         />
-                        {errors.pincode && <p className="text-red-500 text-xs">{errors.pincode}</p>}
+                        {errors.pin_code && <p className="text-red-500 text-xs">{errors.pin_code}</p>}
                     </div>
                 </div>
 
-                <div className="mt-[3em]">
+                <div className="mt-[3em] flex justify-between">
+                    <button
+                        type="button"
+                        onClick={() => router.visit('/register')}
+                        className="bg-gray-200 text-black font-semibold py-2 px-6 rounded hover:bg-gray-300 transition"
+                    >
+                        ← Back
+                    </button>
+
                     <button
                         type="submit"
-                        className="w-full mt-6 bg-yellow-400 text-black font-semibold py-2 rounded hover:bg-yellow-500 transition"
+                        className={`bg-yellow-400 text-black font-semibold py-2 px-6 rounded transition flex items-center justify-center
+                        ${loading ? 'opacity-60 cursor-not-allowed' : 'hover:bg-yellow-500'}`}
                     >
-                        Next →
+                        {loading ? (
+                            <span className="flex items-center gap-2">
+                                <svg className="animate-spin h-4 w-4 text-black" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                                Loading...
+                            </span>
+                        ) : (
+                            'Next →'
+                        )}
                     </button>
+
                 </div>
+
             </form>
         </RegisterLayout>
     );
