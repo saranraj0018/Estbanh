@@ -1,5 +1,5 @@
 import UserLayout from "@/Layouts/UserLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
 import BanSideImg from "@/Assets/home/banner-sider.png";
 import { PrimaryButton } from "@/Shared";
@@ -17,8 +17,12 @@ import {
 import HomeScreenBannerSlider from "./Partials/Home/HomeScreenBannerSlider";
 import CustomerReview from "./Partials/Home/CustomerReview";
 import ProductBanner from "./Partials/Home/ProductBanner";
+import useSearchHistory from "@/Hooks/useSearchHistory";
 
 export default function Home({ products }) {
+    const { getRepeatedSearches } = useSearchHistory();
+    const user = usePage().props?.auth?.user;
+
     return (
         <UserLayout>
             <Head title="Home" />
@@ -26,7 +30,7 @@ export default function Home({ products }) {
             <section className="px-[10em] h-[75vh] flex items-center bg-[#fff]">
                 <div className="flex-1">
                     <h2 className="text-4xl text-[#2B2F37] font-main font-medium mb-0 pb-0">
-                        Hey Krishna,
+                        Hey {user?.name ?? "There"},
                         <br />
                         looking for the right parts?
                     </h2>
@@ -43,7 +47,6 @@ export default function Home({ products }) {
                             className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] pe-2 md:pe-auto w-1/2"
                         >
                             <option value="Make">Make</option>
-                            
                         </select>
 
                         <select
@@ -52,7 +55,6 @@ export default function Home({ products }) {
                             className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] me-2 md:pe-auto w-full"
                         >
                             <option value="Make">Select your Model</option>
-                            
                         </select>
                         <button className="text-gray-500 text-[13px] font-primary">
                             Clear
@@ -69,16 +71,19 @@ export default function Home({ products }) {
                             Popular Searches:
                         </p>
                         <ul className="flex gap-2 flex-wrap">
-                            {["TOYOTA 6FBRE16"].map((item, index) => (
-                                <li key={index}>
-                                    <a
-                                        href="#"
-                                        className="py-[2px] px-[3px] rounded-[5px] bg-white font-primary text-[#556174] font-medium text-[12px] border-[1px] border-[#D6DAE1]"
-                                    >
-                                        {item}
-                                    </a>
-                                </li>
-                            ))}
+                            {getRepeatedSearches()
+                                ?.slice(0, 5)
+                                ?.map((item, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={route("products-list", { search: item[0] })}
+                                            as="button"
+                                            className="py-[2px] px-[3px] rounded-[5px] bg-white font-primary text-[#556174] font-medium text-[12px] border-[1px] border-[#D6DAE1]"
+                                        >
+                                            {item[0]}
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </div>
                 </div>

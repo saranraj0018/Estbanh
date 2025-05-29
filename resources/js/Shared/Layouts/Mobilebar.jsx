@@ -1,6 +1,7 @@
 import React from "react";
 import ApplicationLogo from "../ApplicationLogo";
 import { Link, usePage } from '@inertiajs/react'
+import { Settings, SettingsIcon } from "lucide-react";
 
 const Mobilebar = () => {
 
@@ -12,7 +13,7 @@ const Mobilebar = () => {
                 <ApplicationLogo className={`w-10`} />
             </div>
 
-            <ul className="mt-2 pt-2 h-[90%] px-2">
+            <ul className="mt-2 pt-2 h-[90%] px-2 flex flex-col">
                 <li className={`w-full rounded-md ${route.uri == 'admin/dashboard' ? 'bg-indigo-100' : ''}`}>
                     <Link
                        href="/admin"
@@ -217,7 +218,7 @@ const Mobilebar = () => {
                     </span>
                 </li>
 
-                <ul>
+                <ul className="flex-1">
                     <li className={`w-full rounded-md ${route.uri == 'admin/orders' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/orders"
@@ -241,6 +242,17 @@ const Mobilebar = () => {
                         </Link>
                     </li>
                 </ul>
+
+
+                <li className={`w-full rounded-md ${route.uri == 'admin/settings' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/settings"
+                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                        >
+                           <Settings />
+                            
+                        </Link>
+                    </li>
             </ul>
         </div>
     );

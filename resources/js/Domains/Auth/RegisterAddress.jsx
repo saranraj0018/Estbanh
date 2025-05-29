@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import RegisterLayout from "@/Layouts/UserRegister";
+// import RegisterLayout from "@/Layouts/UserRegister";
 import {InputLabel, SecondaryButton, SelectBox, TextInput} from "@/Shared/index.js";
 import { router, usePage } from "@inertiajs/react";
 import {useRegisterContext} from "@/Context/RegisterContext.jsx";
+import RegisterLayout from "@/Layouts/GuestLayout";
+// import { router } from "@inertiajs/react";
 
 export default function AddressStep() {
 

@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import RegisterLayout from "@/Layouts/UserRegister";
+import RegisterLayout from "@/Layouts/GuestLayout";
 import { router, usePage } from "@inertiajs/react";
 import {useRegisterContext} from "@/Context/RegisterContext.jsx";
 import {SecondaryButton, TextInput} from "@/Shared/index.js";

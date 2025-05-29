@@ -4,6 +4,7 @@ import Suggestions from "./Suggestions";
 import { SearchIcon } from "@/Components/icons";
 import { router, useForm } from "@inertiajs/react";
 import axios from "axios";
+import useSearchHistory from "@/Hooks/useSearchHistory";
 
 const SearchBar = () => {
     const [isActive, setIsActive] = useState(false);
@@ -14,9 +15,13 @@ const SearchBar = () => {
         search: "",
     });
 
+
+    const { addToSearchHistory } = useSearchHistory();
+
     const submit = async (e) => {
         e.preventDefault();
         if(data.search.length) {
+            addToSearchHistory(data.search);
             router.get(route("products-list",  { search: data.search }))
         }
     };
