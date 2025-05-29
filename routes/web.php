@@ -17,21 +17,21 @@ Route::middleware(['guest'])->group( function() {
     })->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
-  
+
 
     //Register page
-    Route::prefix('register')->name('register.')->controller(AuthenticatedSessionController::class)->group(function () {
-        Route::get('/', 'create')->name('');
-        Route::post('/data', 'storeSession')->name('data');
+    Route::prefix('register')->controller(AuthenticatedSessionController::class)->group(function () {
+        Route::get('/', 'create')->name('register');
+        Route::post('/data', 'storeSession')->name('register.data');
 
-        Route::get('/address', 'createAddress')->name('address');
-        Route::post('/address/data', 'storeAddress')->name('address.data');
+        Route::get('/address', 'createAddress')->name('register.address');
+        Route::post('/address/data', 'storeAddress')->name('register.address.data');
 
-        Route::get('/documents', 'createDocument')->name('documents');
-        Route::post('/documents/data', 'storeDocuments')->name('documents.data');
+        Route::get('/documents', 'createDocument')->name('register.documents');
+        Route::post('/documents/data', 'storeDocuments')->name('register.documents.data');
 
-        Route::get('/contact', 'createContact')->name('contact');
-        Route::post('/store', 'store')->name('store');
+        Route::get('/contact', 'createContact')->name('register.contact');
+        Route::post('/store', 'store')->name('register.store');
     });
     Route::get('/register/thank-you', fn () => Inertia::render('Auth/ThankYou'))->name('register.thank-you');
 
