@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RegisterLayout from "@/Layouts/GuestLayout";
-import { router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { InputLabel, SecondaryButton, TextInput } from "@/Shared/index.js";
 import { useRegisterContext } from "@/Context/RegisterContext.jsx";
 import Checkbox from "@/Shared/Checkbox";
@@ -41,6 +41,7 @@ export default function ContactStep() {
 
     return (
         <RegisterLayout>
+            <Head title="Registration - User Contact" />
             <div className="h-full overflow-scroll relative">
                 <div className="flex items-center justify-between mb-8">
                     <div className="h-3 w-3 bg-yellow-400 rounded-full" />
@@ -111,7 +112,7 @@ export default function ContactStep() {
                                             >
                                                 Name *
                                             </InputLabel>
-                                            <TextInput
+                                                                                                                     <TextInput
                                                 id={`name_` + index}
                                                 value={
                                                     data[`${type}_name`] || ""

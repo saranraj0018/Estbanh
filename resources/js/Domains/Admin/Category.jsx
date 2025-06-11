@@ -49,7 +49,7 @@ export default function Category({ categories }) {
         );
 
     return (
-        <AdminLayout>
+        <AdminLayout className="p-3">
             <DefaultPageLayout
                 title="Category"
                 reset={reset}

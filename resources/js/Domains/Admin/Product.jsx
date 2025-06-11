@@ -58,7 +58,7 @@ export default function Product({ products, categories }) {
         );
 
     return (
-        <AdminLayout>
+        <AdminLayout className="p-3">
             <DefaultPageLayout
                 title="Product"
                 reset={reset}

@@ -10,7 +10,7 @@ import { useAdminLayoutContext } from "@/Context/AdminLayoutContext";
 import DefaultPageLayout from "@/Components/DefaultPageLayout";
 import Toast from "@/Shared/Toast";
 
-export default function AdminLayout({ title, header, children }) {
+export default function AdminLayout({ title, header, children, className='' }) {
     const { flash } = usePage().props;
     
     const {
@@ -43,7 +43,7 @@ export default function AdminLayout({ title, header, children }) {
                     }}
                 />
                 <div className="flex h-full w-full">
-                    <div className="p-3 w-auto flex-1">
+                    <div className="w-auto flex-1">
                         <div className="flex items-center justify-between gap-2">
                             <Breadcrumb paths={formatted_url} />
                             {header}
@@ -53,7 +53,7 @@ export default function AdminLayout({ title, header, children }) {
                             {flash.success && (
                                 <Toast message={flash.success} />
                             )}
-                            <div className="p-3">{children}</div>
+                            <div className={className}>{children}</div>
                         </div>
                     </div>
                     {notificationBar && (

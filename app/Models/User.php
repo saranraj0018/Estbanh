@@ -45,4 +45,27 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+
+    public function documents() {
+        return $this->hasMany(UserDocument::class);
+    }
+
+
+    public function city() {
+        return $this->belongsTo(City::class, 'city');
+    }
+
+
+
+    public function state() {
+        return $this->belongsTo(State::class, 'state');
+    }
+    
+
+
+    public function country() {
+        return $this->belongsTo(Country::class, 'country');
+    }
 }

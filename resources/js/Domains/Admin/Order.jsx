@@ -4,11 +4,7 @@ import { Head } from '@inertiajs/react';
 export default function Dashboard() {
     return (
         <AdminLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Order
-                </h2>
-            }
+            className="p-3"
         >
             <Head title="Order" />
 
