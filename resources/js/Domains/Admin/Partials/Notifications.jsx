@@ -19,11 +19,11 @@ const ViewRegisteredNotification = () => {
     ));
 
     return (
-        <AdminLayout className="p-3">
+        <AdminLayout className="p-4">
             <Head title="Notifications" />
-            <Heading>Notifications</Heading>
+            {/* <Heading>Notifications</Heading> */}
 
-            <div className="mt-5">{_notifications}</div>
+            <div className="">{_notifications}</div>
         </AdminLayout>
     );
 };

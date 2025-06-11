@@ -17,7 +17,8 @@ class UserRegistrationApprovedMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public \App\Models\User $user
+        public \App\Models\User $user,
+        public string $password
     ) {}
 
     /**
@@ -37,7 +38,7 @@ class UserRegistrationApprovedMail extends Mailable
     {
         return new Content(
             view: 'mail.user-registration-approved',
-            with: ['user' => $this->user]
+            with: ['user' => $this->user, 'password' => $this->password]
         );
     }
 

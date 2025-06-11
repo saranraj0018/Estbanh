@@ -79,10 +79,11 @@ Route::prefix('admin')
             ]);
 
             $user->update([
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
+                'status' => 1
             ]);
 
-            event(new UserRegistrationApproved(user: $user));
+            event(new UserRegistrationApproved(user: $user, password: $request->password));
         })->name('approve-user');
 
 

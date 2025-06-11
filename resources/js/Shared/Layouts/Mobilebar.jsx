@@ -8,7 +8,7 @@ const Mobilebar = () => {
     const { route } = usePage().props
 
     return (
-        <div className={`w-fit border-2 shadow-sm border-gray-200`}>
+        <div className={`w-[60px] border-2 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>
@@ -17,11 +17,11 @@ const Mobilebar = () => {
                 <li className={`w-full rounded-md ${route.uri == 'admin/dashboard' ? 'bg-indigo-100' : ''}`}>
                     <Link
                        href="/admin"
-                        className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                        className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                     >
                         <svg
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="18px"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -45,11 +45,11 @@ const Mobilebar = () => {
                 <li className="w-full mt-5">
                     <span
                         href=""
-                        className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
+                        className=" w-full px-2 py-2 rounded-lg flex gap-4 justify-center items-center text-gray-500"
                     >
                         <svg
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="18px"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -69,11 +69,11 @@ const Mobilebar = () => {
                     <li className={`w-full rounded-md ${route.uri == 'admin/categories' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/categories"
-                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                            className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -118,11 +118,11 @@ const Mobilebar = () => {
                     <li className={`w-full rounded-md ${route.uri == 'admin/sub-categories' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/sub-categories"
-                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                            className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 512 512"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
@@ -171,11 +171,11 @@ const Mobilebar = () => {
                     <li className={`w-full rounded-md ${route.uri == 'admin/products' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/products"
-                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                            className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 32 32"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
@@ -196,13 +196,13 @@ const Mobilebar = () => {
 
                 <li className="w-full mt-5">
                     <span
-                        className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
+                        className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center text-gray-500"
                     >
                        
 
                         <svg
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="18px"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -222,11 +222,11 @@ const Mobilebar = () => {
                     <li className={`w-full rounded-md ${route.uri == 'admin/orders' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/orders"
-                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                            className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 1024 1024"
                                 fill="#000000"
                                 className="icon"
@@ -247,10 +247,9 @@ const Mobilebar = () => {
                 <li className={`w-full rounded-md ${route.uri == 'admin/settings' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/settings"
-                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                            className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                         >
                            <Settings />
-                            
                         </Link>
                     </li>
             </ul>

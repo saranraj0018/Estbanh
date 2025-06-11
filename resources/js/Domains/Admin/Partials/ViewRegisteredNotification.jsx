@@ -66,19 +66,23 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                                     </button>
                                 </div>
 
-                                <Link
-                                    as="button"
-                                    className="text-red-500 rounded-md font-medium font-main text-xs"
-                                >
-                                    Reject User
-                                </Link>
+                                {!user?.status && (
+                                    <>
+                                        <Link
+                                            as="button"
+                                            className="text-red-500 rounded-md font-medium font-main text-xs"
+                                        >
+                                            Reject User
+                                        </Link>
 
-                                <button
-                                    onClick={() => setApproval(true)}
-                                    className="text-blue-500 rounded-md font-medium font-main text-xs"
-                                >
-                                    Accept User
-                                </button>
+                                        <button
+                                            onClick={() => setApproval(true)}
+                                            className="text-blue-500 rounded-md font-medium font-main text-xs"
+                                        >
+                                            Accept User
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         )}
 
