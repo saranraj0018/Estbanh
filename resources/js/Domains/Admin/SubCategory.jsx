@@ -53,7 +53,7 @@ export default function SubCategory({ subCategories, categories }) {
         );
 
     return (
-        <AdminLayout>
+        <AdminLayout className="p-3">
             <DefaultPageLayout
                 title="Sub Category"
                 reset={reset}

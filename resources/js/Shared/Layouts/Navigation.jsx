@@ -2,33 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
-    const [unreadCount, setUnreadCount] = useState(0);
-
-    useEffect(() => {
-        fetchUnreadCount();
-        const interval = setInterval(fetchUnreadCount, 30000);
-        return () => clearInterval(interval);
-    }, []);
-
-    const fetchUnreadCount = async () => {
-        try {
-            const { data } = await axios.get('/notifications/unread-count');
-            setUnreadCount(data.count);
-        } catch (error) {
-            console.error('Error fetching unread count:', error);
-        }
-    };
-
-    window.updateUnreadCount = fetchUnreadCount;
 
     return (
         <div
-            className={`border-2 shadow-sm border-gray-200 h-[60px] flex justify-between items-center px-4`}
+            className={`border-2 shadow-sm border-gray-200 h-[40px] flex justify-between items-center px-4`}
         >
             <button className="bg-transparent border-0 outline-none" onClick={onOpenSideBar}>
                 <svg
-                    width="25px"
-                    height="25px"
+                    width="20px"
+                    height="20px"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -57,8 +39,8 @@ const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
             <div className="flex gap-3">
                 <button className="bg-transparent border-0 outline-none" onClick={onNotificationClick}>
                     <svg
-                        width="25px"
-                        height="25px"
+                        width="20px"
+                        height="20px"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -89,16 +71,12 @@ const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
                             strokeLinecap="round"
                         />
                     </svg>
-                    {unreadCount > 0 && (
-                        <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
-                            {unreadCount}
-                        </span>
-                    )}
+                   
                 </button>
                 <button className="bg-transparent border-0 outline-none" onClick={onSettingClick}>
                     <svg
-                        width="25px"
-                        height="25px"
+                        width="20px"
+                        height="20px"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

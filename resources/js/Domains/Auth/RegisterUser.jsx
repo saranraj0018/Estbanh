@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RegisterLayout from "@/Layouts/GuestLayout";
-import { router, usePage } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import { useRegisterContext } from "@/Context/RegisterContext.jsx";
 import { SecondaryButton, TextInput } from "@/Shared/index.js";
 import { PrimaryButton } from "@/Shared/index.js";
@@ -20,6 +20,7 @@ export default function RegisterUser() {
     };
     return (
         <RegisterLayout>
+            <Head title="Registration - User Details" />
             <div className=" h-full overflow-scroll relative">
                 <div className="flex items-center justify-between mb-8">
                     <div className="h-3 w-3 bg-yellow-400 rounded-full" />

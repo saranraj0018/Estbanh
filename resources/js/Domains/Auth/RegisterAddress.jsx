@@ -6,7 +6,7 @@ import {
     SelectBox,
     TextInput,
 } from "@/Shared/index.js";
-import { router, usePage } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import { useRegisterContext } from "@/Context/RegisterContext.jsx";
 import RegisterLayout from "@/Layouts/GuestLayout";
 import AppButton from "@/Shared/AppButton";
@@ -58,6 +58,7 @@ export default function AddressStep() {
 
     return (
         <RegisterLayout>
+            <Head title="Registration - User Address" />
             <div className="h-full overflow-scroll relative">
                 <div className="flex items-center justify-between mb-8">
                     <div className="h-3 w-3 bg-yellow-400 rounded-full" />

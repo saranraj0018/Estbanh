@@ -10,5 +10,8 @@ class Notification extends Model
         'title',
         'description',
         'status',
+        'image',
+        'type',
+        'registered_user_id'
     ];
 }

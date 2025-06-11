@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Exception;
@@ -38,7 +39,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeSession(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -69,7 +70,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeAddress(Request $request)
     {
-       $request->validate([
+        $request->validate([
             'address_line_1' => 'required|string',
             'address_line_2' => 'required|string',
             'country' => 'required|integer',
@@ -86,7 +87,8 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function createDocument(){
+    public function createDocument()
+    {
         return Inertia::render('Auth/RegisterDocuments', [
             'sessionData' => session('registration.documents', [])
         ]);
@@ -106,7 +108,8 @@ class AuthenticatedSessionController extends Controller
         return redirect()->route('register.contact');
     }
 
-    public function createContact() {
+    public function createContact()
+    {
         return Inertia::render('Auth/RegisterContact');
     }
 
@@ -172,15 +175,16 @@ class AuthenticatedSessionController extends Controller
             'authority_phone' => 'required|string|max:20',
             'terms' => 'required',
         ]);
+
         DB::beginTransaction();
 
         try {
             $user = new User();
-            $user->name = $request['first_name'].' '.$request['last_name'];
+            $user->name = $request['first_name'] . ' ' . $request['last_name'];
             $user->email = $request['email'];
             $user->cnr_number = $request['cnr_number'];
             $user->vat_number = $request['vat_number'];
-            $user->address_line_1 = $request['address_line_1'].' '.$request['address_line_2'];
+            $user->address_line_1 = $request['address_line_1'] . ' ' . $request['address_line_2'];
             $user->country = $request['country'];
             $user->state = $request['state'];
             $user->city = $request['city'];
@@ -208,17 +212,15 @@ class AuthenticatedSessionController extends Controller
             }
 
             DB::commit();
+            
+            event(new UserRegistered(user: $user));
             return redirect()->route('register.thank-you');
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Registration failed: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString()
             ]);
-
             return back()->withErrors(['general' => 'Something went wrong. Please try again later.'])->withInput();
         }
     }
-
-
-
 }

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import RegisterLayout from "@/Layouts/GuestLayout";
-import { router, usePage } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import { MultipleFilesInput, SecondaryButton } from "@/Shared/index.js";
 import { useRegisterContext } from "@/Context/RegisterContext.jsx";
 import AppButton from "@/Shared/AppButton";
+import Text from "@/Shared/Text";
+import Heading from "@/Shared/Heading";
 
 export default function RegisterDocuments() {
     const {
@@ -21,6 +23,7 @@ export default function RegisterDocuments() {
 
     return (
         <RegisterLayout>
+            <Head title="Registration - User Documents" />
             <div className="h-full relative">
                 <div className="flex items-center justify-between mb-8">
                     <div className="h-3 w-3 bg-yellow-400 rounded-full" />
@@ -50,11 +53,17 @@ export default function RegisterDocuments() {
                             previewClass="flex gap-3 flex-wrap"
                             previewLayout={(file, index, remove) => (
                                 <div className="relative group rounded-md overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
-                                    <img
-                                        src={file.src}
-                                        alt={file.name}
-                                        className="w-40 h-28 object-cover"
-                                    />
+                                    {!file?.name?.includes(".pdf") ? (
+                                        <img
+                                            src={file.src}
+                                            alt={file.name}
+                                            className="w-full h-28 object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-36 h-28 flex justify-center items-center">
+                                            <Heading>PDF</Heading>
+                                        </div>
+                                    )}
                                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[12px] px-2 py-1 opacity-0 group-hover:opacity-100 transition truncate">
                                         {file.name}
                                     </div>
@@ -70,7 +79,6 @@ export default function RegisterDocuments() {
                                     </button>
                                 </div>
                             )}
-
                             handlerLayout={(open) => (
                                 <div
                                     onClick={open}
