@@ -110,7 +110,7 @@ export default function FileInput({
                 ) : (
                     <div
                         onClick={triggerFileSelect}
-                        className="flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-36"
+                        className="flex flex-col items-center justify-center border-1 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-36"
                     >
                         <span className="text-indigo-600 font-medium text-sm">
                             + Upload

@@ -8,7 +8,7 @@ const Sidebar = () => {
     const { route } = usePage().props
 
     return (
-        <div className={`w-1/4 border-2 shadow-sm border-gray-200`}>
+        <div className={`w-1/4 border-1 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>

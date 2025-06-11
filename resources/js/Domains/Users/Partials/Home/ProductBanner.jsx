@@ -65,7 +65,7 @@ const ProductBanner = () => {
             {productBanner.map((item, index) => (
                 <div
                     key={index}
-                    className="col-span-3 bg-white shadow-md border-2 border-gray-200 rounded-lg p-4"
+                    className="col-span-3 bg-white shadow-md border-1 border-gray-200 rounded-lg p-4"
                 >
                     <h4 className="text-[17px] font-main font-medium">
                         {item.Heading}

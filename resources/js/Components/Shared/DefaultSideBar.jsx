@@ -1,6 +1,6 @@
 const DefaultSideBar = ({ header, children, dispatchSideBarState, width }) => {
     return (
-        <div className={`border-2 shadow-sm border-gray-200`} style={{ minWidth: width }}>
+        <div className={`border-1 shadow-sm border-gray-200`} style={{ minWidth: width }}>
             <div className="flex justify-start items-center gap-3 bg-gray-50 p-3 shadow-sm">
                 <button onClick={() => dispatchSideBarState()}>
                     <svg

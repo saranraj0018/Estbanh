@@ -56,7 +56,7 @@ const ViewRegisteredNotification = ({ notification, user }) => {
 
                     <div className="transition-all ease-out duration-500 mb-5">
                         {!isDeleting && (
-                            <div className="flex items-center mt-3 gap-4 bg-gray-50 border-2 border-gray-200 px-[2.5em] py-2">
+                            <div className="flex items-center mt-3 gap-4 bg-gray-50 border-1 border-gray-200 px-[2.5em] py-2">
                                 <div className="flex items-center gap-4 flex-1">
                                     <button
                                         onClick={() => setIsDeleting(true)}
@@ -139,7 +139,7 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                                         <button className="text-gray-500 font-medium font-main text-xs" onClick={() => setApproval(false)}>
                                             Cancel
                                         </button>
-                                        <button className="text-blue-700 bg-blue-50 border-2 border-blue-200 p-2 rounded-md font-main text-xs">
+                                        <button className="text-blue-700 bg-blue-50 border-1 border-blue-200 p-2 rounded-md font-main text-xs">
                                             Send Approval Email (with creds)
                                         </button>
                                     </div>
