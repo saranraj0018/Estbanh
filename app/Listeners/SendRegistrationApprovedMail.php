@@ -33,6 +33,7 @@ class SendRegistrationApprovedMail
             
         \App\Models\Notification::create([
             "title" => "Welcome to Estbanh",
+            'user_id' => $event->user->id,
             "description" => "We are honered,.. as always;)!!",
             "type" => 1,
         ]);
