@@ -70,8 +70,6 @@ Route::prefix('admin')
         })->name('view-notification'); 
 
 
-
-
         Route::post('/approve-user/{user}', function (Request $request, \App\Models\User $user) {
             
             $request->validate([

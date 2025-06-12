@@ -4,7 +4,7 @@ import { Settings, SquareDashedMousePointer } from "lucide-react";
 
 const Breadcrumb = ({ paths }) => {
     return (
-        <nav className="h-10 flex items-center px-4 border-1 border-gray-200 w-full">
+        <nav className="h-10 flex items-center px-4 border-b-1 border-gray-300 w-full">
             <div className="flex items-center h-full w-full space-x-3 flex-1">
                 <button>
                     <svg

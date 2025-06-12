@@ -28,8 +28,8 @@ const ViewRegisteredNotification = ({ notification, user }) => {
 
             post(route("approve-user", user.id), {
                 onFinish: () => {
-                    // reset(),
-                    // setApproval(false)
+                    reset(),
+                    setApproval(false)
                 },
             });
         }
