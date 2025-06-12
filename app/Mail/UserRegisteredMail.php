@@ -17,7 +17,8 @@ class UserRegisteredMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public \App\Models\User $user
+        public \App\Models\User $user,
+        public \App\Models\Notification $notification
     ) {}
 
     /**
@@ -37,7 +38,7 @@ class UserRegisteredMail extends Mailable
     {
         return new Content(
             view: 'mail.user-registered',
-            with: ['user' => $this->user]
+            with: ['user' => $this->user, 'notification' => $this->notification]
         );
     }
 

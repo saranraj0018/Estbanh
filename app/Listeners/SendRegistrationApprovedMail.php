@@ -15,7 +15,7 @@ class SendRegistrationApprovedMail
      */
     public function __construct()
     {
-        //
+      //
     }
 
     /**
@@ -23,18 +23,19 @@ class SendRegistrationApprovedMail
      */
     public function handle(UserRegistrationApproved $event): void
     {
+
         /**
          * Send Notification ot admin regarding new registration
          */
         Mail::to($event->user->email)
-            ->send(new UserRegistrationApprovedMail(user: $event->user));
+            ->send(new UserRegistrationApprovedMail(user: $event->user, password: $event->password));
 
             
         \App\Models\Notification::create([
-            "title" => "New User Registration Request " . $event->user->name,
-            "description" => "A new user is requesting access to the platform.",
-            "type" => 2,
-            "registered_user_id" => $event->user->id
+            "title" => "Welcome to Estbanh",
+            'user_id' => $event->user->id,
+            "description" => "We are honered,.. as always;)!!",
+            "type" => 1,
         ]);
     }
 }

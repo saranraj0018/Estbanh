@@ -7,7 +7,7 @@ const Suggestions = ({ Suggestions }) => {
                 {Suggestions.map((item, index) => (
                     <div
                         key={index}
-                        className="flex items-center gap-4 p-2 border-2 border-[#f6f6f6] rounded-md"
+                        className="flex items-center gap-4 p-2 border-1 border-[#f6f6f6] rounded-md"
                     >
                         <div className="w-20 bg-[#DBDBDB] rounded-md p-2">
                             <img src={item.image} alt="asa" />

@@ -15,12 +15,12 @@ const ProductList = ({ products }) => {
             <Head title="Search Product" />
 
             <section className="px-[8em]">
-                <div className="mt-[1em]  bg-white p-5 rounded-lg border-2 border-gray-300">
+                <div className="mt-[1em]  bg-white p-5 rounded-lg border-1 border-gray-300">
                     <h1 className="font-main text-xl">Results for {search}</h1>
 
                     <div className="flex items-start gap-[1em] mt-[3em] w-full">
                         <div className="w-[30%] p-5">
-                            <div className="bg-white border-2 border-gray-300 rounded-xl p-5">
+                            <div className="bg-white border-1 border-gray-300 rounded-xl p-5">
                                 <h1 className="font-main ">
                                     Refind your search
                                 </h1>
@@ -28,7 +28,7 @@ const ProductList = ({ products }) => {
                                     Suitable for
                                 </span>
 
-                                <div className="rounded-[10px] w-full mt-5 flex space-x-2 bg-white shadow-md border-2 border-gray-200">
+                                <div className="rounded-[10px] w-full mt-5 flex space-x-2 bg-white shadow-md border-1 border-gray-200">
                                     <select
                                         name=""
                                         id=""

@@ -56,7 +56,7 @@ const AttributeForm = ({
                     />
 
                     {!attr.minimized && (
-                        <div className="bg-white border-2 border-gray-300 rounded-lg mt-10">
+                        <div className="bg-white border-1 border-gray-300 rounded-lg mt-10">
                             <div className="p-3">
                                 <div className="flex justify-between items-center">
                                     <h1 className="text-[14px] font-bold">

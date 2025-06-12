@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 
 export default function Dashboard() {
     return (
-        <AdminLayout useDefaultPageLayout={false}>
+        <AdminLayout useDefaultPageLayout={false} className='p-4'>
             <Head title="Dashboard" />
 
             <div>

@@ -38,7 +38,7 @@ const ViewProduct = ({ product }) => {
 
 
             <section className="px-[8em]">
-                <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-2 border-gray-300">
+                <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-1 border-gray-300">
                     <div className="flex gap-[3em] items-center w-1/2 min-h-[50vh]">
                         <div className="w-32 h-[50vh] overflow-auto flex flex-col gap-5">
                             {[...product?.images, product?.image]?.map(
@@ -47,7 +47,7 @@ const ViewProduct = ({ product }) => {
                                         key={index}
                                         src={item}
                                         alt={`Thumbnail ${index}`}
-                                        className={`cursor-pointer mix-blend-multiply object-contain border-2 rounded-md w-full mx-auto ${
+                                        className={`cursor-pointer mix-blend-multiply object-contain border-1 rounded-md w-full mx-auto ${
                                             mainImage === item
                                                 ? "border-yellow-400"
                                                 : "border-transparent"
@@ -135,7 +135,7 @@ const ViewProduct = ({ product }) => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-[2em] gap-[4em] bg-white p-10 rounded-lg border-2 border-gray-300">
+                <div className="mt-[2em] gap-[4em] bg-white p-10 rounded-lg border-1 border-gray-300">
                     <h2 className="text-2xl font-main text-black font-medium">
                         Product Details
                     </h2>

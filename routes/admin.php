@@ -26,7 +26,7 @@ Route::prefix('admin')
         Route::post('/delete-notification/{notification}', function (\App\Models\Notification $notification) {
             if ($notification) {
                 $notification->delete();
-            } 
+            }
 
             return redirect()->route('notifications');
         })->name('delete-notification');
@@ -45,16 +45,16 @@ Route::prefix('admin')
                 'notification' => $notification,
                 'user' => $user
             ]);
-        })->name('view-register-notification'); 
-        
+        })->name('view-register-notification');
+
 
         Route::get('/notifications', function (Request $request) {
             return Inertia::render('Admin/Partials/Notifications');
-        })->name('notifications'); 
+        })->name('notifications');
 
         Route::get('/register-notifications', function (Request $request) {
             return redirect()->route('notifications');
-        })->name('register-notifications'); 
+        })->name('register-notifications');
 
 
         // view notification
@@ -67,22 +67,26 @@ Route::prefix('admin')
             return Inertia::render('Admin/Partials/ViewNotification', [
                 'notification' => $notification
             ]);
-        })->name('view-notification'); 
-
-
+        })->name('view-notification');
 
 
         Route::post('/approve-user/{user}', function (Request $request, \App\Models\User $user) {
-            
+
             $request->validate([
-                "password" => "required|confirmed"
+                "password" => "required|confirmed|min:8"
             ]);
 
-            $user->update([
-                'password' => bcrypt($request->password)
-            ]);
+            try {
+                $user->update([
+                    'password' => bcrypt($request->password),
+                    'status' => 1
+                ]);
+                event(new UserRegistrationApproved(user: $user, password: $request->password));
+            } catch (\Throwable $th) {
+                return redirect()->back()
+                    ->withErrors(['password' => $th->getMessage()]);
+            }
 
-            event(new UserRegistrationApproved(user: $user));
         })->name('approve-user');
 
 
