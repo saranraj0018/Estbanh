@@ -13,6 +13,14 @@ class Notification extends Model
         'image',
         'type',
         'registered_user_id',
-        'user_id'
+        'user_id',
+        'others'
     ];
+
+
+
+    public function getOthersAttribute($value)
+    {
+        return json_decode($value, true);
+    }
 }

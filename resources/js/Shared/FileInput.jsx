@@ -64,10 +64,10 @@ export default function FileInput({ className = "", onChange, url }) {
 
             <div
                 onClick={!previewSrc ? triggerFileSelect : undefined}
-                className={`w-full border-1 border-dashed rounded-lg cursor-pointer p-6 text-center transition-all ${
+                className={`w-full border-1 border-dashed rounded-lg cursor-pointer p-6 text-center transition-all  ${
                     previewSrc
-                        ? "border-gray-300"
-                        : "border-gray-200 hover:border-indigo-900"
+                        ? "border-gray-300 "
+                        : "border-gray-200 hover:border-indigo-900 "
                 } ${className}`}
             >
                 {previewSrc ? (

@@ -1,15 +1,15 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import Heading from "@/Shared/Heading";
 import Notification from "@/Shared/Layouts/Partials/Notification";
-import Text from "@/Shared/Text";
-import { Head, Link, usePage } from "@inertiajs/react";
-import React, { useState } from "react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import React from "react";
 
 const ViewRegisteredNotification = () => {
     const { notifications } = usePage().props;
+    const { post } = useForm();
 
     const _notifications = notifications.map((notification) => (
         <Notification
+            key={notification.id}
             onDelete={(element) => {
                 post(route("delete-notification", element));
             }}
@@ -21,8 +21,6 @@ const ViewRegisteredNotification = () => {
     return (
         <AdminLayout className="p-4">
             <Head title="Notifications" />
-            {/* <Heading>Notifications</Heading> */}
-
             <div className="">{_notifications}</div>
         </AdminLayout>
     );

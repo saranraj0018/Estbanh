@@ -1,18 +1,35 @@
 import { SearchIcon, TimeIcon } from "@/Components/icons";
 import UserLayout from "@/Layouts/UserLayout";
-import { PrimaryButton } from "@/Shared";
+import {
+    FileInput,
+    InputLabel,
+    MultipleFilesInput,
+    PrimaryButton,
+    TextArea,
+    TextInput,
+} from "@/Shared";
 import AppButton from "@/Shared/AppButton";
-import { Head, Link, usePage } from "@inertiajs/react";
-import { Minus, Plus, Search } from "lucide-react";
-import React from "react";
+import { Head, usePage } from "@inertiajs/react";
+import React, { useState } from "react";
 import ListItem from "./Partials/Products/ListItem";
+import RequestProduct from "./Partials/Products/RequestProduct";
 
 const ProductList = ({ products }) => {
     const { search } = usePage().props.route.parameters;
+    const [show, setShow] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const user = usePage().props.auth.user;
 
     return (
         <UserLayout>
             <Head title="Search Product" />
+
+            <RequestProduct
+                state={show}
+                action={setShow}
+                setSubmitted={setSubmitted}
+            />
 
             <section className="px-[8em]">
                 <div className="mt-[1em]  bg-white p-5 rounded-lg border-1 border-gray-300">
@@ -46,15 +63,36 @@ const ProductList = ({ products }) => {
                         <div className="w-[70%] p-5">
                             <div className="flex items-center gap-3 font-main">
                                 <span>{products.length} Results | </span>
-                                <div className="text-gray-500 flex items-center gap-3">
+                                <div className="text-gray-500 flex items-center gap-3 flex-1">
                                     <input type="checkbox" />{" "}
                                     <span>Select all</span>
                                 </div>
+
+                                {!user
+                                    ? null
+                                    : !submitted && (
+                                          <button
+                                              onClick={(e) => {
+                                                  e.preventDefault();
+                                                  setShow(true);
+                                              }}
+                                              className=" text-blue-500 text-[13px] underline"
+                                          >
+                                              Couldn't find what you were
+                                              looking for?
+                                          </button>
+                                      )}
+
+                                {submitted && (
+                                    <span className=" text-gray-900 text-[13px] ">
+                                        Request Submitted
+                                    </span>
+                                )}
                             </div>
 
                             <div className="mt-3">
                                 {products.map((product, index) => (
-                                    <ListItem product={product} key={index}/>
+                                    <ListItem product={product} key={index} />
                                 ))}
                             </div>
                         </div>
