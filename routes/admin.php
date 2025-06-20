@@ -31,6 +31,18 @@ Route::prefix('admin')
             return redirect()->route('notifications');
         })->name('delete-notification');
 
+        
+        Route::post('/product-added-notification/{notification}', function (Request $request, \App\Models\Notification $notification) {
+            $user = \App\Models\User::find($notification->registered_user_id);
+
+            \App\Models\Notification::create([
+                "title" => "Product Request Added",
+                'user_id' => $user->id,
+                "description" => "Your product request has been added successfully. You can now view it in the products section.",
+                "type" => 1,
+            ]);
+
+        })->name('product-added-notification');
 
         // Registered user
         Route::get('/register-notifications/{notification}', function (Request $request, \App\Models\Notification $notification) {
@@ -48,6 +60,21 @@ Route::prefix('admin')
         })->name('view-register-notification');
 
 
+        Route::get('/request-notifications/{notification}', function (Request $request, \App\Models\Notification $notification) {
+
+            $user = \App\Models\User::with('documents', 'city', 'state', 'country')->find($request->user_id);
+
+            if ($notification->status == 0) {
+                $notification->update(['status' => 1]);
+            }
+
+            return Inertia::render('Admin/Partials/ViewRequestNotification', [
+                'notification' => $notification,
+                'user' => $user
+            ]);
+        })->name('view-request-notification');
+
+
         Route::get('/notifications', function (Request $request) {
             return Inertia::render('Admin/Partials/Notifications');
         })->name('notifications');
@@ -56,6 +83,10 @@ Route::prefix('admin')
             return redirect()->route('notifications');
         })->name('register-notifications');
 
+
+        Route::get('/request-notifications', function (Request $request) {
+            return redirect()->route('notifications');
+        })->name('request-notification');
 
         // view notification
         Route::get('/notifications/{notification}', function (\App\Models\Notification $notification) {

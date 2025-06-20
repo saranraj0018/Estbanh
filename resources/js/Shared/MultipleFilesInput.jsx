@@ -7,7 +7,8 @@ export default function FileInput({
     urls = [],
     previewLayout,
     handlerLayout,
-    previewClass
+    previewClass,
+    maxFiles = 100,
 }) {
     const inputRef = useRef(null);
     const [filesData, setFilesData] = useState([]);
@@ -105,7 +106,7 @@ export default function FileInput({
                     )
                 )}
 
-                {handlerLayout ? (
+                {filesData.length >= maxFiles ? null : handlerLayout ? (
                     handlerLayout(triggerFileSelect)
                 ) : (
                     <div

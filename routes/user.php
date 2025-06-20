@@ -8,17 +8,57 @@ use Inertia\Inertia;
 
 
 Route::middleware(['auth'])->group(function () {
-    
+
     /**
      * Track your orders
      */
     Route::get('/order-tracking', function () {
         dd('Order');
-    })->name('tracking');    
+    })->name('tracking');
+
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
+    Route::post('/request-product', function (Request $request) {
+       
+        $request->validate([
+            'name' => 'required|string',
+            'part_number' => 'required',
+            'description' => 'required|string',
+            'images' => 'required|array|max:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif'
+        ]);
+
+        try {
+
+            $imagePath = $request->file('images')[0]->store('product-requests', 'public');
+
+            \App\Models\Notification::create([
+                "title" => "New Product Request",
+                'user_id' => 0,
+                "image" => $imagePath,
+                "description" => "A User has requested a new product with part number: " . $request->part_number,
+                "type" => 3,
+                "registered_user_id" => auth()->user()->id,
+                "others" => json_encode([
+                    'name' => $request->name,
+                    'part_number' => $request->part_number,
+                    'description' => $request->description
+                ])
+            ]);
+
+            return redirect()->back()->with('success', 'Product request submitted successfully!');
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+    })->name('request-product');
+
+
 });
 
 
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 
@@ -33,10 +73,12 @@ Route::get('/', function () {
 Route::post('/search', function (Request $request) {
 
     return response()->json([
-        'products' => \App\Models\Product::where('name', 'like', '%'. $request->search . '%')->get()
+        'products' => \App\Models\Product::where('part_number', 'like', '%' . $request->search . '%')->get()
     ]);
-    
+
 })->name('search');
+
+
 
 
 
@@ -52,7 +94,7 @@ Route::get('/view-product/{product}', function (Request $request, Product $produ
 Route::get('/products/{search}', function (Request $request, string $search) {
 
     return Inertia::render('Users/ProductList', [
-        'products' => Product::where('name', 'like', '%'. $search .'%')->get()
+        'products' => Product::where('part_number', 'like', '%' . $search . '%')->get()
     ]);
 
 })->name('products-list');
