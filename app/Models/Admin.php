@@ -11,4 +11,8 @@ use Illuminate\Notifications\Notifiable;
 class Admin extends Authenticatable
 {
    protected $primaryKey = 'id';
+
+     public function role() {
+    return $this->belongsTo(Role::class, 'role_id');
+}
 }

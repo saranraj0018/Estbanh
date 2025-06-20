@@ -1,44 +1,48 @@
 import { useAdminDefaultContext } from "@/Context/AdminDefaultContext";
+import { usePage } from '@inertiajs/react';
 
+const ActionButtons = ({ object, data, setData, permissions = [], module = "" }) => {
+    const { dispatchContextEvent, setObject } = useAdminDefaultContext();
+    const { auth } = usePage().props;
+    const createObjectUpdatedAction = (object) => {
+        dispatchContextEvent("editing");
+        Object.entries(object).forEach(([key, value]) => {
+            if (data.hasOwnProperty(key)) {
+                setData(key, value);
+            }
+        });
+    };
 
-const ActionButtons = ({ object, data, setData }) => {
+    const canEdit = auth?.permissions?.includes(`edit_${module}`);
+    const canDelete = auth?.permissions?.includes(`delete_${module}`);
 
+    return (
+        <div className="flex gap-2 items-center">
+            {canEdit && (
+                <button
+                    className="text-blue-600 font-main"
+                    onClick={() => {
+                        setObject(object);
+                        createObjectUpdatedAction(object);
+                    }}
+                >
+                    Edit
+                </button>
+            )}
 
-   const { dispatchContextEvent, setObject } = useAdminDefaultContext();
-    
+            {canDelete && (
+                <button
+                    className="text-red-500 font-main"
+                    onClick={() => {
+                        setObject(object);
+                        dispatchContextEvent("deleting");
+                    }}
+                >
+                    Delete
+                </button>
+            )}
+        </div>
+    );
+};
 
-   const createObjectUpdatedAction = (object) => {
-       dispatchContextEvent("editing");
-       Object.entries(object).map(([key, value]) => {
-           if (data.hasOwnProperty(key)) {
-               setData(key, value);
-           }
-       });
-   };
-
-
-  return (
-    <div className="flex gap-2 items-center">
-    <button
-        className="text-blue-600 font-main"
-        onClick={() => {
-            setObject(object)
-            createObjectUpdatedAction(object)
-        }}
-    >
-        Edit
-    </button>
-    <button
-        className="text-red-500 font-main"
-        onClick={() => {
-            setObject(object)
-            dispatchContextEvent("deleting")
-        }}
-    >
-        Delete
-    </button>
-</div>
-  )
-}
-
-export default ActionButtons
+export default ActionButtons;

@@ -4,6 +4,8 @@ use App\Events\UserRegistrationApproved;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +28,7 @@ Route::prefix('admin')
         Route::post('/delete-notification/{notification}', function (\App\Models\Notification $notification) {
             if ($notification) {
                 $notification->delete();
-            } 
+            }
 
             return redirect()->route('notifications');
         })->name('delete-notification');
@@ -45,16 +47,16 @@ Route::prefix('admin')
                 'notification' => $notification,
                 'user' => $user
             ]);
-        })->name('view-register-notification'); 
-        
+        })->name('view-register-notification');
+
 
         Route::get('/notifications', function (Request $request) {
             return Inertia::render('Admin/Partials/Notifications');
-        })->name('notifications'); 
+        })->name('notifications');
 
         Route::get('/register-notifications', function (Request $request) {
             return redirect()->route('notifications');
-        })->name('register-notifications'); 
+        })->name('register-notifications');
 
 
         // view notification
@@ -67,13 +69,13 @@ Route::prefix('admin')
             return Inertia::render('Admin/Partials/ViewNotification', [
                 'notification' => $notification
             ]);
-        })->name('view-notification'); 
+        })->name('view-notification');
 
 
 
 
         Route::post('/approve-user/{user}', function (Request $request, \App\Models\User $user) {
-            
+
             $request->validate([
                 "password" => "required|confirmed"
             ]);
@@ -102,5 +104,13 @@ Route::prefix('admin')
         Route::get('/orders', function () {
             return Inertia::render('Admin/Order');
         });
-    });
 
+        Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+        Route::get('/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
+
+
+        Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
+        Route::post('/roles/save', [RoleController::class, 'save'])->name('save-role');
+        Route::post('/delete-role', [RoleController::class, 'destroy'])->name('delete-role');
+
+    });

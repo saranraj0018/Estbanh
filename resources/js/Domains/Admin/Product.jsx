@@ -10,6 +10,7 @@ import StyledTable, {
 import Pagination from "@/Shared/Pagination";
 import ActionButtons from "@/Components/Shared/ActionButtons";
 import DefaultDeleteAction from "@/Components/Shared/DefaultDeleteAction";
+import { usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import { useAdminDefaultContext } from "@/Context/AdminDefaultContext";
 import Image from "@/Shared/Image";
@@ -29,6 +30,7 @@ export default function Product({ products, categories }) {
         images: []
     });
 
+    const { auth } = usePage().props;
     const { getObjectMountState, dispatchSideBarState, object } =
         useAdminDefaultContext();
 
@@ -47,7 +49,7 @@ export default function Product({ products, categories }) {
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction title="Product" onDelete={handleDelete} />
-        ) : (
+        ) : auth.permissions.includes("create_products") ?  (
             <ProductForm
                 data={data}
                 errors={errors}
@@ -55,7 +57,7 @@ export default function Product({ products, categories }) {
                 categories={categories}
                 onSubmit={handleCreate}
             />
-        );
+        ):null;
 
     return (
         <AdminLayout className="p-3">
@@ -103,6 +105,7 @@ export default function Product({ products, categories }) {
                                         object={product}
                                         data={data}
                                         setData={setData}
+                                         module="products"
                                     />
                                 </StyledTableCell>
                             </StyledTableRow>

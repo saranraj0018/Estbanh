@@ -10,6 +10,7 @@ import StyledTable, {
 import Pagination from "@/Shared/Pagination";
 import ActionButtons from "@/Components/Shared/ActionButtons";
 import DefaultDeleteAction from "@/Components/Shared/DefaultDeleteAction";
+import { usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import { useAdminDefaultContext } from "@/Context/AdminDefaultContext";
 import Image from "@/Shared/Image";
@@ -24,6 +25,7 @@ export default function SubCategory({ subCategories, categories }) {
         image: null,
     });
 
+    const { auth } = usePage().props;
     const { getObjectMountState, dispatchSideBarState, object } =
         useAdminDefaultContext();
 
@@ -42,7 +44,7 @@ export default function SubCategory({ subCategories, categories }) {
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction title="Sub Category" onDelete={handleDelete} />
-        ) : (
+        ) :auth.permissions.includes("create_subcategories") ? (
             <SubCategoryForm
                 data={data}
                 errors={errors}
@@ -50,7 +52,7 @@ export default function SubCategory({ subCategories, categories }) {
                 onSubmit={handleCreate}
                 categories={categories}
             />
-        );
+        ):null;
 
     return (
         <AdminLayout className="p-3">
@@ -76,11 +78,11 @@ export default function SubCategory({ subCategories, categories }) {
                     <StyledTableBody>
                         {subCategories.data.map((subCategory, index) => (
                             <StyledTableRow key={index}>
-                              
+
                                 <StyledTableCell>
                                     {subCategory.id}
                                 </StyledTableCell>
-                              
+
                                 <StyledTableCell>
                                     {subCategory?.category?.name}
                                 </StyledTableCell>
@@ -90,12 +92,13 @@ export default function SubCategory({ subCategories, categories }) {
                                 <StyledTableCell>
                                     {subCategory.slug}
                                 </StyledTableCell>
-                              
+
                                 <StyledTableCell className="flex gap-2">
                                     <ActionButtons
                                         object={subCategory}
                                         data={data}
                                         setData={setData}
+                                         module="subcategories"
                                     />
                                 </StyledTableCell>
                             </StyledTableRow>

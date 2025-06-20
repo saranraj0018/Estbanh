@@ -8,6 +8,7 @@ import StyledTable, {
     StyledTableRow,
 } from "@/Shared/Styled/StyledTable";
 import Pagination from "@/Shared/Pagination";
+import { usePage } from "@inertiajs/react";
 import ActionButtons from "@/Components/Shared/ActionButtons";
 import DefaultDeleteAction from "@/Components/Shared/DefaultDeleteAction";
 import { useForm } from "@inertiajs/react";
@@ -21,6 +22,7 @@ export default function Category({ categories }) {
         slug: "",
     });
 
+    const { auth } = usePage().props;
     const { getObjectMountState, dispatchSideBarState, object } =
         useAdminDefaultContext();
 
@@ -39,14 +41,14 @@ export default function Category({ categories }) {
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction title="Category" onDelete={handleDelete} />
-        ) : (
+        ) : auth.permissions.includes("create_categories") ? (
             <CategoryForm
                 data={data}
                 errors={errors}
                 setData={setData}
                 onSubmit={handleCreate}
             />
-        );
+        ) : null;
 
     return (
         <AdminLayout className="p-3">
@@ -70,7 +72,7 @@ export default function Category({ categories }) {
                     <StyledTableBody>
                         {categories.data.map((category, index) => (
                             <StyledTableRow key={index}>
-                                 <StyledTableCell>
+                                <StyledTableCell>
                                     {category.id}
                                 </StyledTableCell>
 
@@ -85,6 +87,7 @@ export default function Category({ categories }) {
                                         object={category}
                                         data={data}
                                         setData={setData}
+                                        module="categories"
                                     />
                                 </StyledTableCell>
                             </StyledTableRow>

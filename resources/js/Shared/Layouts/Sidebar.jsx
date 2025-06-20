@@ -4,15 +4,18 @@ import { Link, usePage } from '@inertiajs/react'
 
 
 const Sidebar = () => {
-    
-    const { route } = usePage().props
 
+    const { route, auth } = usePage().props
+
+    const perms = auth?.permissions ?? [];
+    console.log('🍀 permissions:', perms);
     return (
         <div className={`w-1/4 border-2 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>
             <ul className="mt-2 pt-2 h-[90%] px-2">
+
                 <li className={`w-full rounded-md ${route.uri == 'admin/dashboard' ? 'bg-indigo-100' : ''}`}>
                     <Link
                         href="/admin"
@@ -44,6 +47,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
 
+
                 <li className="w-full mt-3" >
                     <span
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
@@ -71,57 +75,59 @@ const Sidebar = () => {
                 </li>
 
                 <ul>
-                    <li  className={`w-full rounded-md ${route.uri == 'admin/categories' ? 'bg-indigo-100' : ''}`}>
-                        <Link
-                            href="/admin/categories"
-                            className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
-                        >
-                            <svg
-                                width="20px"
-                                height="20px"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
+                {auth.permissions.includes('view_categories') && (
+                        <li className={`w-full rounded-md ${route.uri == 'admin/categories' ? 'bg-indigo-100' : ''}`}>
+                            <Link
+                                href="/admin/categories"
+                                className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                             >
-                                <path
-                                    d="M5 10H7C9 10 10 9 10 7V5C10 3 9 2 7 2H5C3 2 2 3 2 5V7C2 9 3 10 5 10Z"
-                                    stroke="#292D32"
-                                    strokeWidth="1.5"
-                                    strokeMiterlimit="10"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                                <path
-                                    d="M17 10H19C21 10 22 9 22 7V5C22 3 21 2 19 2H17C15 2 14 3 14 5V7C14 9 15 10 17 10Z"
-                                    stroke="#292D32"
-                                    strokeWidth="1.5"
-                                    strokeMiterlimit="10"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                                <path
-                                    d="M17 22H19C21 22 22 21 22 19V17C22 15 21 14 19 14H17C15 14 14 15 14 17V19C14 21 15 22 17 22Z"
-                                    stroke="#292D32"
-                                    strokeWidth="1.5"
-                                    strokeMiterlimit="10"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                                <path
-                                    d="M5 22H7C9 22 10 21 10 19V17C10 15 9 14 7 14H5C3 14 2 15 2 17V19C2 21 3 22 5 22Z"
-                                    stroke="#292D32"
-                                    strokeWidth="1.5"
-                                    strokeMiterlimit="10"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
-                                Categories
-                            </span>
-                        </Link>
-                    </li>
-
+                                <svg
+                                    width="20px"
+                                    height="20px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M5 10H7C9 10 10 9 10 7V5C10 3 9 2 7 2H5C3 2 2 3 2 5V7C2 9 3 10 5 10Z"
+                                        stroke="#292D32"
+                                        strokeWidth="1.5"
+                                        strokeMiterlimit="10"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <path
+                                        d="M17 10H19C21 10 22 9 22 7V5C22 3 21 2 19 2H17C15 2 14 3 14 5V7C14 9 15 10 17 10Z"
+                                        stroke="#292D32"
+                                        strokeWidth="1.5"
+                                        strokeMiterlimit="10"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <path
+                                        d="M17 22H19C21 22 22 21 22 19V17C22 15 21 14 19 14H17C15 14 14 15 14 17V19C14 21 15 22 17 22Z"
+                                        stroke="#292D32"
+                                        strokeWidth="1.5"
+                                        strokeMiterlimit="10"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <path
+                                        d="M5 22H7C9 22 10 21 10 19V17C10 15 9 14 7 14H5C3 14 2 15 2 17V19C2 21 3 22 5 22Z"
+                                        stroke="#292D32"
+                                        strokeWidth="1.5"
+                                        strokeMiterlimit="10"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                                <span className="text-[15px] font-[450] mt-[0.09em]">
+                                    Categories
+                                </span>
+                            </Link>
+                        </li>
+                 )}
+         {auth.permissions.includes('view_subcategories') && (
                     <li className={`w-full rounded-md ${route.uri == 'admin/sub-categories' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/sub-categories"
@@ -176,7 +182,9 @@ const Sidebar = () => {
                             </span>
                         </Link>
                     </li>
+           )}
 
+            {auth.permissions.includes('view_products') && (
                     <li className={`w-full rounded-md ${route.uri == 'admin/products' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/products"
@@ -203,6 +211,7 @@ const Sidebar = () => {
                             </span>
                         </Link>
                     </li>
+                    )}
                 </ul>
 
                 <li className="w-full mt-3">
@@ -232,6 +241,7 @@ const Sidebar = () => {
                 </li>
 
                 <ul>
+                      {auth.permissions.includes('view_orders') && (
                     <li className={`w-full rounded-md ${route.uri == 'admin/orders' ? 'bg-indigo-100' : ''}`}>
                         <Link
                             href="/admin/orders"
@@ -256,6 +266,85 @@ const Sidebar = () => {
                             </span>
                         </Link>
                     </li>
+                    )}
+                </ul>
+                <li className="w-full mt-3">
+                    <span
+                        className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
+                    >
+                        <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
+                            User Management
+                        </span>
+
+                        <svg
+                            width="20px"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M6 9L11.7874 14.7874V14.7874C11.9048 14.9048 12.0952 14.9048 12.2126 14.7874V14.7874L18 9"
+                                stroke="#323232"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </span>
+                </li>
+
+                <ul>
+                    {auth.permissions.includes('view_users') && (
+                    <li className={`w-full rounded-md ${route.uri === 'admin/users' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/users"
+                            className="w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                        >
+                            <svg
+                                width="20px"
+                                height="20px"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                    stroke="#292D32"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20"
+                                    stroke="#292D32"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                            <span className="text-[15px] font-[450] mt-[0.09em]">
+                                User List
+                            </span>
+                        </Link>
+                    </li>
+                    )}
+
+                    {auth.permissions.includes('view_roles') && (
+                    <li className={`w-full rounded-md ${route.uri === 'admin/roles' ? 'bg-indigo-100' : ''}`}>
+                        <Link
+                            href="/admin/roles"
+                            className="w-full px-2 py-2 rounded-lg flex gap-4 items-center"
+                        >
+                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" stroke="#292D32" strokeWidth="1.5" />
+                                <path d="M6 20c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4" stroke="#292D32" strokeWidth="1.5" />
+                            </svg>
+                            <span className="text-[15px] font-[450] mt-[0.09em]">Roles</span>
+                        </Link>
+                    </li>
+                    )}
                 </ul>
             </ul>
         </div>
