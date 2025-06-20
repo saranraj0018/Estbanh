@@ -7,7 +7,8 @@ export default function FileInput({
     urls = [],
     previewLayout,
     handlerLayout,
-    previewClass
+    previewClass,
+    maxFiles = 100,
 }) {
     const inputRef = useRef(null);
     const [filesData, setFilesData] = useState([]);
@@ -105,12 +106,12 @@ export default function FileInput({
                     )
                 )}
 
-                {handlerLayout ? (
+                {filesData.length >= maxFiles ? null : handlerLayout ? (
                     handlerLayout(triggerFileSelect)
                 ) : (
                     <div
                         onClick={triggerFileSelect}
-                        className="flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-36"
+                        className="flex flex-col items-center justify-center border-1 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-36"
                     >
                         <span className="text-indigo-600 font-medium text-sm">
                             + Upload

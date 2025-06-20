@@ -93,7 +93,7 @@ const Navbar = () => {
                                             </span>
                                         </Link>
                                         <Link href={route("register")}>
-                                            <span className="text-secondary border-2 px-3 py-2 border-secondary rounded-full  font-main text-[13px]">
+                                            <span className="text-secondary border-1 px-3 py-2 border-secondary rounded-full  font-main text-[13px]">
                                                 Register
                                             </span>
                                         </Link>

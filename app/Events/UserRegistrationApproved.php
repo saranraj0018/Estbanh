@@ -17,7 +17,7 @@ class UserRegistrationApproved
     /**
      * Create a new event instance.
      */
-    public function __construct(public \App\Models\User $user)
+    public function __construct(public \App\Models\User $user, public string $password)
     {
         //
     }

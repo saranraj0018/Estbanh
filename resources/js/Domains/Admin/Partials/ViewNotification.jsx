@@ -1,22 +1,18 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import Heading from "@/Shared/Heading";
 import Text from "@/Shared/Text";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
 const ViewNotification = ({ notification }) => {
     const [isDeleting, setIsDeleting] = useState(false);
-
-    const userDetails = (
-        <></>
-    );
-
+    const { post } = useForm();
 
     return (
         <AdminLayout className="p-3">
             <Head title={`${notification.title}`} />
             <div className="flex items-start justify-between">
-                <div className="w-[60%] border-r-2 h-[80vh] border-gray-400">
+                <div className="w-[60%] border-1 h-[80vh] border-gray-400">
                     <Heading>{notification.title}</Heading>
                     <Text>{notification.description}</Text>
                     <p className="text-[10px] text-gray-400 mt-1">
@@ -33,10 +29,7 @@ const ViewNotification = ({ notification }) => {
                                     Delete Notification
                                 </button>
 
-
-                                <button
-                                    className="text-blue-400 font-main hover:text-blue-700 text-xs"
-                                >
+                                <button className="text-blue-400 font-main hover:text-blue-700 text-xs">
                                     Reply
                                 </button>
 
@@ -68,7 +61,12 @@ const ViewNotification = ({ notification }) => {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        // onDelete(notification.id);
+                                        post(
+                                            route(
+                                                "delete-notification",
+                                                notification.id
+                                            )
+                                        );
                                     }}
                                     className="text-red-500 font-main hover:text-red-700 text-xs"
                                 >
@@ -83,7 +81,7 @@ const ViewNotification = ({ notification }) => {
                     <Heading>Notification image</Heading>
 
                     <img
-                        src={notification.image}
+                        src={`/storage/${notification.image}`}
                         className="rounded-md object-cover w-full"
                     />
                 </div>

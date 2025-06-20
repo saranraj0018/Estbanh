@@ -40,7 +40,7 @@ export default function Home({ products }) {
                         machine
                     </p>
 
-                    <div className="p-1 rounded-[10px] w-full md:w-4/5 flex space-x-2 bg-white shadow-md border-2 border-gray-200">
+                    <div className="p-1 rounded-[10px] w-full md:w-4/5 flex space-x-2 bg-white shadow-md border-1 border-gray-200">
                         <select
                             name=""
                             id=""
@@ -124,7 +124,7 @@ export default function Home({ products }) {
 
                 <div className="grid grid-cols-10 gap-4">
                     <div
-                        className="col-span-10 lg:col-span-4 rounded-2xl p-8 shadow-md border-2 border-gray-300"
+                        className="col-span-10 lg:col-span-4 rounded-2xl p-8 shadow-md border-1 border-gray-300"
                         style={{ background: `url(${WhyChooseUsBackground})` }}
                     >
                         <div className="flex justify-end">
@@ -154,7 +154,7 @@ export default function Home({ products }) {
                         </div>
                     </div>
                     <div className="col-span-10 lg:col-span-6 space-y-5 ">
-                        <div className="space-y-3 bg-[#EEF4FF] rounded-2xl p-8 shadow-md border-2 border-gray-300">
+                        <div className="space-y-3 bg-[#EEF4FF] rounded-2xl p-8 shadow-md border-1 border-gray-300">
                             <img
                                 src={WhyChooseUsIcon2}
                                 alt=""
@@ -173,7 +173,7 @@ export default function Home({ products }) {
                             </p>
                         </div>
                         <div className="grid grid-cols-10 gap-3 ">
-                            <div className="col-span-10 md:col-span-5 p-4 bg-[#F0F0F0] rounded-2xl space-y-3 shadow-md border-2 border-gray-300">
+                            <div className="col-span-10 md:col-span-5 p-4 bg-[#F0F0F0] rounded-2xl space-y-3 shadow-md border-1 border-gray-300">
                                 <img
                                     src={WhyChooseUsIcon3}
                                     alt=""

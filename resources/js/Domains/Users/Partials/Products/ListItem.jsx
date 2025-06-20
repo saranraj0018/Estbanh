@@ -23,7 +23,7 @@ const ListItem = ({ product }) => {
     };
 
     return (
-        <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-46 mb-3">
+        <div className="bg-white border-1 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-46 mb-3">
             <div className="bg-gray-300 w-1/4 h-46">
                 <img
                     src={product.image}
@@ -60,7 +60,7 @@ const ListItem = ({ product }) => {
                         </span>
                         <button
                             onClick={(e) => decrement(e)}
-                            className="p-1 border-2 border-gray-700 rounded-md"
+                            className="p-1 border-1 border-gray-700 rounded-md"
                         >
                             <Minus className="w-5 h-5" />
                         </button>

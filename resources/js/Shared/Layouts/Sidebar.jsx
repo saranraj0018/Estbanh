@@ -10,7 +10,7 @@ const Sidebar = () => {
     const perms = auth?.permissions ?? [];
     console.log('🍀 permissions:', perms);
     return (
-        <div className={`w-1/4 border-2 shadow-sm border-gray-200`}>
+        <div className={`w-1/4 border-1 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>
@@ -22,8 +22,8 @@ const Sidebar = () => {
                         className="w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                     >
                         <svg
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="18px"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ const Sidebar = () => {
                                 strokeLinecap="round"
                             />
                         </svg>
-                        <span className="text-[15px] font-[450] mt-[0.09em]">
+                        <span className="text-[13px] font-[450] mt-[0.09em]">
                             Dashboard
                         </span>
                     </Link>
@@ -52,13 +52,13 @@ const Sidebar = () => {
                     <span
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
                     >
-                        <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
+                        <span className="font-primary text-[13px] font-[450] mt-[0.09em] flex-1 ">
                             Management Section
                         </span>
 
                         <svg
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="18px"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -82,8 +82,8 @@ const Sidebar = () => {
                                 className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                             >
                                 <svg
-                                    width="20px"
-                                    height="20px"
+                                    width="18px"
+                                    height="18px"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ const Sidebar = () => {
                                         strokeLinejoin="round"
                                     />
                                 </svg>
-                                <span className="text-[15px] font-[450] mt-[0.09em]">
+                                <span className="text-[13px] font-[450] mt-[0.09em]">
                                     Categories
                                 </span>
                             </Link>
@@ -134,8 +134,8 @@ const Sidebar = () => {
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 512 512"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
@@ -177,7 +177,7 @@ const Sidebar = () => {
                                     className="ci-primary"
                                 />
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
+                            <span className="text-[13px] font-[450] mt-[0.09em]">
                                 Sub Categories
                             </span>
                         </Link>
@@ -191,8 +191,8 @@ const Sidebar = () => {
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 32 32"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
@@ -206,7 +206,7 @@ const Sidebar = () => {
                                     />
                                 </g>
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
+                            <span className="text-[13px] font-[450] mt-[0.09em]">
                                 Products
                             </span>
                         </Link>
@@ -218,13 +218,13 @@ const Sidebar = () => {
                     <span
                         className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center text-gray-500"
                     >
-                        <span className="font-primary text-[14px] font-[450] mt-[0.09em] flex-1 ">
+                        <span className="font-primary text-[13px] font-[450] mt-[0.09em] flex-1 ">
                             Transactions
                         </span>
 
                         <svg
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="18px"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -248,8 +248,8 @@ const Sidebar = () => {
                             className=" w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 1024 1024"
                                 fill="#000000"
                                 className="icon"
@@ -261,7 +261,7 @@ const Sidebar = () => {
                                     fill=""
                                 />
                             </svg>
-                            <span className="text-[15px] font-[450] mt-[0.09em]">
+                            <span className="text-[13px] font-[450] mt-[0.09em]">
                                 Orders
                             </span>
                         </Link>
@@ -302,8 +302,8 @@ const Sidebar = () => {
                             className="w-full px-2 py-2 rounded-lg flex gap-4 items-center"
                         >
                             <svg
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"

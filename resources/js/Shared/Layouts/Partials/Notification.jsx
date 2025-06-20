@@ -61,6 +61,22 @@ const Notification = ({ notification, onDelete, showImage = true }) => {
                                 >
                                     View
                                 </Link>
+                            ) : notification.type == 3 ? (
+                                <Link
+                                    as="button"
+                                    data={{
+                                        user_id:
+                                            notification.registered_user_id,
+                                    }}
+                                    
+                                    href={route(
+                                        "view-request-notification",
+                                        notification.id
+                                    )}
+                                    className="text-blue-500 font-medium font-main text-xs"
+                                >
+                                    View
+                                </Link>
                             ) : (
                                 <Link
                                     as="button"

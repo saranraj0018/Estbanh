@@ -25,18 +25,20 @@ class SendRegisteredEmailToAdmin
     {
 
 
-        /**
-         * Send Notification ot admin regarding new registration
-         */
-        Mail::to($event->user->email)
-            ->send(new UserRegisteredMail(user: $event->user));
-
-            
-        \App\Models\Notification::create([
+        $notification = \App\Models\Notification::create([
             "title" => "New User Registration Request " . $event->user->name,
             "description" => "A new user is requesting access to the platform.",
             "type" => 2,
             "registered_user_id" => $event->user->id
         ]);
+
+        /**
+         * Send Notification ot admin regarding new registration
+         */
+        Mail::to(env('SUPER_ADMIN_EMAIL', 'srik51977@gmail.com'))
+            ->send(new UserRegisteredMail(user: $event->user, notification: $notification));
+
+            
+        
     }
 }
