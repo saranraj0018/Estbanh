@@ -4,6 +4,8 @@ use App\Events\UserRegistrationApproved;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,7 +33,7 @@ Route::prefix('admin')
             return redirect()->route('notifications');
         })->name('delete-notification');
 
-        
+
         Route::post('/product-added-notification/{notification}', function (Request $request, \App\Models\Notification $notification) {
             $user = \App\Models\User::find($notification->registered_user_id);
 
@@ -137,5 +139,13 @@ Route::prefix('admin')
         Route::get('/orders', function () {
             return Inertia::render('Admin/Order');
         });
-    });
 
+        Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+        Route::get('/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
+
+
+        Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
+        Route::post('/roles/save', [RoleController::class, 'save'])->name('save-role');
+        Route::post('/delete-role', [RoleController::class, 'destroy'])->name('delete-role');
+
+    });
