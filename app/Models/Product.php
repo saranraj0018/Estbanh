@@ -71,7 +71,19 @@ class Product extends Model
 
 
 
-    public function getDiscountPriceAttribute() {
-        return $this->features?->first()->variants[0]['sale_price'] ?: 0.00;
+    public function getDiscountPriceAttribute()
+    {
+        $firstFeature = $this->features?->first();
+    
+        if (
+            $firstFeature &&
+            isset($firstFeature->variants[0]['sale_price']) &&
+            !empty($firstFeature->variants[0]['sale_price'])
+        ) {
+            return $firstFeature->variants[0]['sale_price'];
+        }
+    
+        return $this->regular_price ?? 0.00;
     }
+    
 }

@@ -26,7 +26,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/RegisterUser', [
+        return Inertia::render('auth/RegisterUser', [
             'sessionData' => session('registration.step_one', [])
         ]);
     }
@@ -57,7 +57,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function createAddress()
     {
-        return Inertia::render('Auth/RegisterAddress', [
+        return Inertia::render('auth/RegisterAddress', [
             'sessionData' => session('registration.address', [])
         ]);
     }
@@ -89,7 +89,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function createDocument()
     {
-        return Inertia::render('Auth/RegisterDocuments', [
+        return Inertia::render('auth/RegisterDocuments', [
             'sessionData' => session('registration.documents', [])
         ]);
     }
@@ -110,7 +110,7 @@ class AuthenticatedSessionController extends Controller
 
     public function createContact()
     {
-        return Inertia::render('Auth/RegisterContact');
+        return Inertia::render('auth/RegisterContact');
     }
 
     /**

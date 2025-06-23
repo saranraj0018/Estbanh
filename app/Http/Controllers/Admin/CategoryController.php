@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     
     public function index() {
-        return Inertia::render('Admin/Category', [
+        return Inertia::render('admin/Category', [
             'categories' => \App\Models\Category::latest()->paginate(10)
         ]);
     }

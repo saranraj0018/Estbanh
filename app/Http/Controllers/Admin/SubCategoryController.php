@@ -11,7 +11,7 @@ class SubCategoryController extends Controller
 {
     
     public function index() {
-        return Inertia::render('Admin/SubCategory', [
+        return Inertia::render('admin/SubCategory', [
             'subCategories' => \App\Models\Subcategory::with('category')->latest()->paginate(10),
             'categories' => \App\Models\Category::all(['id', 'name'])
         ]);

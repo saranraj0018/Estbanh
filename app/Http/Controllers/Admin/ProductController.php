@@ -12,7 +12,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        return Inertia::render('Admin/Product', [
+        return Inertia::render('admin/Product', [
             'products' => \App\Models\Product::with(['detail', 'features'])->latest()->paginate(10),
             'categories' => \App\Models\Category::with('subCategories')->get()
         ]);
@@ -24,27 +24,37 @@ class ProductController extends Controller
     public function save(Request $request)
     {
 
+    
         $request->validate([
             'id' => 'nullable|integer',
             'name' => 'required|string|max:255',
             'part_number' => 'required|string|max:1000',
             'description' => 'required|string|max:1000',
-            'image' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg,svg',
             'detail' => 'required|array',
             'detail.category_id' => 'required|int',
-            'detail.sub_category_id' => 'required|int',
+            'detail.sub_category_id' => 'required|integer',
+            'detail.product_details' => 'required|array|min:1',
+            'detail.product_details.*.name' => 'required',
+            'detail.product_details.*.value' => 'required',
             'features' => 'required|array|min:1',
             'features.*.variants' => 'required|array|min:1',
             'images' => 'required|array|min:1',
+            'images.*' => 'required|mimes:png,jpg,jpeg,svg',
+            'make' => 'required|string',
+            'model' => 'required|string',
         ]);
 
+
+  
 
         try {
 
 
+
             $_image = null;
             if ($request->image instanceof UploadedFile) {
-                $_image = $request->file('image')->storeAs('categories', now()->format('Y_m_d_His_') . str_replace(' ', '_', $request->file('image')->getClientOriginalName()), 'public');
+                $_image = $request->file('image')->storeAs('products', now()->format('Y_m_d_His_') . str_replace(' ', '_', $request->file('image')->getClientOriginalName()), 'public');
             } else if ($request->image)
                 $_image = $request->image;
 
@@ -56,15 +66,18 @@ class ProductController extends Controller
                     'part_number' => $request->part_number,
                     'description' => $request->description,
                     'image' => $_image,
-                    'user_id' => auth('admin')->user()->id,
+                    'user_id' => 20,
                     'is_active' => 1,
                 ]);
 
                 $product->detail()->create([
-                    'category_id' => $request->detail['category_id'],
-                    'sub_category_id' => $request->detail['sub_category_id'],
+                    'category_id' => 112,
+                    'sub_category_id' => empty($request->detail['sub_category_id']) ? $request->detail['sub_category_id'] : 3,
                     'sale_price' => 0,
-                    'regular_price' => 0
+                    'regular_price' => 0,
+                    'make' => $request->make,
+                    'model' => $request->model,
+                    'product_details' => json_encode($request->product_details),
                 ]);
 
                 foreach($request->features as $attribute) {
@@ -74,14 +87,10 @@ class ProductController extends Controller
                     ]);
                 }
 
-
-                foreach($request->images as $image) {
-                    $_img = null;
-
-                    if ($image instanceof UploadedFile) {
-                        $_img = $image->storeAs('categories', now()->format('Y_m_d_His_') . str_replace(' ', '_', $image->getClientOriginalName()), 'public');
-                    } else
-                        $_img = $image;
+                foreach($request->images as $key => $image) {
+                    $_img = $image instanceof UploadedFile ? 
+                        $image->storeAs('products', now()->format('Y_m_d_His_') . str_replace(' ', '_', $image->getClientOriginalName()), 'public') : 
+                            $image;
 
                     $product->images()->create([
                         'image' => $_img,
@@ -96,16 +105,19 @@ class ProductController extends Controller
                     'part_number' => $request->part_number,
                     'description' => $request->description,
                     'image' => $_image,
-                    'user_id' => auth('admin')->user()->id,
+                    'user_id' => 20,
                     'is_active' => 1,
                 ]);
 
 
                 $product->detail()->update([
                     'category_id' => $request->detail['category_id'],
-                    'sub_category_id' => $request->detail['sub_category_id'],
+                    'sub_category_id' => empty($request->detail['sub_category_id']) ? $request->detail['sub_category_id'] : 3,
                     'sale_price' => 0,
-                    'regular_price' => 0
+                    'regular_price' => 0,
+                    'make' => $request->make,
+                    'model' => $request->model,
+                    'product_details' => json_encode($request->product_details),
                 ]);
 
 
@@ -124,7 +136,7 @@ class ProductController extends Controller
                     $_img = null;
 
                     if ($image instanceof UploadedFile) {
-                        $_img = $image->storeAs('categories', now()->format('Y_m_d_His_') . str_replace(' ', '_', $image->getClientOriginalName()), 'public');
+                        $_img = $image->storeAs('products', now()->format('Y_m_d_His_') . str_replace(' ', '_', $image->getClientOriginalName()), 'public');
                     } else
                         $_img = $image;
 
