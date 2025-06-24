@@ -1,11 +1,11 @@
 import React from "react";
 import ApplicationLogo from "../ApplicationLogo";
-import { Link, usePage } from '@inertiajs/react'
+import { Link, usePage } from "@inertiajs/react";
 import { Settings, SettingsIcon } from "lucide-react";
 
 const Mobilebar = () => {
-
-    const { route } = usePage().props
+    const { route, auth } = usePage().props;
+    const perms = auth?.permissions ?? [];
 
     return (
         <div className={`w-[60px] border-1 shadow-sm border-gray-200`}>
@@ -14,9 +14,13 @@ const Mobilebar = () => {
             </div>
 
             <ul className="mt-2 pt-2 h-[90%] px-2 flex flex-col">
-                <li className={`w-full rounded-md ${route.uri == 'admin/dashboard' ? 'bg-indigo-100' : ''}`}>
+                <li
+                    className={`w-full rounded-md ${
+                        route.uri == "admin/dashboard" ? "bg-indigo-100" : ""
+                    }`}
+                >
                     <Link
-                       href="/admin"
+                        href="/admin"
                         className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                     >
                         <svg
@@ -66,7 +70,13 @@ const Mobilebar = () => {
                 </li>
 
                 <ul>
-                    <li className={`w-full rounded-md ${route.uri == 'admin/categories' ? 'bg-indigo-100' : ''}`}>
+                    <li
+                        className={`w-full rounded-md ${
+                            route.uri == "admin/categories"
+                                ? "bg-indigo-100"
+                                : ""
+                        }`}
+                    >
                         <Link
                             href="/admin/categories"
                             className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
@@ -111,11 +121,16 @@ const Mobilebar = () => {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            
                         </Link>
                     </li>
 
-                    <li className={`w-full rounded-md ${route.uri == 'admin/sub-categories' ? 'bg-indigo-100' : ''}`}>
+                    <li
+                        className={`w-full rounded-md ${
+                            route.uri == "admin/sub-categories"
+                                ? "bg-indigo-100"
+                                : ""
+                        }`}
+                    >
                         <Link
                             href="/admin/sub-categories"
                             className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
@@ -164,11 +179,14 @@ const Mobilebar = () => {
                                     className="ci-primary"
                                 />
                             </svg>
-                            
                         </Link>
                     </li>
 
-                    <li className={`w-full rounded-md ${route.uri == 'admin/products' ? 'bg-indigo-100' : ''}`}>
+                    <li
+                        className={`w-full rounded-md ${
+                            route.uri == "admin/products" ? "bg-indigo-100" : ""
+                        }`}
+                    >
                         <Link
                             href="/admin/products"
                             className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
@@ -189,17 +207,12 @@ const Mobilebar = () => {
                                     />
                                 </g>
                             </svg>
-                           
                         </Link>
                     </li>
                 </ul>
 
                 <li className="w-full mt-5">
-                    <span
-                        className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center text-gray-500"
-                    >
-                       
-
+                    <span className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center text-gray-500">
                         <svg
                             width="18px"
                             height="18px"
@@ -218,8 +231,12 @@ const Mobilebar = () => {
                     </span>
                 </li>
 
-                <ul className="flex-1">
-                    <li className={`w-full rounded-md ${route.uri == 'admin/orders' ? 'bg-indigo-100' : ''}`}>
+                <ul >
+                    <li
+                        className={`w-full rounded-md ${
+                            route.uri == "admin/orders" ? "bg-indigo-100" : ""
+                        }`}
+                    >
                         <Link
                             href="/admin/orders"
                             className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
@@ -238,20 +255,109 @@ const Mobilebar = () => {
                                     fill=""
                                 />
                             </svg>
-                            
                         </Link>
                     </li>
                 </ul>
 
 
-                <li className={`w-full rounded-md ${route.uri == 'admin/settings' ? 'bg-indigo-100' : ''}`}>
+                <li className="w-full mt-5">
+                    <span className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center text-gray-500">
+                        <svg
+                            width="18px"
+                            height="18px"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M6 9L11.7874 14.7874V14.7874C11.9048 14.9048 12.0952 14.9048 12.2126 14.7874V14.7874L18 9"
+                                stroke="#323232"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </span>
+                </li>
+                <ul className="flex-1">
+                    {/* {auth.permissions.includes("view_users") && ( */}
+                    <li
+                        className={`w-full rounded-md ${
+                            route.uri === "admin/users" ? "bg-indigo-100" : ""
+                        }`}
+                    >
                         <Link
-                            href="/admin/settings"
+                            href="/admin/users"
                             className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
                         >
-                           <Settings />
+                            <svg
+                                width="18px"
+                                height="18px"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                    stroke="#292D32"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20"
+                                    stroke="#292D32"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
                         </Link>
                     </li>
+
+                    {/* {auth.permissions.includes("view_roles") && ( */}
+                    <li
+                        className={`w-full rounded-md ${
+                            route.uri === "admin/roles" ? "bg-indigo-100" : ""
+                        }`}
+                    >
+                        <Link
+                            href="/admin/roles"
+                            className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
+                        >
+                            <svg
+                                width="20px"
+                                height="20px"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"
+                                    stroke="#292D32"
+                                    strokeWidth="1.5"
+                                />
+                                <path
+                                    d="M6 20c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4"
+                                    stroke="#292D32"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        </Link>
+                    </li>
+                </ul>
+
+                <li
+                    className={`w-full rounded-md ${
+                        route.uri == "admin/settings" ? "bg-indigo-100" : ""
+                    }`}
+                >
+                    <Link
+                        href="/admin/settings"
+                        className=" w-full px-2 py-2 rounded-lg flex justify-center gap-4 items-center"
+                    >
+                        <Settings />
+                    </Link>
+                </li>
             </ul>
         </div>
     );

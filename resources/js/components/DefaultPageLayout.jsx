@@ -10,6 +10,7 @@ const DefaultPageLayout = ({
     form,
     reset,
     sideBarWidth = "2xl",
+    deleteModalWidth = "lg"
 }) => {
     const {
         getObjectMountState,
@@ -61,7 +62,7 @@ const DefaultPageLayout = ({
                         show={getSideBarDispatchState()}
                         onClose={dispatchSideBarState}
                         closeable={false}
-                        maxWidth={sideBarWidth}
+                        maxWidth={getObjectMountState() == "deleting" ?  deleteModalWidth : sideBarWidth}
                     >
                         <div className="p-5">
                             {(getObjectMountState() == "creating" ||
