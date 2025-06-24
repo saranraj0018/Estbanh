@@ -13,7 +13,7 @@ use Inertia\Inertia;
 Route::middleware(['guest'])->group( function() {
 
     Route::get('/login', function () {
-        return Inertia::render('Auth/UserLogin');
+        return Inertia::render('auth/UserLogin');
     })->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
@@ -33,13 +33,13 @@ Route::middleware(['guest'])->group( function() {
         Route::get('/contact', 'createContact')->name('register.contact');
         Route::post('/store', 'store')->name('register.store');
     });
-    Route::get('/register/thank-you', fn () => Inertia::render('Auth/ThankYou'))->name('register.thank-you');
 
+    Route::get('/register/thank-you', fn () => Inertia::render('auth/ThankYou'))->name('register.thank-you');
     Route::get('/locations/countries', [LocationController::class, 'countries']);
     Route::get('/locations/states/{country}', [LocationController::class, 'states']);
     Route::get('/locations/cities/{state}', [LocationController::class, 'cities']);
-
 });
+
 
 /**
  * Admin Login
@@ -49,27 +49,13 @@ Route::prefix('admin')
     ->group(function() {
 
         Route::get('login', function () {
-            return Inertia::render('Auth/AdminLogin');
+            return Inertia::render('auth/AdminLogin');
         })->name('admin');
 
         Route::post('login', [AdminAuthController::class, 'login'])
             ->name('admin.login');
 
     });
-
-/**
- * Notification
-
- */
-Route::get('/notifications', [NotificationController::class, 'index']);
-Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
-Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
-Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
-Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAll']);
-Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
-
-
-
 
 
 require __DIR__ . "/admin.php";

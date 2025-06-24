@@ -1,100 +1,31 @@
 <?php
 
 use App\Http\Controllers\AuthenticatedSessionController;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController as ControllersProductController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('/order-tracking', [OrderController::class, 'index'])->name('tracking'); // TODO: Implement order tracking
+    Route::post('/request-product', [ControllersProductController::class, 'requestProduct'])->name('request-product');
 
     /**
-     * Track your orders
-     */
-    Route::get('/order-tracking', function () {
-        dd('Order');
-    })->name('tracking');
-
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
-
-    Route::post('/request-product', function (Request $request) {
-       
-        $request->validate([
-            'name' => 'required|string',
-            'part_number' => 'required',
-            'description' => 'required|string',
-            'images' => 'required|array|max:1',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif'
-        ]);
-
-        try {
-
-            $imagePath = $request->file('images')[0]->store('product-requests', 'public');
-
-            \App\Models\Notification::create([
-                "title" => "New Product Request",
-                'user_id' => 0,
-                "image" => $imagePath,
-                "description" => "A User has requested a new product with part number: " . $request->part_number,
-                "type" => 3,
-                "registered_user_id" => auth()->user()->id,
-                "others" => json_encode([
-                    'name' => $request->name,
-                    'part_number' => $request->part_number,
-                    'description' => $request->description
-                ])
-            ]);
-
-            return redirect()->back()->with('success', 'Product request submitted successfully!');
-
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-
-    })->name('request-product');
-
+     * Notification
+    */
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+    Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAll']);
+    Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
 
 });
 
 
-
-
-
-Route::get('/', function () {
-    return Inertia::render('Users/Home', [
-        'products' => \App\Models\Product::take(3)->get()
-    ]);
-})->name('home');
-
-
-
-Route::post('/search', function (Request $request) {
-
-    return response()->json([
-        'products' => \App\Models\Product::where('part_number', 'like', '%' . $request->search . '%')->get()
-    ]);
-
-})->name('search');
-
-
-
-
-
-Route::get('/view-product/{product}', function (Request $request, Product $product) {
-    return Inertia::render('Users/ViewProduct', [
-        'product' => $product
-    ]);
-})->name('view-product');
-
-
-
-
-Route::get('/products/{search}', function (Request $request, string $search) {
-
-    return Inertia::render('Users/ProductList', [
-        'products' => Product::where('part_number', 'like', '%' . $search . '%')->get()
-    ]);
-
-})->name('products-list');
+Route::get('/',  [ControllersProductController::class, 'index'])->name('home');
+Route::post('/search', [ControllersProductController::class, 'search'])->name('search');
+Route::get('/view-product/{product}', [ControllersProductController::class, 'view'])->name('view-product');
+Route::get('/products/{search}', [ControllersProductController::class, 'searchProduct'])->name('products-list');

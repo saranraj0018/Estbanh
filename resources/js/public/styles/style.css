@@ -1,0 +1,77 @@
+
+
+.footer-form-bg {
+    background-image: url("@/public/images/general/Footer-form-bg.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer-bg {
+    background-image: url("@/public/images/general/FooterBg.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.myz {
+    z-index: 5;
+}
+
+
+
+/*----------------------------------- HOME SECTION 3 */
+.heading-with-lines {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.875rem;
+    /* Equivalent to text-3xl */
+    font-weight: 500;
+    /* Medium weight */
+    font-family: var(--font-primary);
+    /* Adjust based on your setup */
+    color: var(--primary-color);
+    /* Replace with your primary color */
+}
+
+.heading-with-lines::before,
+.heading-with-lines::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background-color: #ccc;
+    /* Adjust color as needed */
+    margin: 0 10px;
+}
+
+/*----------------------------------- HOME SECTION 3 */
+
+/*----------------------------------- PRODUCT DETAILS SECTION 1 */
+
+/* Custom Scrollbar for .c-scroller */
+.c-scroller::-webkit-scrollbar {
+    width: 4px; /* Thin scrollbar */
+}
+
+.c-scroller::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+}
+
+.c-scroller::-webkit-scrollbar-thumb {
+    background: #d2d2d2; /* #d2d2d2 scroller */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.c-scroller::-webkit-scrollbar-thumb:hover {
+    background: gold; /* Slightly darker #d2d2d2 on hover */
+}
+
+/* Firefox Scrollbar */
+.c-scroller {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #d2d2d2 transparent; /* Thumb color and track color */
+}
+
+/*----------------------------------- PRODUCT DETAILS SECTION 1 */

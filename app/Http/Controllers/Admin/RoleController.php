@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class RoleController extends Controller {
     public function index() {
         $roles = Role::latest()->paginate(10);
-        return Inertia::render('Admin/Role', [
+        return Inertia::render('admin/Role', [
             'roles' => $roles,
             'permissions' => $this->availablePermissions()
         ]);
@@ -45,7 +45,7 @@ class RoleController extends Controller {
             return redirect()->back()->with('error', 'Id is required.');
         }
 
-        $role = \App\Models\Role::find($id);
+        $role = Role::find($id);
 
         if ($role) {
             $role->delete();
