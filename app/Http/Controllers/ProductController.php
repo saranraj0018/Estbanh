@@ -31,7 +31,7 @@ class ProductController extends Controller {
 
     public function view (Request $request, Product $product) {
         return Inertia::render('users/ViewProduct', [
-            'product' => $product
+            'product' => $product->load('detail')
         ]);
     }
 

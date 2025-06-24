@@ -13,6 +13,8 @@ import ProductDescription, {
     validate as validateDescription,
 } from "../ProductDescription";
 
+
+
 export default function ProductForm({ categories, ...form }) {
     const { data, setData, errors, post } = form;
     const attributes = useAttributesForm(data, setData);
@@ -26,7 +28,6 @@ export default function ProductForm({ categories, ...form }) {
         });
     };
 
-    console.log(errors);
 
     const errorElement = Object.entries(errors).map(([key, error], index) => (
         <li className="text-red-500 text-[13px] font-normal">  {index + 1}. {error}</li>
@@ -65,7 +66,7 @@ export default function ProductForm({ categories, ...form }) {
                         subtitle="Add some more details about the product"
                     />
 
-                    <ProductDetailsForm {...productDetails} />
+                    <ProductDetailsForm productDetails={productDetails} />
                 </Step>
 
                 <Step step={5} validate={() => data.images.length}>

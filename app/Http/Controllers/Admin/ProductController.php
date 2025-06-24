@@ -12,6 +12,9 @@ class ProductController extends Controller
 
     public function index()
     {
+
+        // dd(\App\Models\Product::with(['detail', 'features'])->latest()->get()->toArray());
+
         return Inertia::render('admin/Product', [
             'products' => \App\Models\Product::with(['detail', 'features'])->latest()->paginate(10),
             'categories' => \App\Models\Category::with('subCategories')->get()
@@ -24,13 +27,13 @@ class ProductController extends Controller
     public function save(Request $request)
     {
 
-    
+
         $request->validate([
             'id' => 'nullable|integer',
             'name' => 'required|string|max:255',
             'part_number' => 'required|string|max:1000',
             'description' => 'required|string|max:1000',
-            'image' => 'required|mimes:png,jpg,jpeg,svg',
+            'image' => 'required',
             'detail' => 'required|array',
             'detail.category_id' => 'required|int',
             'detail.sub_category_id' => 'required|integer',
@@ -39,14 +42,15 @@ class ProductController extends Controller
             'detail.product_details.*.value' => 'required',
             'features' => 'required|array|min:1',
             'features.*.variants' => 'required|array|min:1',
-            'images' => 'required|array|min:1',
-            'images.*' => 'required|mimes:png,jpg,jpeg,svg',
-            'make' => 'required|string',
-            'model' => 'required|string',
+            'images' => 'required',
+            'images.*' => 'required',
+            'detail.make' => 'required|string',
+            'detail.model' => 'required|string',
         ]);
 
 
-  
+
+
 
         try {
 
@@ -59,45 +63,51 @@ class ProductController extends Controller
                 $_image = $request->image;
 
 
-
             if (!($product = \App\Models\Product::find($request->get('id')))) {
+
+                $request->validate([
+                    'image' => 'required|mimes:png,jpg,jpeg,svg',
+                    'images' => 'required|array|min:1',
+                    'images.*' => 'required|mimes:png,jpg,jpeg,svg',
+                ]);
+
                 $product = \App\Models\Product::create([
                     'name' => $request->name,
                     'part_number' => $request->part_number,
                     'description' => $request->description,
                     'image' => $_image,
-                    'user_id' => 20,
+                    'user_id' => auth('admin')->id(),
                     'is_active' => 1,
                 ]);
 
                 $product->detail()->create([
-                    'category_id' => 112,
-                    'sub_category_id' => empty($request->detail['sub_category_id']) ? $request->detail['sub_category_id'] : 3,
+                    'category_id' => $request->detail['category_id'],
+                    'sub_category_id' => $request->detail['sub_category_id'],
                     'sale_price' => 0,
                     'regular_price' => 0,
-                    'make' => $request->make,
-                    'model' => $request->model,
-                    'product_details' => json_encode($request->product_details),
+                    'make' => $request->detail['make'],
+                    'model' => $request->detail['model'],
+                    'product_details' => json_encode($request->detail['product_details']),
                 ]);
 
-                foreach($request->features as $attribute) {
+                foreach ($request->features as $attribute) {
                     $product->features()->create([
                         'name' => $attribute['name'],
                         'variants' => json_encode($attribute['variants']),
                     ]);
                 }
 
-                foreach($request->images as $key => $image) {
-                    $_img = $image instanceof UploadedFile ? 
-                        $image->storeAs('products', now()->format('Y_m_d_His_') . str_replace(' ', '_', $image->getClientOriginalName()), 'public') : 
-                            $image;
+                foreach ($request->images as $key => $image) {
+                    $_img = $image instanceof UploadedFile ?
+                        $image->storeAs('products', now()->format('Y_m_d_His_') . str_replace(' ', '_', $image->getClientOriginalName()), 'public') :
+                        $image;
 
                     $product->images()->create([
                         'image' => $_img,
                         'description' => 'The Real Slim Shady, please stand up',
                     ]);
                 }
-                
+
             } else {
 
                 $product->update([
@@ -105,19 +115,19 @@ class ProductController extends Controller
                     'part_number' => $request->part_number,
                     'description' => $request->description,
                     'image' => $_image,
-                    'user_id' => 20,
+                    'user_id' => auth('admin')->id(),
                     'is_active' => 1,
                 ]);
 
 
                 $product->detail()->update([
                     'category_id' => $request->detail['category_id'],
-                    'sub_category_id' => empty($request->detail['sub_category_id']) ? $request->detail['sub_category_id'] : 3,
+                    'sub_category_id' => $request->detail['sub_category_id'],
                     'sale_price' => 0,
                     'regular_price' => 0,
-                    'make' => $request->make,
-                    'model' => $request->model,
-                    'product_details' => json_encode($request->product_details),
+                    'make' => $request->detail['make'],
+                    'model' => $request->detail['model'],
+                    'product_details' => json_encode($request->detail['product_details']),
                 ]);
 
 
@@ -125,14 +135,14 @@ class ProductController extends Controller
                 $product->images()->delete();
 
 
-                foreach($request->features as $attribute) {
+                foreach ($request->features as $attribute) {
                     $product->features()->create([
                         'name' => $attribute['name'],
                         'variants' => json_encode($attribute['variants']),
                     ]);
                 }
 
-                foreach($request->images as $image) {
+                foreach ($request->images as $image) {
                     $_img = null;
 
                     if ($image instanceof UploadedFile) {

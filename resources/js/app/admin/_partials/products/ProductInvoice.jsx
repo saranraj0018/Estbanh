@@ -6,7 +6,7 @@ export default function ProductInvoice({ data }) {
         features,
         image,
         images,
-        product_details = [],
+        detail,
     } = data;
 
     return (
@@ -47,7 +47,7 @@ export default function ProductInvoice({ data }) {
                         <p className="text-xs text-gray-500">Description</p>
                         <p className="text-sm text-gray-700">{description}</p>
                     </div>
-                    {product_details.length > 0 && (
+                    {detail?.product_details ? detail?.product_details?.length > 0 && (
                         <div className="mb-4">
                             <p className="text-xs text-gray-500 mb-2">Additional Product Details</p>
                             <table className="w-full text-xs border border-gray-200 rounded overflow-hidden">
@@ -58,7 +58,7 @@ export default function ProductInvoice({ data }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {product_details.map((detail, i) => (
+                                    {detail?.product_details.map((detail, i) => (
                                         <tr key={i} className="border-t border-gray-200">
                                             <td className="p-2 text-gray-700">{detail.name}</td>
                                             <td className="p-2 text-gray-600">{detail.value}</td>
@@ -67,7 +67,7 @@ export default function ProductInvoice({ data }) {
                                 </tbody>
                             </table>
                         </div>
-                    )}
+                    ): null}
                 </div>
 
                 {/* Features */}

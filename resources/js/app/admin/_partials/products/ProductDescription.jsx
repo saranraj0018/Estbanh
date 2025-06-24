@@ -10,7 +10,9 @@ export const validate = (data) => {
         data.image &&
         data.description &&
         data.detail.category_id &&
-        data.detail.sub_category_id
+        data.detail.sub_category_id &&
+        data.detail.make &&
+        data.detail.model
     );
 };
 
@@ -59,8 +61,13 @@ const ProductDescription = ({ categories, data, errors, setData }) => {
                 <Field label="Make *" error={errors.name}>
                     <TextInput
                         id="make"
-                        value={data.make}
-                        onChange={(e) => setData("make", e.target.value)}
+                        value={data?.detail?.make}
+                        onChange={(e) => {
+                            setData("detail", {
+                                ...data.detail,
+                                make: e.target.value,
+                            });
+                        }}
                         className="mt-1 block w-full"
                         placeholder="i.e., Yamaha"
                     />
@@ -68,8 +75,13 @@ const ProductDescription = ({ categories, data, errors, setData }) => {
                 <Field label="Model *" error={errors.model}>
                     <TextInput
                         id="model"
-                        value={data.model}
-                        onChange={(e) => setData("model", e.target.value)}
+                        value={data?.detail?.model}
+                        onChange={(e) => {
+                            setData("detail", {
+                                ...data.detail,
+                                model: e.target.value,
+                            });
+                        }}
                         className="mt-1 block w-full"
                         placeholder="i.e., FZ V5"
                     />
@@ -80,7 +92,7 @@ const ProductDescription = ({ categories, data, errors, setData }) => {
                     <SelectBox
                         placeholder="Select a Category"
                         dataset={categories}
-                        value={data.detail.category_id}
+                        value={data?.detail?.category_id}
                         onChange={(e) => {
                             setData("detail", {
                                 ...data.detail,

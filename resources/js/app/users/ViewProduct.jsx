@@ -12,30 +12,25 @@ const ViewProduct = ({ product }) => {
         quantity: 1,
     });
 
-
     const decrement = (e) => {
         e.preventDefault();
         console.log(data);
 
-
-        if(data.quantity > 1) {
-            setData("quantity", data.quantity - 1)
+        if (data.quantity > 1) {
+            setData("quantity", data.quantity - 1);
         }
-        return true
-    }
-
+        return true;
+    };
 
     const increment = (e) => {
         e.preventDefault();
-        setData("quantity", data.quantity + 1)
-        return true
-    }
+        setData("quantity", data.quantity + 1);
+        return true;
+    };
 
     return (
         <UserLayout>
-
-          <Head title={product.name} />
-
+            <Head title={product.name} />
 
             <section className="px-[8em]">
                 <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-1 border-gray-300">
@@ -86,7 +81,8 @@ const ViewProduct = ({ product }) => {
                             <div>
                                 <div className="flex gap-2 items-end">
                                     <span className="text-4xl font-medium font-main text-black">
-                                        ₹{product.discount_price * data.quantity}
+                                        ₹
+                                        {product.discount_price * data.quantity}
                                     </span>
                                     <span className="text-sm text-gray-600 font-main">
                                         {product.discount_price}/piece
@@ -100,13 +96,19 @@ const ViewProduct = ({ product }) => {
 
                             <div className="my-auto">
                                 <div className="flex space-x-2 border-[1px] border-[#E4E7E9] rounded-md p-2">
-                                    <button onClick={decrement} className="px-2 md:px-3 font-main text-primary text-lg md:text-xl">
+                                    <button
+                                        onClick={decrement}
+                                        className="px-2 md:px-3 font-main text-primary text-lg md:text-xl"
+                                    >
                                         <Minus />
                                     </button>
                                     <p className="text-primary text-xl font-main  font-medium px-2">
                                         {data.quantity}
                                     </p>
-                                    <button onClick={(e) => increment(e)} className="px-2 md:px-3 font-main  text-primary text-lg md:text-xl">
+                                    <button
+                                        onClick={(e) => increment(e)}
+                                        className="px-2 md:px-3 font-main  text-primary text-lg md:text-xl"
+                                    >
                                         <Plus />
                                     </button>
                                 </div>
@@ -141,26 +143,22 @@ const ViewProduct = ({ product }) => {
                     </h2>
 
                     <div className="my-8  flex justify-between items-start flex-wrap space-y-2">
-                    {Object.entries(product).filter(item => !(["images", "image", "features"].includes(item[0]))).map(
-                        ([key, value], index) => (
-                            <div
-                                key={index}
-                                className="w-[45%] me-[2em]"
-                            >
-                                <div className="flex items-center space-x-10">
+                        {product?.detail?.product_details.map(
+                            ({name, value}, index) => (
+                                <div key={index} className="w-full me-[2em]">
+                                    <div className="flex items-center space-x-10">
+                                        <h4 className="text-[13px] w-1/4 font-main font-bold capitalize">
+                                            {name.replace(/_/g, " ")}
+                                        </h4>
 
-                                    <h4 className="text-[13px] w-1/4 font-main font-bold capitalize">
-                                        {key.replace(/_/g, " ")}
-                                    </h4>
-
-                                    <div className="w-full font-main font-normal text-primary">
-                                        <p>{value}</p>
+                                        <div className="w-full font-main font-normal text-primary">
+                                            <p>{value}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    )}
-                </div>
+                            )
+                        )}
+                    </div>
                 </div>
             </section>
         </UserLayout>

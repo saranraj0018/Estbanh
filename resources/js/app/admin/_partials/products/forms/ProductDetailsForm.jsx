@@ -5,12 +5,15 @@ import InputLabel from "@/shared/InputLabel";
 import TextInput from "@/shared/TextInput";
 import DangerButton from "@/shared/DangerButton";
 
-const ProductDetailsForm = ({
-    details: data,
-    setDetails: setData,
-    handleRemoveDetails,
-}) => {
-    const [details, setDetails] = useState(data?.details || []);
+const ProductDetailsForm = ({ productDetails }) => {
+
+    const {
+        details: data,
+        setDetails: setData,
+        handleRemoveDetails,
+    } = productDetails;
+
+    const [details, setDetails] = useState(data || []);
     const [editingIndex, setEditingIndex] = useState(null);
     const [name, setName] = useState("");
     const [value, setValue] = useState("");
@@ -55,9 +58,9 @@ const ProductDetailsForm = ({
             updatedDetails.push({ name: trimmedName, value: trimmedValue });
         }
 
-        resetForm();
-        setDetails(updatedDetails);
         setData(updatedDetails);
+        setDetails(updatedDetails);
+        resetForm();
     };
 
     const handleEdit = (index) => {

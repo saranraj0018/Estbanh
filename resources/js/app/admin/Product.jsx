@@ -18,8 +18,13 @@ import ProductForm from "@/app/admin/_partials/products/forms/ProductForm";
 
 export default function Product({ products, categories }) {
     const { auth } = usePage().props;
-    const { getObjectMountState, dispatchSideBarState, object } =
-        useAdminDefaultContext();
+    const {
+        getObjectMountState,
+        dispatchSideBarState,
+        object,
+        dispatchContextEvent,
+        setObject
+    } = useAdminDefaultContext();
 
     const form = useForm({
         name: "",
@@ -30,12 +35,45 @@ export default function Product({ products, categories }) {
             category_id: null,
             sub_category_id: null,
             product_details: [],
+            make: "",
+            model: "",
         },
         features: [],
         images: [],
-        make: "",
-        model: "",
     });
+
+    // const canEdit = auth?.permissions?.includes(`edit_product`);
+    // const canDelete = auth?.permissions?.includes(`delete_product`);
+
+    const createObjectUpdatedAction = (object) => {
+        dispatchContextEvent("editing");
+
+        // Explicitly assign each field
+        form.setData("name", object.name ?? "");
+        form.setData("part_number", object.part_number ?? "");
+        form.setData("description", object.description ?? "");
+        form.setData("image", object.image ?? null);
+        form.setData(
+            "features",
+            Array.isArray(object.features) ? [...object.features] : []
+        );
+        form.setData(
+            "images",
+            Array.isArray(object.images) ? [...object.images] : []
+        );
+
+        const detailsData = {
+            category_id: object.detail?.category_id ?? null,
+            sub_category_id: object.detail?.sub_category_id ?? null,
+            product_details: Array.isArray(object?.detail?.product_details)
+                ? [...object.detail.product_details]
+                : [],
+            make: object.detail?.make ?? "",
+            model: object.detail?.model ?? "",
+        }
+        // Handle 'detail' object
+        form.setData("detail", {...detailsData});
+    };
 
     const formContent =
         getObjectMountState() === "deleting" ? (
@@ -95,21 +133,42 @@ export default function Product({ products, categories }) {
                                           {product.part_number}
                                       </StyledTableCell>
                                       <StyledTableCell>
-                                          {product.make}
+                                          {product?.detail?.make}
                                       </StyledTableCell>
                                       <StyledTableCell>
-                                          {product.model}
+                                          {product?.detail?.model}
                                       </StyledTableCell>
                                       <StyledTableCell>
                                           {product.description}
                                       </StyledTableCell>
                                       <StyledTableCell className="flex gap-2">
-                                          <ActionButtons
-                                              object={product}
-                                              data={form.data}
-                                              setData={form.setData}
-                                              module="products"
-                                          />
+                                        
+                                          {/* {canEdit && ( */}
+                                          <button
+                                              className="text-blue-600 font-main"
+                                              onClick={() => {
+                                                  setObject(product);
+                                                  createObjectUpdatedAction(
+                                                    product
+                                                  );
+                                              }}
+                                          >
+                                              Edit
+                                          </button>
+                                          {/* )} */}
+                                          {/* {canDelete && ( */}
+                                              <button
+                                                  className="text-red-500 font-main"
+                                                  onClick={() => {
+                                                      setObject(product);
+                                                      dispatchContextEvent(
+                                                          "deleting"
+                                                      );
+                                                  }}
+                                              >
+                                                  Delete
+                                              </button>
+                                          {/* )} */}
                                       </StyledTableCell>
                                   </StyledTableRow>
                               ))

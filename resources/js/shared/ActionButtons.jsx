@@ -5,7 +5,6 @@ const ActionButtons = ({ object, data, setData, permissions = [], module = "" })
     const { dispatchContextEvent, setObject } = useAdminDefaultContext();
     const { auth } = usePage().props;
     const createObjectUpdatedAction = (object) => {
-        console.log("updation ", object);
         
         dispatchContextEvent("editing");
         Object.entries(object).forEach(([key, value]) => {
