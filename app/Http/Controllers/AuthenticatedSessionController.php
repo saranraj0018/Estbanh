@@ -118,11 +118,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function login(LoginRequest $request): RedirectResponse
     {
-
+        /* dd(Auth::user()); */
         $request->authenticate('user');
+        /* dd(auth()->user()); */
+
 
         $request->session()->regenerate();
-
+        /* dd(auth()->user()); */
         return redirect()->route('home');
     }
 
@@ -135,13 +137,10 @@ class AuthenticatedSessionController extends Controller
     {
 
 
-        dd('reached');
         Auth::logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 

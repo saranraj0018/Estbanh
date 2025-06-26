@@ -30,13 +30,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+
+        $isAdmin = request()->is('admin/*') ? auth('admin')->user() : auth()->user();
+
         return [
             ...parent::share($request),
            'auth' => [
-            'user' => Auth::guard('admin')->user(), 
-            'permissions' => Auth::guard('admin')->user()?->role?->permissions ?? [],
-
-        ],
+                'user' => $isAdmin,
+                'permissions' =>  $isAdmin?->role?->permissions ?? [],
+            ],
             'route' => $request->route(),
             'notifications' => \App\Models\Notification::where('user_id', '=', '0')->get(),
             'flash' => [

@@ -45,7 +45,7 @@ Route::middleware(['guest'])->group( function() {
  * Admin Login
  */
 Route::prefix('admin')
-    ->middleware(['guest:admin'])
+    /* ->middleware(['guest:admin']) */
     ->group(function() {
 
         Route::get('login', function () {

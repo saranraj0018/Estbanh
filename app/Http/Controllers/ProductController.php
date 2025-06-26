@@ -13,13 +13,16 @@ class ProductController extends Controller {
 
 
     public function index() {
+
+        /* dd(dd(auth()->user()); ); */
+        /* dd(auth()->user()); */
         return Inertia::render('users/Home', [
             'products' => Product::take(3)->get()
         ]);
     }
 
 
-    
+
 
     public function search(Request $request) {
         return response()->json([
@@ -41,7 +44,7 @@ class ProductController extends Controller {
         return Inertia::render('users/ProductList', [
             'products' => Product::where('part_number', 'like', '%' . $search . '%')->get()
         ]);
-    
+
     }
 
 

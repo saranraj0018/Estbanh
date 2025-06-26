@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 
 const Navbar = () => {
     const user = usePage().props?.auth?.user;
+    console.log(user)
 
     return (
         <>
