@@ -134,6 +134,8 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
 
+
+        dd('reached');
         Auth::logout();
 
         $request->session()->invalidate();
@@ -212,7 +214,7 @@ class AuthenticatedSessionController extends Controller
             }
 
             DB::commit();
-            
+
             event(new UserRegistered(user: $user));
             return redirect()->route('register.thank-you');
         } catch (Exception $e) {

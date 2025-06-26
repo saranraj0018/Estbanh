@@ -1,21 +1,25 @@
-import { usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import React from "react";
 
 const SettingBar = ({ onClick, onSignOut }) => {
 
     const user = usePage().props.auth.user;
 
-    // Sign out functionality
-    const handleSignOut = async () => {
-        try {
-            const response = await axios.post('/admin/logout');
-            if (response.status === 200) {
-                window.location.href = "/admin/login";
+
+    const { post } = useForm();
+
+    const logout = (e) => {
+        e.preventDefault();
+        post(route('admin.logout.test'), {
+            onFinish: () => {
+                console.log("completed logout");
             }
-        } catch (error) {
-            console.error("Logout failed", error);
-        }
-    };
+        });
+
+        console.log("freaking yanked");
+    }
+
+
 
     return (
         <div className={`w-[300px] border-1 shadow-sm border-gray-200`}>
@@ -59,8 +63,7 @@ const SettingBar = ({ onClick, onSignOut }) => {
             <ul className="h-[90%] px-2 mt-3">
                 <li className="w-full rounded-md">
                     <button
-                        onClick={handleSignOut}  // Call sign out function here
-                        className="w-full px-2 py-2 rounded-lg flex gap-4 items-center hover:bg-gray-100"
+                        onClick={logout} className="w-full px-1 py-2 rounded-lg flex gap-4 items-center hover:bg-gray-100"
                     >
                         <svg
                             width="30px"
@@ -75,6 +78,7 @@ const SettingBar = ({ onClick, onSignOut }) => {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                             ></g>
+
                             <g id="SVGRepo_iconCarrier">
                                 <path
                                     d="M7.04401 9.53165C7.33763 9.23949 7.33881 8.76462 7.04665 8.47099C6.75449 8.17737 6.27962 8.17619 5.98599 8.46835L7.04401 9.53165ZM2.97099 11.4683C2.67737 11.7605 2.67619 12.2354 2.96835 12.529C3.26051 12.8226 3.73538 12.8238 4.02901 12.5317L2.97099 11.4683ZM4.02901 11.4683C3.73538 11.1762 3.26051 11.1774 2.96835 11.471C2.67619 11.7646 2.67737 12.2395 2.97099 12.5317L4.02901 11.4683ZM5.98599 15.5317C6.27962 15.8238 6.75449 15.8226 7.04665 15.529C7.33881 15.2354 7.33763 14.7605 7.04401 14.4683L5.98599 15.5317ZM3.5 11.25C3.08579 11.25 2.75 11.5858 2.75 12C2.75 12.4142 3.08579 12.75 3.5 12.75V11.25ZM17.5 12.75C17.9142 12.75 18.25 12.4142 18.25 12C18.25 11.5858 17.9142 11.25 17.5 11.25V12.75ZM5.98599 8.46835L2.97099 11.4683L4.02901 12.5317L7.04401 9.53165L5.98599 8.46835ZM2.97099 12.5317L5.98599 15.5317L7.04401 14.4683L4.02901 11.4683L2.97099 12.5317ZM3.5 12.75L17.5 12.75V11.25L3.5 11.25V12.75Z"

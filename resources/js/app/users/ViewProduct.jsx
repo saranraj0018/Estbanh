@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TimeIcon, TradeIcon, HeartIcon } from "@/components/icons";
 import UserLayout from "@/shared/layouts/UserLayout";
 import { Minus, Plus } from "lucide-react";
@@ -42,11 +42,10 @@ const ViewProduct = ({ product }) => {
                                         key={index}
                                         src={item}
                                         alt={`Thumbnail ${index}`}
-                                        className={`cursor-pointer mix-blend-multiply object-contain border-1 rounded-md w-full mx-auto ${
-                                            mainImage === item
-                                                ? "border-yellow-400"
-                                                : "border-transparent"
-                                        } hover:border-gray-300`}
+                                        className={`cursor-pointer mix-blend-multiply object-contain border-1 rounded-md w-full mx-auto ${mainImage === item
+                                            ? "border-yellow-400"
+                                            : "border-transparent"
+                                            } hover:border-gray-300`}
                                         onClick={() => setMainImage(item)} // Change main image on click
                                     />
                                 )
@@ -143,8 +142,8 @@ const ViewProduct = ({ product }) => {
                     </h2>
 
                     <div className="my-8  flex justify-between items-start flex-wrap space-y-2">
-                        {product?.detail?.product_details.map(
-                            ({name, value}, index) => (
+                        {product?.details?.product_details ? product?.detail?.product_details.map(
+                            ({ name, value }, index) => (
                                 <div key={index} className="w-full me-[2em]">
                                     <div className="flex items-center space-x-10">
                                         <h4 className="text-[13px] w-1/4 font-main font-bold capitalize">
@@ -157,7 +156,7 @@ const ViewProduct = ({ product }) => {
                                     </div>
                                 </div>
                             )
-                        )}
+                        ) : null}
                     </div>
                 </div>
             </section>

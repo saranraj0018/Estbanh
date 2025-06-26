@@ -14,10 +14,10 @@ import DefaultDeleteAction from "@/shared/DefaultDeleteAction";
 import { useForm } from "@inertiajs/react";
 import { useAdminDefaultContext } from "@/lib/context/AdminDefaultContext";
 import CategoryForm from "@/app/admin/_partials/categories/CategoryForm";
-import Image from "@/shared/Image";
+
 
 export default function Category({ categories }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, errors, reset } = useForm({
         name: "",
         slug: "",
     });
@@ -31,6 +31,7 @@ export default function Category({ categories }) {
             onSuccess: () => dispatchSideBarState(),
         });
     };
+
 
     const handleDelete = () => {
         post(route("delete-category", { id: object?.id }), {

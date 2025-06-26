@@ -19,7 +19,7 @@ class AdminAuthController extends Controller
     {
         return Auth::guard('admin');
     }
-    
+
 
 
      /**
@@ -42,9 +42,12 @@ class AdminAuthController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroys(Request $request): RedirectResponse
     {
 
+
+
+        dd('reached logout');
         Auth::guard('admin')->logout();
 
         $request->session()->invalidate();

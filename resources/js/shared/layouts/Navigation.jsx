@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
 
@@ -71,7 +69,7 @@ const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
                             strokeLinecap="round"
                         />
                     </svg>
-                   
+
                 </button>
                 <button className="bg-transparent border-0 outline-none" onClick={onSettingClick}>
                     <svg

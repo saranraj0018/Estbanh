@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController as ControllersProductController;
@@ -11,6 +12,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/order-tracking', [OrderController::class, 'index'])->name('tracking'); // TODO: Implement order tracking
     Route::post('/request-product', [ControllersProductController::class, 'requestProduct'])->name('request-product');
+    Route::get('/cart', [CartController::class, 'index']);
+
 
     /**
      * Notification
