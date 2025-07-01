@@ -14,7 +14,7 @@ import { usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import { useAdminDefaultContext } from "@/lib/context/AdminDefaultContext";
 import Image from "@/shared/Image";
-import ProductForm from "@/app/admin/_partials/products/forms/ProductForm";
+import ProductForm from "@/domain/admin/_partials/products/forms/ProductForm";
 
 export default function Product({ products, categories }) {
     const { auth } = usePage().props;
@@ -72,7 +72,7 @@ export default function Product({ products, categories }) {
             model: object.detail?.model ?? "",
         }
         // Handle 'detail' object
-        form.setData("detail", {...detailsData});
+        form.setData("detail", { ...detailsData });
     };
 
     const formContent =
@@ -119,59 +119,59 @@ export default function Product({ products, categories }) {
                     <StyledTableBody>
                         {products?.data
                             ? products?.data?.map((product, index) => (
-                                  <StyledTableRow key={index}>
-                                      <StyledTableCell>
-                                          {product.id}
-                                      </StyledTableCell>
-                                      <td className="ps-4">
-                                          <Image source={product.image} />
-                                      </td>
-                                      <StyledTableCell>
-                                          {product.name}
-                                      </StyledTableCell>
-                                      <StyledTableCell>
-                                          {product.part_number}
-                                      </StyledTableCell>
-                                      <StyledTableCell>
-                                          {product?.detail?.make}
-                                      </StyledTableCell>
-                                      <StyledTableCell>
-                                          {product?.detail?.model}
-                                      </StyledTableCell>
-                                      <StyledTableCell>
-                                          {product.description}
-                                      </StyledTableCell>
-                                      <StyledTableCell className="flex gap-2">
-                                        
-                                          {/* {canEdit && ( */}
-                                          <button
-                                              className="text-blue-600 font-main"
-                                              onClick={() => {
-                                                  setObject(product);
-                                                  createObjectUpdatedAction(
+                                <StyledTableRow key={index}>
+                                    <StyledTableCell>
+                                        {product.id}
+                                    </StyledTableCell>
+                                    <td className="ps-4">
+                                        <Image source={product.image} />
+                                    </td>
+                                    <StyledTableCell>
+                                        {product.name}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {product.part_number}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {product?.detail?.make}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {product?.detail?.model}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {product.description}
+                                    </StyledTableCell>
+                                    <StyledTableCell className="flex gap-2">
+
+                                        {/* {canEdit && ( */}
+                                        <button
+                                            className="text-blue-600 font-main"
+                                            onClick={() => {
+                                                setObject(product);
+                                                createObjectUpdatedAction(
                                                     product
-                                                  );
-                                              }}
-                                          >
-                                              Edit
-                                          </button>
-                                          {/* )} */}
-                                          {/* {canDelete && ( */}
-                                              <button
-                                                  className="text-red-500 font-main"
-                                                  onClick={() => {
-                                                      setObject(product);
-                                                      dispatchContextEvent(
-                                                          "deleting"
-                                                      );
-                                                  }}
-                                              >
-                                                  Delete
-                                              </button>
-                                          {/* )} */}
-                                      </StyledTableCell>
-                                  </StyledTableRow>
-                              ))
+                                                );
+                                            }}
+                                        >
+                                            Edit
+                                        </button>
+                                        {/* )} */}
+                                        {/* {canDelete && ( */}
+                                        <button
+                                            className="text-red-500 font-main"
+                                            onClick={() => {
+                                                setObject(product);
+                                                dispatchContextEvent(
+                                                    "deleting"
+                                                );
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        {/* )} */}
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))
                             : null}
                     </StyledTableBody>
                 </StyledTable>

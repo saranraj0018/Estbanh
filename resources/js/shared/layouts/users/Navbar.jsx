@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 
 const Navbar = () => {
     const user = usePage().props?.auth?.user;
-    console.log(user)
+   
 
     return (
         <>
@@ -73,12 +73,14 @@ const Navbar = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex relative w-max my-auto">
+                                    <Link
+                                        href="/cart"
+                                        className="flex relative w-max my-auto">
                                         <Cart color="white" />
                                         <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
                                             1
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
 
                                 <div className="my-auto">
@@ -101,7 +103,7 @@ const Navbar = () => {
                                             </span>
                                         </Link>
                                         <Link href={route("register")}>
-                                            <span className="text-secondary border-1 px-3 py-2 border-secondary rounded-full  font-main text-[13px]">
+                                            <span className="text-secondary border-2 px-3 py-2 border-secondary rounded-full  font-main text-[13px]">
                                                 Register
                                             </span>
                                         </Link>

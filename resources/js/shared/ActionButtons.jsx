@@ -14,7 +14,7 @@ const ActionButtons = ({ object, data, setData, permissions = [], module = "" })
                 } else {
                     setData(key, value);
                 }
-                console.log("updation Obj", key, value);
+               
             }
         });
     };

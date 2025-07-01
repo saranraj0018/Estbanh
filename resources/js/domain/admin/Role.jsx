@@ -10,7 +10,7 @@ import StyledTable, {
 import Pagination from "@/shared/Pagination";
 import ActionButtons from "@/shared/ActionButtons";
 import DefaultDeleteAction from "@/shared/DefaultDeleteAction";
-import RoleForm from "@/app/admin/_partials/roles/RoleForm";
+import RoleForm from "@/domain/admin/_partials/roles/RoleForm";
 import { usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import { useAdminDefaultContext } from "@/lib/context/AdminDefaultContext";

@@ -8,7 +8,7 @@ const Mobilebar = () => {
     const perms = auth?.permissions ?? [];
 
     return (
-        <div className={`w-[60px] border-1 shadow-sm border-gray-200`}>
+        <div className={`w-[60px] border-2 shadow-sm border-gray-200`}>
             <div className="p-2">
                 <ApplicationLogo className={`w-10`} />
             </div>

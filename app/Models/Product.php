@@ -85,5 +85,24 @@ class Product extends Model
     
         return $this->regular_price ?? 0.00;
     }
+
+
+
+
+    public function getWeightAttribute()
+    {
+        $firstFeature = $this->features?->first();
+    
+        if (
+            $firstFeature &&
+            isset($firstFeature->variants[0]['weight']) &&
+            !empty($firstFeature->variants[0]['weight'])
+        ) {
+            return $firstFeature->variants[0]['weight'];
+        }
+    
+        return $this->weight ?? 0;
+    }
+    
     
 }

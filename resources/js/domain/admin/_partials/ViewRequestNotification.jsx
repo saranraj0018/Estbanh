@@ -5,33 +5,17 @@ import {
     SecondaryButton,
     TextInput,
 } from "@/shared";
-import DangerButton from "@/shared/DangerButton";
 import Heading from "@/shared/Heading";
 import Text from "@/shared/Text";
 import { Head, Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
-const ViewRegisteredNotification = ({ notification, user }) => {
+const ViewRequestNotification = ({ notification, user }) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [preview, setPreview] = useState(null);
-    const [approval, setApproval] = useState(null);
-
+    const [updatedUserAboutNewProduct, setUpdatedUserAboutNewProduct] =
+        useState(false);
     const { post: deleteNotification } = useForm();
-
-    const { data, setData, post, processing, errors, reset } = useForm({
-        password: "",
-        password_confirmation: "",
-    });
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route("approve-user", user.id), {
-            onSuccess: () => {
-                reset(), setApproval(false);
-            },
-        });
-    };
 
     return (
         <AdminLayout>
@@ -54,7 +38,7 @@ const ViewRegisteredNotification = ({ notification, user }) => {
 
                     <div className="transition-all ease-out duration-500 mb-5">
                         {!isDeleting && (
-                            <div className="flex items-center mt-3 gap-4 bg-gray-50 border-1 border-gray-200 px-[2.5em] py-2">
+                            <div className="flex items-center mt-3 gap-4 bg-gray-50 border-2 border-gray-200 px-[2.5em] py-2">
                                 <div className="flex items-center gap-4 flex-1">
                                     <button
                                         onClick={() => setIsDeleting(true)}
@@ -63,24 +47,6 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                                         Delete Notification
                                     </button>
                                 </div>
-
-                                {!user?.status && (
-                                    <>
-                                        <Link
-                                            as="button"
-                                            className="text-red-500 rounded-md font-medium font-main text-xs"
-                                        >
-                                            Reject User
-                                        </Link>
-
-                                        <button
-                                            onClick={() => setApproval(true)}
-                                            className="text-blue-500 rounded-md font-medium font-main text-xs"
-                                        >
-                                            Accept User
-                                        </button>
-                                    </>
-                                )}
                             </div>
                         )}
 
@@ -96,7 +62,12 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        deleteNotification(notification.id);
+                                        deleteNotification(
+                                            route(
+                                                "delete-notification",
+                                                notification.id
+                                            )
+                                        );
                                     }}
                                     className="text-red-500 font-main hover:text-red-700 text-xs"
                                 >
@@ -105,71 +76,67 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                             </div>
                         )}
 
-                        {approval && (
-                            <div className="px-[2.5em] min-h-[20vh] w-full  my-10 border-b-2 border-gray-300 pb-5">
-                                <Heading>
-                                    Admit the user into the website
-                                </Heading>
-                                <Text>
-                                    You are now allowing the user to the website
-                                    by creating them a password and <br />{" "}
-                                    sending them the generated password through
-                                    email
-                                </Text>
-
-                                <form className="w-full mt-4" onSubmit={submit}>
-                                    <div className="w-full">
-                                        <InputLabel>Password *</InputLabel>
-                                        <TextInput
-                                            type="password"
-                                            onChange={(e) =>
-                                                setData(
-                                                    "password",
-                                                    e.target.value
-                                                )
-                                            }
-                                            value={data.password}
-                                            className="w-full mb-1"
-                                        />
-                                        <span className="text-red-500">
-                                            {errors.password}
-                                        </span>
-                                    </div>
-
-                                    <div className="w-full mt-5">
-                                        <InputLabel>
-                                            Confirm Password *
-                                        </InputLabel>
-                                        <TextInput
-                                            type="password"
-                                            onChange={(e) =>
-                                                setData(
-                                                    "password_confirmation",
-                                                    e.target.value
-                                                )
-                                            }
-                                            value={data.password_confirmation}
-                                            className="w-full"
-                                        />
-                                        <span className="text-red-500">
-                                            {errors.password_confirmation}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex justify-end items-center mt-10 gap-2">
-                                        <button
-                                            className="text-gray-500 font-medium font-main text-xs"
-                                            onClick={() => setApproval(false)}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button className="text-blue-700 bg-blue-50 border-1 border-blue-200 p-2 rounded-md font-main text-xs">
-                                            Send Approval Email (with creds)
-                                        </button>
-                                    </div>
-                                </form>
+                        <div className="px-[2.5em] min-h-[20vh] w-full  my-10 border-b-2 border-gray-300 pb-5">
+                            <h2 className="text-base font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
+                                Request
+                            </h2>
+                            <div className="space-y-2">
+                                <div className="flex justify-between">
+                                    <span className="text-black font-main text-[13px]">
+                                        Product Name
+                                    </span>
+                                    <span>{notification?.others?.name}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-black font-main text-[13px]">
+                                        Part Number
+                                    </span>
+                                    <span>
+                                        {notification?.others?.part_number}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-black font-main text-[13px]">
+                                        Description
+                                    </span>
+                                    <span>
+                                        {notification?.others?.description}
+                                    </span>
+                                </div>
                             </div>
-                        )}
+                            <div className="flex justify-end items-center mt-10 gap-2">
+                                {updatedUserAboutNewProduct && (
+                                    <Link
+                                        method="POST"
+                                        href={route(
+                                            "product-added-notification",
+                                            notification.id
+                                        )}
+                                        onClick={() =>
+                                            setUpdatedUserAboutNewProduct(true)
+                                        }
+                                        className="text-blue-700 bg-blue-50 border-2 border-blue-200 p-2 rounded-md font-main text-xs"
+                                    >
+                                        Resend product added notification
+                                    </Link>
+                                )}
+                                {!updatedUserAboutNewProduct && (
+                                    <Link
+                                        method="POST"
+                                        href={route(
+                                            "product-added-notification",
+                                            notification.id
+                                        )}
+                                        onClick={() =>
+                                            setUpdatedUserAboutNewProduct(true)
+                                        }
+                                        className="text-blue-700 bg-blue-50 border-2 border-blue-200 p-2 rounded-md font-main text-xs"
+                                    >
+                                        Send product added notification to user
+                                    </Link>
+                                )}
+                            </div>
+                        </div>
                     </div>
 
                     {/* User Info Section */}
@@ -191,27 +158,6 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                                         Email
                                     </span>
                                     <span>{user.email}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Other Info */}
-                        <div>
-                            <h2 className="text-base font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-                                Other Information
-                            </h2>
-                            <div className="space-y-1 text-gray-700">
-                                <div className="flex justify-between">
-                                    <span className="text-black font-main text-[13px]">
-                                        CNR
-                                    </span>
-                                    <span>{user.cnr_number}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-black font-main text-[13px]">
-                                        VAT
-                                    </span>
-                                    <span>{user.vat_number}</span>
                                 </div>
                             </div>
                         </div>
@@ -276,23 +222,16 @@ const ViewRegisteredNotification = ({ notification, user }) => {
                     </div>
 
                     <Heading className="text-base font-semibold text-gray-800 mb-4">
-                        User Documents
+                        Image
                     </Heading>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                        {user.documents.map((item, index) =>
-                            item.document_type !== "pdf" ? (
-                                <img
-                                    key={index}
-                                    onClick={() =>
-                                        setPreview(
-                                            `/storage/user-documents/${item.name}`
-                                        )
-                                    }
-                                    src={`/storage/user-documents/${item.name}`}
-                                    className="w-full aspect-square object-cover rounded-md border border-gray-200 shadow-sm hover:shadow-md transition cursor-pointer"
-                                />
-                            ) : null
-                        )}
+                        <img
+                            onClick={() =>
+                                setPreview(`/storage/${notification.image}`)
+                            }
+                            src={`/storage/${notification.image}`}
+                            className="w-full aspect-square object-cover rounded-md border border-gray-200 shadow-sm hover:shadow-md transition cursor-pointer"
+                        />
                     </div>
                     {preview && (
                         <img
@@ -306,4 +245,4 @@ const ViewRegisteredNotification = ({ notification, user }) => {
     );
 };
 
-export default ViewRegisteredNotification;
+export default ViewRequestNotification;

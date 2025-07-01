@@ -82,7 +82,7 @@ export default function RegisterDocuments() {
                             handlerLayout={(open) => (
                                 <div
                                     onClick={open}
-                                    className="flex flex-col items-center justify-center border-1 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-28 w-40"
+                                    className="flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-all h-28 w-40"
                                 >
                                     <span className="text-indigo-600 font-medium text-sm">
                                         + Upload

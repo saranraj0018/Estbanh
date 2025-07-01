@@ -1,16 +1,19 @@
 import { TimeIcon } from "@/components/icons";
-import { Link } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import { Minus, Plus } from "lucide-react";
 import { memo, useState } from "react";
 
 const ListItem = ({ product }) => {
-    const [quantity, setQuantity] = useState(1);
+    const { data, setData, errors, post } = useForm({
+        productId: product.id,
+        quantity: 1,
+    });
 
     const decrement = (e) => {
         e.preventDefault();
 
-        if (quantity > 1) {
-            setQuantity((quantity) => quantity - 1);
+        if (data.quantity > 1) {
+            setData("quantity", data.quantity - 1);
         }
         return true;
     };
@@ -18,12 +21,21 @@ const ListItem = ({ product }) => {
     const increment = (e) => {
         e.preventDefault();
 
-        setQuantity((quantity) => quantity + 1);
+        setData("quantity", data.quantity + 1);
         return true;
     };
 
+    const addToCart = (e) => {
+        e.preventDefault();
+        post(route("create.cart"), {
+            onSuccess: () => {
+                router.visit(route("cart"));
+            },
+        });
+    };
+
     return (
-        <div className="bg-white border-1 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-46 mb-3">
+        <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-46 mb-3">
             <div className="bg-gray-300 w-1/4 h-46">
                 <img
                     src={product.image}
@@ -56,16 +68,16 @@ const ListItem = ({ product }) => {
                     </div>
                     <div className="flex gap-1 items-center">
                         <span className="text-2xl font-medium font-main text-black me-4">
-                            ₹{product.discount_price * quantity}
+                            ₹{product.discount_price * data.quantity}
                         </span>
                         <button
                             onClick={(e) => decrement(e)}
-                            className="p-1 border-1 border-gray-700 rounded-md"
+                            className="p-1 border-2 border-gray-700 rounded-md"
                         >
                             <Minus className="w-5 h-5" />
                         </button>
                         <p className="text-primary text-xl font-main  font-medium px-2">
-                            {quantity}
+                            {data.quantity}
                         </p>
                         <button
                             onClick={(e) => increment(e)}
@@ -99,7 +111,7 @@ const ListItem = ({ product }) => {
                                 View Product
                             </button>
                         </Link>
-                        <button className="bg-secondary rounded-md text-[13px] w-32 block text-black font-medium font-primary p-2">
+                        <button onClick={addToCart} className="bg-secondary rounded-md text-[13px] w-32 block text-black font-medium font-primary p-2">
                             Add to Cart
                         </button>
                     </div>

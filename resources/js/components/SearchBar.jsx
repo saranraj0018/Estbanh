@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import S1 from "@/public/images/home/S1.png";
-import Suggestions from "./Suggestions";
+
+import Suggestion from "./Suggestion";
 import { SearchIcon } from "@/components/icons";
 import { router, useForm } from "@inertiajs/react";
 import axios from "axios";
@@ -15,14 +15,13 @@ const SearchBar = () => {
         search: "",
     });
 
-
     const { addToSearchHistory } = useSearchHistory();
 
     const submit = async (e) => {
         e.preventDefault();
-        if(data.search.length) {
+        if (data.search.length) {
             addToSearchHistory(data.search);
-            router.get(route("products-list",  { search: data.search }))
+            router.get(route("products-list", { search: data.search }));
         }
     };
 
@@ -52,7 +51,7 @@ const SearchBar = () => {
                 {/* Search Input */}
                 <form
                     onSubmit={submit}
-                    className="py-[2px] px-[4px] border-1 border-secondary bg-white rounded-xl w-[500px] flex space-x-2"
+                    className="py-[2px] px-[4px] border-2 border-secondary bg-white rounded-xl w-[500px] flex space-x-2"
                 >
                     <select className="border-none font-main rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[11px] md:text-[13px] pe-2 md:pe-auto">
                         <option value="Make">Make</option>
@@ -74,13 +73,22 @@ const SearchBar = () => {
                     >
                         Clear
                     </button>
-                    <button type="submit" className="bg-secondary text-black font-main py-2 px-1 md:px-3 flex font-regular my-auto rounded-[10px] text-[12px] md:text-[13px]">
+                    <button
+                        type="submit"
+                        className="bg-secondary text-black font-main py-2 px-1 md:px-3 flex font-regular my-auto rounded-[10px] text-[12px] md:text-[13px]"
+                    >
                         <div className="my-auto me-1">{SearchIcon}</div>
                         Search
                     </button>
                 </form>
 
-                {dataset.length > 0 && <Suggestions Suggestions={dataset} />}
+                {dataset.length > 0 && (
+                    <div className="absolute w-full mt-2 bg-white shadow-md rounded-md p-3 space-y-3">
+                        {dataset.map((item, index) => (
+                            <Suggestion suggestion={item} key={index} />
+                        ))}
+                    </div>
+                )}
 
                 {isActive && dataset.length === 0 && (
                     <div className="absolute bg-white border border-gray-200 w-full mt-1 p-2 rounded-md shadow-md text-gray-500">

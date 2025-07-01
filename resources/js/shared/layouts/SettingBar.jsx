@@ -16,13 +16,13 @@ const SettingBar = ({ onClick, onSignOut }) => {
             }
         });
 
-        console.log("freaking yanked");
+      
     }
 
 
 
     return (
-        <div className={`w-[300px] border-1 shadow-sm border-gray-200`}>
+        <div className={`w-[300px] border-2 shadow-sm border-gray-200`}>
             <div className="h-[40px] px-3 flex justify-start items-center gap-3 border-b-2">
                 <button className="" onClick={onClick}>
                     <svg
