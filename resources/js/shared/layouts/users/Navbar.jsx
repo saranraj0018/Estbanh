@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 
 const Navbar = () => {
     const user = usePage().props?.auth?.user;
-   
+    const cart = usePage().props.usercart;
 
     return (
         <>
@@ -68,9 +68,9 @@ const Navbar = () => {
                                 <div className="flex gap-5">
                                     <div className="flex relative w-max my-auto">
                                         <Heart color="white" />
-                                        <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
+                                        {/* <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
                                             1
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     <Link
@@ -78,7 +78,7 @@ const Navbar = () => {
                                         className="flex relative w-max my-auto">
                                         <Cart color="white" />
                                         <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
-                                            1
+                                            {cart.count}
                                         </div>
                                     </Link>
                                 </div>
@@ -87,7 +87,7 @@ const Navbar = () => {
                                     <p className="text-secondary text-[10px]">
                                         Your Cart Value
                                     </p>
-                                    <p className="text-[14px] text-white">₹0.00</p>
+                                    <p className="text-[14px] text-white">₹ {cart.grandTotal}</p>
                                 </div>
                             </>
 

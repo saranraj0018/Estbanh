@@ -120,6 +120,7 @@ class CartRepository implements Cart
             "shipping" => $shipping,
             "totalWeight" => $cart->sum('overall_weight') . 'g',
             "grandTotal" => $subTotal - $shipping,
+            "count" => $cart->count()
         ];
     }
 
