@@ -14,8 +14,8 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
         resolvePageComponent(
-            `./app/${name}.jsx`,
-            import.meta.glob('./app/**/*.jsx')
+            `./domain/${name}.jsx`,
+            import.meta.glob('./domain/**/*.jsx')
         ),
     setup({ el, App, props }) {
         const root = createRoot(el);

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
 
     return (
         <div
-            className={`border-1 shadow-sm border-gray-200 h-[40px] flex justify-between items-center px-4`}
+            className={`border-2 shadow-sm border-gray-200 h-[40px] flex justify-between items-center px-4`}
         >
             <button className="bg-transparent border-0 outline-none" onClick={onOpenSideBar}>
                 <svg
@@ -71,7 +69,7 @@ const Navigation = ({ onOpenSideBar, onNotificationClick, onSettingClick }) => {
                             strokeLinecap="round"
                         />
                     </svg>
-                   
+
                 </button>
                 <button className="bg-transparent border-0 outline-none" onClick={onSettingClick}>
                     <svg

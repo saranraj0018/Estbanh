@@ -16,7 +16,7 @@ Route::middleware(['guest'])->group( function() {
         return Inertia::render('auth/UserLogin');
     })->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'login']);
+   Route::post('login', [AuthenticatedSessionController::class, 'login']);
 
 
     //Register page
@@ -45,7 +45,7 @@ Route::middleware(['guest'])->group( function() {
  * Admin Login
  */
 Route::prefix('admin')
-    ->middleware(['guest:admin'])
+    /* ->middleware(['guest:admin']) */
     ->group(function() {
 
         Route::get('login', function () {
@@ -55,6 +55,7 @@ Route::prefix('admin')
         Route::post('login', [AdminAuthController::class, 'login'])
             ->name('admin.login');
 
+        Route::post('/test/logout', [AdminAuthController::class, 'destroy'])->name('admin.logout.test');
     });
 
 

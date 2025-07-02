@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 
 const Navbar = () => {
     const user = usePage().props?.auth?.user;
+    const cart = usePage().props.usercart;
 
     return (
         <>
@@ -60,28 +61,37 @@ const Navbar = () => {
                     </Link>
                     <SearchBar />
                     <div className="flex items-center gap-10">
-                        <div className="flex gap-5">
-                            <div className="flex relative w-max my-auto text-gray-500">
-                                <Heart color="gray" />
-                                {/* <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
-                                    1
-                                </div> */}
-                            </div>
+                        {user ? (
+                            <>
 
-                            <div className="flex relative w-max my-auto">
-                                <Cart color="gray" />
-                                {/* <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
-                                    1
-                                </div> */}
-                            </div>
-                        </div>
 
-                        <div className="my-auto">
-                            <p className=" text-secondary text-[10px]">
-                                Your Cart Value
-                            </p>
-                            <p className="text-gray-500 text-[14px] ">₹0.00</p>
-                        </div>
+                                <div className="flex gap-5">
+                                    <div className="flex relative w-max my-auto">
+                                        <Heart color="white" />
+                                        {/* <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
+                                            1
+                                        </div> */}
+                                    </div>
+
+                                    <Link
+                                        href="/cart"
+                                        className="flex relative w-max my-auto">
+                                        <Cart color="white" />
+                                        <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
+                                            {cart.count}
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                <div className="my-auto">
+                                    <p className="text-secondary text-[10px]">
+                                        Your Cart Value
+                                    </p>
+                                    <p className="text-[14px] text-white">₹ {cart.grandTotal}</p>
+                                </div>
+                            </>
+
+                        ) : null}
 
                         <div className="flex gap-4 items-center justify-start">
                             <AuthState
@@ -93,7 +103,7 @@ const Navbar = () => {
                                             </span>
                                         </Link>
                                         <Link href={route("register")}>
-                                            <span className="text-secondary border-1 px-3 py-2 border-secondary rounded-full  font-main text-[13px]">
+                                            <span className="text-secondary border-2 px-3 py-2 border-secondary rounded-full  font-main text-[13px]">
                                                 Register
                                             </span>
                                         </Link>
@@ -111,9 +121,9 @@ const Navbar = () => {
                                                     src={Avatar}
                                                     alt=""
                                                     className="w-8 h-8 my-auto"
-                                                /> 
+                                                />
                                                 <span className="text-white font-main text-[12px] ">{user?.name}</span>
-                                                <ChevronDown color="#fff"/>
+                                                <ChevronDown color="#fff" />
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>

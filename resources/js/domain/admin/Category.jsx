@@ -8,20 +8,18 @@ import StyledTable, {
     StyledTableRow,
 } from "@/shared/styled/StyledTable";
 import Pagination from "@/shared/Pagination";
+import { usePage } from "@inertiajs/react";
 import ActionButtons from "@/shared/ActionButtons";
 import DefaultDeleteAction from "@/shared/DefaultDeleteAction";
-import { usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import { useAdminDefaultContext } from "@/lib/context/AdminDefaultContext";
-import SubCategoryForm from "@/app/admin/_partials/subcategories/SubCategoryForm";
+import CategoryForm from "@/domain/admin/_partials/categories/CategoryForm";
 
-export default function SubCategory({ subCategories, categories }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+
+export default function Category({ categories }) {
+    const { data, setData, post, errors, reset } = useForm({
         name: "",
-        category_id: null,
         slug: "",
-        description: "",
-        image: null,
     });
 
     const { auth } = usePage().props;
@@ -29,34 +27,34 @@ export default function SubCategory({ subCategories, categories }) {
         useAdminDefaultContext();
 
     const handleCreate = () => {
-        post(route("create-sub-category", { id: object?.id }), {
+        post(route("create-category", { id: object?.id }), {
             onSuccess: () => dispatchSideBarState(),
         });
     };
 
+
     const handleDelete = () => {
-        post(route("delete-sub-category", { id: object?.id }), {
+        post(route("delete-category", { id: object?.id }), {
             onSuccess: () => dispatchSideBarState(),
         });
     };
 
     const formContent =
         getObjectMountState() === "deleting" ? (
-            <DefaultDeleteAction title="Sub Category" onDelete={handleDelete} />
-        ) :auth.permissions.includes("create_subcategories") ? (
-            <SubCategoryForm
+            <DefaultDeleteAction title="Category" onDelete={handleDelete} />
+        ) : auth.permissions.includes("create_categories") ? (
+            <CategoryForm
                 data={data}
                 errors={errors}
                 setData={setData}
                 onSubmit={handleCreate}
-                categories={categories}
             />
-        ):null;
+        ) : null;
 
     return (
         <AdminLayout className="p-3">
             <DefaultPageLayout
-                title="Sub Category"
+                title="Category"
                 reset={reset}
                 form={formContent}
             >
@@ -64,9 +62,7 @@ export default function SubCategory({ subCategories, categories }) {
                     <StyledTableHeader>
                         <tr>
                             <StyledTableHeaderCell>Id</StyledTableHeaderCell>
-                            <StyledTableHeaderCell>
-                                Category
-                            </StyledTableHeaderCell>
+
                             <StyledTableHeaderCell>Name</StyledTableHeaderCell>
                             <StyledTableHeaderCell>Slug</StyledTableHeaderCell>
                             <StyledTableHeaderCell>
@@ -75,29 +71,24 @@ export default function SubCategory({ subCategories, categories }) {
                         </tr>
                     </StyledTableHeader>
                     <StyledTableBody>
-                        {subCategories.data.map((subCategory, index) => (
+                        {categories.data.map((category, index) => (
                             <StyledTableRow key={index}>
-
                                 <StyledTableCell>
-                                    {subCategory.id}
+                                    {category.id}
                                 </StyledTableCell>
 
                                 <StyledTableCell>
-                                    {subCategory?.category?.name}
+                                    {category.name}
                                 </StyledTableCell>
                                 <StyledTableCell>
-                                    {subCategory.name}
+                                    {category.slug}
                                 </StyledTableCell>
-                                <StyledTableCell>
-                                    {subCategory.slug}
-                                </StyledTableCell>
-
                                 <StyledTableCell className="flex gap-2">
                                     <ActionButtons
-                                        object={subCategory}
+                                        object={category}
                                         data={data}
                                         setData={setData}
-                                         module="subcategories"
+                                        module="categories"
                                     />
                                 </StyledTableCell>
                             </StyledTableRow>
@@ -105,7 +96,7 @@ export default function SubCategory({ subCategories, categories }) {
                     </StyledTableBody>
                 </StyledTable>
 
-                <Pagination collection={subCategories} />
+                <Pagination collection={categories} />
             </DefaultPageLayout>
         </AdminLayout>
     );

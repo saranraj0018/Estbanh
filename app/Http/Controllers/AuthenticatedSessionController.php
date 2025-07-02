@@ -118,11 +118,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function login(LoginRequest $request): RedirectResponse
     {
-
+        /* dd(Auth::user()); */
         $request->authenticate('user');
+        /* dd(auth()->user()); */
+
 
         $request->session()->regenerate();
-
+        /* dd(auth()->user()); */
         return redirect()->route('home');
     }
 
@@ -134,12 +136,11 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
 
+
         Auth::logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 
@@ -212,7 +213,7 @@ class AuthenticatedSessionController extends Controller
             }
 
             DB::commit();
-            
+
             event(new UserRegistered(user: $user));
             return redirect()->route('register.thank-you');
         } catch (Exception $e) {

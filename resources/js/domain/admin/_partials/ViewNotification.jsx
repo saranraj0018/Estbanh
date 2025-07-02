@@ -12,7 +12,7 @@ const ViewNotification = ({ notification }) => {
         <AdminLayout className="p-3">
             <Head title={`${notification.title}`} />
             <div className="flex items-start justify-between">
-                <div className="w-[60%] border-1 h-[80vh] border-gray-400">
+                <div className="w-[60%] border-2 h-[80vh] border-gray-400">
                     <Heading>{notification.title}</Heading>
                     <Text>{notification.description}</Text>
                     <p className="text-[10px] text-gray-400 mt-1">

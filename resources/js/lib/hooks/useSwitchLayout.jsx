@@ -55,7 +55,7 @@ export const useSwitchLayout = (data, totalSteps, onSubmit) => {
                             disabled={!canProceed}
                             onClick={() => {
                                 nextStep();
-                                console.log(data);
+                              
                             }}
                         >
                             Next

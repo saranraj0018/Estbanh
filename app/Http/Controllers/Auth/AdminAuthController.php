@@ -19,7 +19,7 @@ class AdminAuthController extends Controller
     {
         return Auth::guard('admin');
     }
-    
+
 
 
      /**
@@ -45,6 +45,9 @@ class AdminAuthController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
 
+
+
+        /* dd('reached logout'); */
         Auth::guard('admin')->logout();
 
         $request->session()->invalidate();

@@ -42,7 +42,7 @@ const ProductDetailsForm = ({ productDetails }) => {
         if (nameExists) newErrors.name = "Name must be unique.";
 
         if (Object.keys(newErrors).length) {
-            console.log(data);
+           
             setErrors(newErrors);
             return;
         }

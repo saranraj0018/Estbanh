@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TimeIcon, TradeIcon, HeartIcon } from "@/components/icons";
 import UserLayout from "@/shared/layouts/UserLayout";
 import { Minus, Plus } from "lucide-react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 
 const ViewProduct = ({ product }) => {
     // Set initial main image to the first image in the array
     const [mainImage, setMainImage] = useState(product.image);
 
-    const { data, setData, reset } = useForm({
+    const {
+        data,
+        setData,
+        errors,
+        post,
+    } = useForm({
+        productId: product.id,
         quantity: 1,
     });
 
+
     const decrement = (e) => {
         e.preventDefault();
-        console.log(data);
 
         if (data.quantity > 1) {
             setData("quantity", data.quantity - 1);
@@ -28,12 +34,23 @@ const ViewProduct = ({ product }) => {
         return true;
     };
 
+
+
+    const addToCart = (e) => {
+        e.preventDefault();
+        post(route("create.cart"), {
+            onSuccess: () => {
+                router.visit(route("cart"));
+            },
+        });
+    };
+
     return (
         <UserLayout>
             <Head title={product.name} />
 
             <section className="px-[8em]">
-                <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-1 border-gray-300">
+                <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-2 border-gray-300">
                     <div className="flex gap-[3em] items-center w-1/2 min-h-[50vh]">
                         <div className="w-32 h-[50vh] overflow-auto flex flex-col gap-5">
                             {[...product?.images, product?.image]?.map(
@@ -42,7 +59,7 @@ const ViewProduct = ({ product }) => {
                                         key={index}
                                         src={item}
                                         alt={`Thumbnail ${index}`}
-                                        className={`cursor-pointer mix-blend-multiply object-contain border-1 rounded-md w-full mx-auto ${
+                                        className={`cursor-pointer mix-blend-multiply object-contain border-2 rounded-md w-full mx-auto ${
                                             mainImage === item
                                                 ? "border-yellow-400"
                                                 : "border-transparent"
@@ -128,7 +145,7 @@ const ViewProduct = ({ product }) => {
                             </span>
                         </div>
                         <div className="flex gap-3 mt-[1em]">
-                            <button className="border-primary border-[1px] rounded-md text-md w-full text-primary font-medium font-primary p-2">
+                            <button onClick={addToCart}  className="border-primary border-[1px] rounded-md text-md w-full text-primary font-medium font-primary p-2">
                                 Add to Cart
                             </button>
                             <button className="bg-secondary rounded-md text-md w-full text-black font-medium font-primary p-2">
@@ -137,27 +154,32 @@ const ViewProduct = ({ product }) => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-[2em] gap-[4em] bg-white p-10 rounded-lg border-1 border-gray-300">
+                <div className="mt-[2em] gap-[4em] bg-white p-10 rounded-lg border-2 border-gray-300">
                     <h2 className="text-2xl font-main text-black font-medium">
                         Product Details
                     </h2>
 
                     <div className="my-8  flex justify-between items-start flex-wrap space-y-2">
-                        {product?.detail?.product_details.map(
-                            ({name, value}, index) => (
-                                <div key={index} className="w-full me-[2em]">
-                                    <div className="flex items-center space-x-10">
-                                        <h4 className="text-[13px] w-1/4 font-main font-bold capitalize">
-                                            {name.replace(/_/g, " ")}
-                                        </h4>
+                        {product?.detail?.product_details
+                            ? product?.detail?.product_details.map(
+                                  ({ name, value }, index) => (
+                                      <div
+                                          key={index}
+                                          className="w-full me-[2em]"
+                                      >
+                                          <div className="flex items-center space-x-10">
+                                              <h4 className="text-[13px] w-1/4 font-main font-bold capitalize">
+                                                  {name.replace(/_/g, " ")}
+                                              </h4>
 
-                                        <div className="w-full font-main font-normal text-primary">
-                                            <p>{value}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        )}
+                                              <div className="w-full font-main font-normal text-primary">
+                                                  <p>{value}</p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  )
+                              )
+                            : null}
                     </div>
                 </div>
             </section>

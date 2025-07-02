@@ -1,14 +1,11 @@
-
-
 export const useAttributesForm = (data, setData) => {
+    const { features } = data;
 
-    const { features } = data
-    
     const setAttributes = (dataOrUpdater) => {
         if (typeof dataOrUpdater === "function") {
-            setData('features', dataOrUpdater(features));
+            setData("features", dataOrUpdater(features));
         } else {
-            setData('features', dataOrUpdater);
+            setData("features", dataOrUpdater);
         }
     };
 
@@ -52,6 +49,9 @@ export const useAttributesForm = (data, setData) => {
                           variants: [
                               ...attr.variants,
                               {
+                                  id:
+                                      Math.random().toString(36).substring(2) +
+                                      Date.now().toString(36),
                                   varient: "",
                                   weight: "",
                                   sale_price: "",
@@ -74,7 +74,9 @@ export const useAttributesForm = (data, setData) => {
                 i === attrIndex
                     ? {
                           ...attr,
-                          variants: attr.variants.filter((_, vi) => vi !== variantIndex),
+                          variants: attr.variants.filter(
+                              (_, vi) => vi !== variantIndex
+                          ),
                       }
                     : attr
             )
@@ -98,8 +100,6 @@ export const useAttributesForm = (data, setData) => {
         );
     };
 
-
-
     return {
         attributes: features,
         setAttributes,
@@ -109,7 +109,6 @@ export const useAttributesForm = (data, setData) => {
         handleAttributeNameChange,
         handleAddVariant,
         handleRemoveVariant,
-        handleVariantChange
-    }
-
-}
+        handleVariantChange,
+    };
+};

@@ -123,7 +123,7 @@ const Attribute = ({
             />
 
             {!attr.minimized && (
-                <div className="border-1 border-gray-300 rounded-lg mt-10">
+                <div className="border-2 border-gray-300 rounded-lg mt-10">
                     <div className="">
                         <div className="flex justify-between items-center">
                             <h1 className="text-[14px] font-bold">Variants</h1>
