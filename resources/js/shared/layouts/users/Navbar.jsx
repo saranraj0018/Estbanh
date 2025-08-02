@@ -63,8 +63,6 @@ const Navbar = () => {
                     <div className="flex items-center gap-10">
                         {user ? (
                             <>
-
-
                                 <div className="flex gap-5">
                                     <div className="flex relative w-max my-auto">
                                         <Heart color="white" />
@@ -75,7 +73,8 @@ const Navbar = () => {
 
                                     <Link
                                         href="/cart"
-                                        className="flex relative w-max my-auto">
+                                        className="flex relative w-max my-auto"
+                                    >
                                         <Cart color="white" />
                                         <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
                                             {cart.count}
@@ -87,10 +86,11 @@ const Navbar = () => {
                                     <p className="text-secondary text-[10px]">
                                         Your Cart Value
                                     </p>
-                                    <p className="text-[14px] text-white">₹ {cart.grandTotal}</p>
+                                    <p className="text-[14px] text-white">
+                                        ₹ {cart.grandTotal}
+                                    </p>
                                 </div>
                             </>
-
                         ) : null}
 
                         <div className="flex gap-4 items-center justify-start">
@@ -122,7 +122,9 @@ const Navbar = () => {
                                                     alt=""
                                                     className="w-8 h-8 my-auto"
                                                 />
-                                                <span className="text-white font-main text-[12px] ">{user?.name}</span>
+                                                <span className="text-white font-main text-[12px] ">
+                                                    {user?.name}
+                                                </span>
                                                 <ChevronDown color="#fff" />
                                             </button>
                                         </span>
@@ -130,7 +132,7 @@ const Navbar = () => {
 
                                     <Dropdown.Content className="bg-primary">
                                         <Dropdown.Link
-                                            href={route('logout')}
+                                            href={route("logout")}
                                             method="post"
                                             as="button"
                                             className="bg-primary text-white hover:bg-gray-900"

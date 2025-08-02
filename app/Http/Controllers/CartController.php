@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Response;
 
 
@@ -26,11 +27,91 @@ class CartController extends BaseController
     public function index(): Response
     {
 
+        // Cache::flush();
         return inertia('users/Cart', [
             'cart' => $this->cart->get(),
             "invoice" => $this->cart->getCartValue()
         ]);
     }
+
+
+
+    /**
+     * @return Response
+     */
+    public function createCart(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'name' => 'required',
+            ]);
+
+            # increment the product from the cart
+            if (!$this->cart->createCart("#cart_" . $request->name))
+                throw new \Exception('Something Went Wrong', 500);
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+
+
+
+    /**
+     * @return Response
+     */
+    public function switchCart(Request $request)
+    {
+        try {
+
+            # Validate cart
+            $request->validate([
+                'cartId' => 'required',
+            ]);
+
+            # increment the product from the cart
+            if (!$this->cart->switchCart($request->cartId))
+                throw new \Exception('Something Went Wrong', 500);
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * @return Response
+     */
+    public function deleteCart()
+    {
+        try {
+
+            # increment the product from the cart
+            if (!$this->cart->deleteCart())
+                throw new \Exception('Something Went Wrong', 500);
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+
 
 
 
@@ -50,12 +131,13 @@ class CartController extends BaseController
                 'quantity' => 'required|integer|min:1'
             ]);
 
+            $cart = ["productId" => $request->productId, "quantity" => $request->quantity];
+
             # make and action to the cart
-            if (!$this->cart->add(productId: $request->productId, quantity: $request->quantity))
+            if (!$this->cart->addToCart($cart))
                 throw new \Exception('Something Went Wrong', 500);
 
             return redirect()->back();
-
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -86,7 +168,6 @@ class CartController extends BaseController
                 throw new \Exception('Something Went Wrong', 500);
 
             return redirect()->back();
-
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -116,7 +197,6 @@ class CartController extends BaseController
                 throw new \Exception('Something Went Wrong', 500);
 
             return redirect()->back();
-
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -142,14 +222,12 @@ class CartController extends BaseController
             ]);
 
             # decrement the product from the cart
-            if (!$this->cart->remove(productId: $request->productId))
+            if (!$this->cart->removeFromCart($request->productId))
                 throw new \Exception('Something Went Wrong', 500);
 
             return redirect()->back();
-
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 }
-

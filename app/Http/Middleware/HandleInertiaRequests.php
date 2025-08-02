@@ -11,9 +11,7 @@ class HandleInertiaRequests extends Middleware
 {
 
 
-    public function __construct(public readonly Cart $cart) {
-
-    }
+    public function __construct(public readonly Cart $cart) {}
 
 
     /**
@@ -39,23 +37,25 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
 
-        $isAdmin = request()->is('admin/*') ? auth('admin')->user() : auth()->user();
+        $isAdmin = request()->is('admin/*') ? auth('admin')->user() : Auth::user();
 
 
         return [
             ...parent::share($request),
-           'auth' => [
+            'auth' => [
                 'user' => $isAdmin,
                 'permissions' =>  $isAdmin?->role?->permissions ?? [],
             ],
 
             'usercart' => $this->cart->getCartValue(),
+            'carts' => $this->cart->getCartList(),
+            'activeCart' => $this->cart->getActiveCartName(),
 
             'route' => $request->route(),
             'notifications' => \App\Models\Notification::where('user_id', '=', '0')->get(),
             'flash' => [
-                'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error')
+                'success' => fn() => $request->session()->get('success'),
+                'error' => fn() => $request->session()->get('error')
             ],
         ];
     }

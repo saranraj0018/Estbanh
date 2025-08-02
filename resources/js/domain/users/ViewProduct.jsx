@@ -3,21 +3,16 @@ import { TimeIcon, TradeIcon, HeartIcon } from "@/components/icons";
 import UserLayout from "@/shared/layouts/UserLayout";
 import { Minus, Plus } from "lucide-react";
 import { Head, router, useForm } from "@inertiajs/react";
+import SelectCart from "./_partials/cart/SelectCart";
 
 const ViewProduct = ({ product }) => {
     // Set initial main image to the first image in the array
     const [mainImage, setMainImage] = useState(product.image);
 
-    const {
-        data,
-        setData,
-        errors,
-        post,
-    } = useForm({
+    const { data, setData, errors, post } = useForm({
         productId: product.id,
         quantity: 1,
     });
-
 
     const decrement = (e) => {
         e.preventDefault();
@@ -33,8 +28,6 @@ const ViewProduct = ({ product }) => {
         setData("quantity", data.quantity + 1);
         return true;
     };
-
-
 
     const addToCart = (e) => {
         e.preventDefault();
@@ -89,8 +82,12 @@ const ViewProduct = ({ product }) => {
                                     {product.name}
                                 </h2>
                             </div>
-                            <div className="my-auto bg-[#FFEEC6] p-1 rounded-full">
-                                <HeartIcon />
+
+                            <div className="flex items-center gap-2">
+                                <SelectCart />
+                                <div className="my-auto bg-[#FFEEC6] p-1 rounded-full">
+                                    <HeartIcon />
+                                </div>
                             </div>
                         </div>
 
@@ -145,7 +142,10 @@ const ViewProduct = ({ product }) => {
                             </span>
                         </div>
                         <div className="flex gap-3 mt-[1em]">
-                            <button onClick={addToCart}  className="border-primary border-[1px] rounded-md text-md w-full text-primary font-medium font-primary p-2">
+                            <button
+                                onClick={addToCart}
+                                className="border-primary border-[1px] rounded-md text-md w-full text-primary font-medium font-primary p-2"
+                            >
                                 Add to Cart
                             </button>
                             <button className="bg-secondary rounded-md text-md w-full text-black font-medium font-primary p-2">

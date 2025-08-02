@@ -18,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\Cart::class,
             \App\Repositories\CartRepository::class,
         );
+
+        $this->app->bind(
+            \App\Contracts\CartManager::class,
+            \App\Repositories\CartManagerRepository::class,
+        );
     }
 
     /**

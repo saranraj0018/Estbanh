@@ -31,6 +31,11 @@ Route::middleware(['auth'])->group(function () {
      * Cart
      */
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/create-cart', [CartController::class, 'createCart'])->name('create-cart');
+    Route::post('/switch-cart', [CartController::class, 'switchCart'])->name('switch-cart');
+    Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('delete-cart');
+
+
     Route::post('/cart', [CartController::class, 'create'])->name('create.cart');
     Route::post('/cart/decrement', [CartController::class, 'decrement'])->name('decrement.cart');
     Route::post('/cart/increment', [CartController::class, 'increment'])->name('increment.cart');

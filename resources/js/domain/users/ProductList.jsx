@@ -6,6 +6,7 @@ import { Head, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import ListItem from "./_partials/products/ListItem";
 import RequestProduct from "./_partials/products/RequestProduct";
+import SelectCart from "./_partials/cart/SelectCart";
 
 const ProductList = ({ products }) => {
     const { search } = usePage().props.route.parameters;
@@ -26,8 +27,15 @@ const ProductList = ({ products }) => {
 
             <section className="px-[8em]">
                 <div className="mt-[1em]  bg-white p-5 rounded-lg border-2 border-gray-300">
-                    <h1 className="font-main text-xl">Results for {search}</h1>
-
+                    <div className="flex items-center justify-between">
+                        <h1 className="font-main text-xl">
+                            Results for {search}
+                        </h1>
+                        <div className="flex items-center gap-2">
+                            <span>Active Cart: </span>
+                            <SelectCart />
+                        </div>
+                    </div>
                     <div className="flex items-start gap-[1em] mt-[3em] w-full">
                         <div className="w-[30%] p-5">
                             <div className="bg-white border-2 border-gray-300 rounded-xl p-5">
