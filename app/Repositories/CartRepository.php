@@ -98,14 +98,14 @@ class CartRepository implements Cart
         $tax = 0; // Extend later
         $shipping = 0; // Extend later
 
-        $total = $cart->sum('gross_amount');
+        $total = $cart->sum('net_amount');
         $subTotal = $total - $tax;
 
         return [
             "total" => $total,
             "subTotal" => $subTotal,
             "shipping" => $shipping,
-            "totalWeight" => $cart->sum('overall_weight') . 'g',
+            "totalWeight" => $cart->sum('weight') . 'g',
             "grandTotal" => $subTotal + $shipping,
             "count" => $cart->count()
         ];
@@ -200,6 +200,8 @@ class CartRepository implements Cart
 
         if ($index === false) return false;
 
+        #
+
         $products[$index]["quantity"] -= 1;
 
         if ($products[$index]["quantity"] < 1) {
@@ -262,11 +264,10 @@ class CartRepository implements Cart
             "name" => $product->name,
             "part_number" => $product->part_number,
             "image" => $product->image,
-            "discount_price" => $product->discount_price,
+            "gross_amount" => intval($product->discount_price * $cart['quantity']),
             "quantity" => $cart['quantity'],
-            "gross_amount" => $product->discount_price * $cart['quantity'],
-            "weight" => $product->weight,
-            "overall_weight" => $product->weight * $cart['quantity'],
+            "net_amount" => ($product->discount_price - $product->gst) * $cart['quantity'],
+            "weight" => $product->weight * $cart['quantity'],
         ];
     }
 }

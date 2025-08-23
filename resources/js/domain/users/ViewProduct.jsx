@@ -4,6 +4,7 @@ import UserLayout from "@/shared/layouts/UserLayout";
 import { Minus, Plus } from "lucide-react";
 import { Head, router, useForm } from "@inertiajs/react";
 import SelectCart from "./_partials/cart/SelectCart";
+import NavigateHistoryHeading from "@/shared/NavigateHistoryHeading";
 
 const ViewProduct = ({ product }) => {
     // Set initial main image to the first image in the array
@@ -42,7 +43,17 @@ const ViewProduct = ({ product }) => {
         <UserLayout>
             <Head title={product.name} />
 
-            <section className="px-[8em]">
+            <section className="px-[8em] pt-5">
+                <NavigateHistoryHeading
+                    heading={
+                        <div className="flex items-center justify-between w-full">
+                            <h1 className="font-main text-xl ">
+                                {product.name}
+                            </h1>
+                            <SelectCart />
+                        </div>
+                    }
+                />
                 <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-2 border-gray-300">
                     <div className="flex gap-[3em] items-center w-1/2 min-h-[50vh]">
                         <div className="w-32 h-[50vh] overflow-auto flex flex-col gap-5">
@@ -84,7 +95,6 @@ const ViewProduct = ({ product }) => {
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <SelectCart />
                                 <div className="my-auto bg-[#FFEEC6] p-1 rounded-full">
                                     <HeartIcon />
                                 </div>

@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 
 import Suggestion from "./Suggestion";
 import { SearchIcon } from "@/components/icons";
-import { router, useForm } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import axios from "axios";
 import useSearchHistory from "@/lib/hooks/useSearchHistory";
 
 const SearchBar = () => {
+    const { make } = usePage().props;
     const [isActive, setIsActive] = useState(false);
     const dropdownRef = useRef(null);
     const [dataset, setDataset] = useState(false);
@@ -55,6 +56,12 @@ const SearchBar = () => {
                 >
                     <select className="border-none font-main rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[11px] md:text-[13px] pe-2 md:pe-auto">
                         <option value="Make">Make</option>
+                        {make &&
+                            make?.map((m) => (
+                                <option key={m.id} value={m.id}>
+                                    {m.make}
+                                </option>
+                            ))}
                     </select>
                     <input
                         type="text"

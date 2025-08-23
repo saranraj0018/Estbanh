@@ -5,30 +5,48 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 
-class NotificationController extends Controller {
-    public function index() {
+class NotificationController extends Controller
+{
+    public function index()
+    {
         $notifications = Notification::orderByDesc('created_at')->get();
         return response()->json($notifications);
     }
 
-    public function markAsRead($id) {
+
+
+
+    public function markAsRead($id)
+    {
         $notification = Notification::findOrFail($id);
         $notification->update(['status' => 1]);
 
         return response()->json(['success' => true]);
     }
 
-    public function markAllAsRead() {
+
+
+
+    public function markAllAsRead()
+    {
         Notification::where('status', 0)->update(['status' => 1]);
         return response()->json(['success' => true]);
     }
 
-    public function deleteAll() {
+
+
+
+    public function deleteAll()
+    {
         Notification::truncate();
         return response()->json(['success' => true]);
     }
 
-    public function deleteNotification($id) {
+
+
+
+    public function deleteNotification($id)
+    {
         $notification = Notification::find($id);
 
         if ($notification) {
@@ -39,9 +57,12 @@ class NotificationController extends Controller {
         }
     }
 
-    public function unreadCount() {
+
+
+
+    public function unreadCount()
+    {
         $count = Notification::where('status', 0)->count();
         return response()->json(['count' => $count]);
     }
-
 }

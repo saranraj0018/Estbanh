@@ -1,17 +1,44 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController as ControllersProductController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth'])->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    Route::get('/order-tracking', [OrderController::class, 'index'])->name('tracking'); // TODO: Implement order tracking
     Route::post('/request-product', [ControllersProductController::class, 'requestProduct'])->name('request-product');
+    Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
+
+    /**
+     * Orders
+     */
+    Route::get('/orders', [OrderController::class, 'orders'])->name('order.home');
+    Route::post('/orders/update', [OrderController::class, 'updateOrder'])->name('order.update');
+    Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('order.create');
+
+
+    /**
+     * Wishlist
+     */
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.home');
+    Route::post('/wishlist/toggle/{product}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+
+
+    /**
+     * Notification
+     */
+    Route::get('/address', [AddressController::class, 'index'])->name('address.home');
+    Route::post('/address/set-default/{address}', [AddressController::class, 'setDefault'])->name('address.default');
+    Route::post('/address/create', [AddressController::class, 'create'])->name('address.create');
+    Route::post('/address/update/{address}', [AddressController::class, 'update'])->name('address.update');
+    Route::delete('/address/delete/{address}', [AddressController::class, 'delete'])->name('address.delete');
+
 
 
     /**
@@ -23,9 +50,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
     Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAll']);
     Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
-
-
-
 
     /**
      * Cart

@@ -7,17 +7,19 @@ use Str;
 
 class Product extends Model
 {
-    
+
 
 
 
     protected $hidden = [
-        'created_by', 'updated_by', 'updated_at', 'is_active', 'user_id'
+        'created_by',
+        'updated_by',
+        'updated_at',
+        'is_active',
+        'user_id'
     ];
 
 
-
-    
 
 
 
@@ -25,23 +27,30 @@ class Product extends Model
 
 
     protected $fillable = [
-        'name', 'part_number', 'image', 'description', 'user_id'
+        'name',
+        'part_number',
+        'image',
+        'description',
+        'user_id'
     ];
 
 
-    public function detail() {
+    public function detail()
+    {
         return $this->hasOne(ProductDetail::class);
     }
 
 
 
 
-    public function features() {
+    public function features()
+    {
         return $this->hasMany(ProductAttributes::class);
     }
 
 
-    public function images() {
+    public function images()
+    {
         return $this->hasOne(ProductImages::class);
     }
 
@@ -49,20 +58,23 @@ class Product extends Model
 
 
 
-    public function getImageAttribute($image) {
+    public function getImageAttribute($image)
+    {
         return Str::startsWith($image, 'http') ? $image : url('/storage/' . $image);
     }
 
 
 
-    public function getImagesAttribute() {
+    public function getImagesAttribute()
+    {
         return $this->images()->pluck('image')->toArray();
     }
 
 
 
 
-    public function getCreatedAtAttribute(string $created_at) {
+    public function getCreatedAtAttribute(string $created_at)
+    {
         return \Carbon\Carbon::parse($created_at)->format('Y-m-d H:i A');
     }
 
@@ -74,7 +86,7 @@ class Product extends Model
     public function getDiscountPriceAttribute()
     {
         $firstFeature = $this->features?->first();
-    
+
         if (
             $firstFeature &&
             isset($firstFeature->variants[0]['sale_price']) &&
@@ -82,7 +94,7 @@ class Product extends Model
         ) {
             return $firstFeature->variants[0]['sale_price'];
         }
-    
+
         return $this->regular_price ?? 0.00;
     }
 
@@ -92,7 +104,7 @@ class Product extends Model
     public function getWeightAttribute()
     {
         $firstFeature = $this->features?->first();
-    
+
         if (
             $firstFeature &&
             isset($firstFeature->variants[0]['weight']) &&
@@ -100,9 +112,7 @@ class Product extends Model
         ) {
             return $firstFeature->variants[0]['weight'];
         }
-    
+
         return $this->weight ?? 0;
     }
-    
-    
 }

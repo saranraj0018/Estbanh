@@ -10,6 +10,8 @@ import { ChevronDown } from "lucide-react";
 const Navbar = () => {
     const user = usePage().props?.auth?.user;
     const cart = usePage().props.usercart;
+    const address = usePage().props.default_address;
+    const wishlist_count = usePage().props.wishlist_count;
 
     return (
         <>
@@ -20,32 +22,29 @@ const Navbar = () => {
                     </p>
 
                     <div className="flex items-center gap-2">
-                        <div className="flex mx-2">
-                            <div className="me-1">
-                                <Location />
+                        {address && (
+                            <div className="flex mx-2">
+                                <div className="me-1">
+                                    <Location />
+                                </div>
+                                <Link
+                                    href={route("address.home")}
+                                    className="font-main font-regular text-[13px]"
+                                >
+                                    My Addresses
+                                </Link>
                             </div>
-                            <p className="font-main font-regular text-[13px]">
-                                Deliver to 423651
-                            </p>
-                        </div>
+                        )}
                         <div className="flex mx-2">
                             <div className="me-1">
                                 <Truck />
                             </div>
                             <Link
-                                href={route("tracking")}
+                                href={route("order.home")}
                                 className="font-main font-regular text-[13px]"
                             >
-                                Track your order
+                                My Orders
                             </Link>
-                        </div>
-                        <div className="flex mx-2">
-                            <div className="me-1">
-                                <Discount />
-                            </div>
-                            <p className="font-main font-regular text-[13px]">
-                                All Offers
-                            </p>
                         </div>
                     </div>
                 </section>
@@ -65,10 +64,18 @@ const Navbar = () => {
                             <>
                                 <div className="flex gap-5">
                                     <div className="flex relative w-max my-auto">
-                                        <Heart color="white" />
-                                        {/* <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
-                                            1
-                                        </div> */}
+                                        <Link
+                                            href="/wishlist"
+                                            className="flex relative w-max my-auto"
+                                        >
+                                            <Heart color="white" />
+
+                                            {wishlist_count > 0 && (
+                                                <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
+                                                    {wishlist_count}
+                                                </div>
+                                            )}
+                                        </Link>
                                     </div>
 
                                     <Link
@@ -76,9 +83,11 @@ const Navbar = () => {
                                         className="flex relative w-max my-auto"
                                     >
                                         <Cart color="white" />
-                                        <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
-                                            {cart.count}
-                                        </div>
+                                        {cart.count > 0 && (
+                                            <div className="rounded-full text-white py-[1px] px-[6px] text-[10px] bg-secondary absolute top-[-8px] right-[-10px] font-medium border-[2px] border-primary">
+                                                {cart.count}
+                                            </div>
+                                        )}
                                     </Link>
                                 </div>
 
@@ -86,8 +95,11 @@ const Navbar = () => {
                                     <p className="text-secondary text-[10px]">
                                         Your Cart Value
                                     </p>
-                                    <p className="text-[14px] text-white">
-                                        ₹ {cart.grandTotal}
+                                    <p className="text-[14px] text-white text-right">
+                                        {new Intl.NumberFormat("en-IN", {
+                                            style: "currency",
+                                            currency: "INR",
+                                        }).format(cart.grandTotal)}
                                     </p>
                                 </div>
                             </>

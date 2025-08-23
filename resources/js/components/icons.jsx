@@ -292,7 +292,6 @@ export const BlueQuote = () => (
     </svg>
 );
 
-
 export const SearchIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -318,9 +317,7 @@ export const SearchIcon = (
     </svg>
 );
 
-
-
-export const TimeIcon = ({size}) => (
+export const TimeIcon = ({ size }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size ?? 22}
@@ -350,8 +347,7 @@ export const TimeIcon = ({size}) => (
     </svg>
 );
 
-
-export  const TradeIcon = () => (
+export const TradeIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="22"
@@ -373,7 +369,7 @@ export  const TradeIcon = () => (
     </svg>
 );
 
-export const HeartIcon = () => (
+export const HeartIcon = ({ fill = "white" }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="28"
@@ -383,7 +379,7 @@ export const HeartIcon = () => (
     >
         <path
             d="M24.3494 9.6876C24.3494 6.82985 21.9356 4.5126 18.9582 4.5126C16.733 4.5126 14.8217 5.8075 13.9994 7.65555C13.1772 5.8075 11.2659 4.5126 9.03946 4.5126C6.06441 4.5126 3.64941 6.82985 3.64941 9.6876C3.64941 17.9906 13.9994 23.4876 13.9994 23.4876C13.9994 23.4876 24.3494 17.9906 24.3494 9.6876Z"
-            fill="white"
+            fill={fill}
             stroke="black"
             strokeWidth="0.7"
             strokeLinecap="round"

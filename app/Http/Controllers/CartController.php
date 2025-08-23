@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Cart;
 use App\Http\Controllers\Controller as BaseController;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Inertia\Response;
 
 
@@ -51,7 +49,7 @@ class CartController extends BaseController
             if (!$this->cart->createCart("#cart_" . $request->name))
                 throw new \Exception('Something Went Wrong', 500);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Cart Created');;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -78,7 +76,7 @@ class CartController extends BaseController
             if (!$this->cart->switchCart($request->cartId))
                 throw new \Exception('Something Went Wrong', 500);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Cart Switched');;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -103,7 +101,7 @@ class CartController extends BaseController
             if (!$this->cart->deleteCart())
                 throw new \Exception('Something Went Wrong', 500);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Product Deleted from Cart');;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -137,7 +135,7 @@ class CartController extends BaseController
             if (!$this->cart->addToCart($cart))
                 throw new \Exception('Something Went Wrong', 500);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Product Added to Cart Successfully');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -167,7 +165,7 @@ class CartController extends BaseController
             if (!$this->cart->increment(productId: $request->productId))
                 throw new \Exception('Something Went Wrong', 500);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Product Added to Cart');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -196,7 +194,7 @@ class CartController extends BaseController
             if (!$this->cart->decrement(productId: $request->productId))
                 throw new \Exception('Something Went Wrong', 500);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Product Removed from Cart');
         } catch (\Throwable $th) {
             throw $th;
         }

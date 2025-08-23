@@ -9,7 +9,7 @@ import RequestProduct from "./_partials/products/RequestProduct";
 import SelectCart from "./_partials/cart/SelectCart";
 import NavigateHistoryHeading from "@/shared/NavigateHistoryHeading";
 
-const ProductList = ({ products }) => {
+const Wishlist = ({ wishlist }) => {
     const { search } = usePage().props.route.parameters;
     const [show, setShow] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -28,29 +28,23 @@ const ProductList = ({ products }) => {
 
             <section className="px-[8em]">
                 <div className="mt-[1em]  bg-white p-5 rounded-lg border-2 border-gray-300">
-                    <div className="flex items-center justify-between">
-                        <NavigateHistoryHeading
-                            heading={
-                                <h1 className="font-main text-xl">
-                                    Results for {search}
+                    <NavigateHistoryHeading
+                        heading={
+                            <div className="flex items-center justify-between w-full">
+                                <h1 className="font-main text-xl ">
+                                    Wishlist products
                                 </h1>
-                            }
-                        />
+                                <SelectCart />
+                            </div>
+                        }
+                    />
 
-                        <div className="flex items-center gap-2">
-                            <span>Active Cart: </span>
-                            <SelectCart />
-                        </div>
-                    </div>
-                    <div className="flex items-start gap-2 mt-[3em] w-full">
-                        <div className="w-[30%] p-5">
+                    <div className="flex items-start gap-[1.4em] mt-[3em] w-full">
+                        <div className="w-[30%] ">
                             <div className="bg-white border-2 border-gray-300 rounded-xl p-5">
                                 <h1 className="font-main ">
-                                    Refind your search
+                                    Search Wished Products
                                 </h1>
-                                <span className="font-main block text-primary mt-3 text-[14px]">
-                                    Suitable for
-                                </span>
 
                                 <div className="rounded-[10px] w-full mt-5 flex space-x-2 bg-white shadow-md border-2 border-gray-200">
                                     <select
@@ -73,38 +67,13 @@ const ProductList = ({ products }) => {
                                 </AppButton>
                             </div>
                         </div>
-                        <div className="w-[70%] p-5">
-                            <div className="flex items-center gap-3 font-main">
-                                <span>{products.length} Results | </span>
-                                <div className="text-gray-500 flex items-center gap-3 flex-1">
-                                    <input type="checkbox" />{" "}
-                                    <span>Select all</span>
-                                </div>
-
-                                {!user
-                                    ? null
-                                    : !submitted && (
-                                          <button
-                                              onClick={(e) => {
-                                                  e.preventDefault();
-                                                  setShow(true);
-                                              }}
-                                              className=" text-blue-500 text-[13px] underline"
-                                          >
-                                              Couldn't find what you were
-                                              looking for?
-                                          </button>
-                                      )}
-
-                                {submitted && (
-                                    <span className=" text-gray-900 text-[13px] ">
-                                        Request Submitted
-                                    </span>
-                                )}
+                        <div className="w-[70%]">
+                            <div className="flex items-center gap-3 ">
+                                <span>{wishlist.length} products </span>
                             </div>
 
                             <div className="mt-3">
-                                {products.map((product, index) => (
+                                {wishlist.map((product, index) => (
                                     <ListItem product={product} key={index} />
                                 ))}
                             </div>
@@ -116,4 +85,4 @@ const ProductList = ({ products }) => {
     );
 };
 
-export default ProductList;
+export default Wishlist;

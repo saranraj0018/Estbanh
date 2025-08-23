@@ -1,5 +1,5 @@
 import UserLayout from "@/shared/layouts/UserLayout";
-import { Head, router, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import ListItem from "./_partials/cart/ListItem";
 import Heading from "@/shared/Heading";
@@ -10,6 +10,7 @@ import { PrimaryButton, TextInput } from "@/shared";
 import { Cart as ShoppingCartIcon } from "@/components/icons";
 import DangerButton from "@/shared/DangerButton";
 import { TrashIcon } from "lucide-react";
+import NavigateHistoryHeading from "@/shared/NavigateHistoryHeading";
 
 const Cart = ({ cart, invoice }) => {
     const { total, subTotal, shipping, totalWeight, grandTotal } = invoice;
@@ -33,15 +34,21 @@ const Cart = ({ cart, invoice }) => {
         <UserLayout>
             <Head title="Cart" />
             <div className="px-[8em] mt-5">
-                <div className="flex gap-3 items-center">
-                    <div className="flex gap-3 items-center flex-1">
-                        <Heading className="text-[22px]">Shopping Cart</Heading>
-                        <SelectCart />
-                    </div>
+                <div className="flex gap-3 items-center justify-between">
+                    <NavigateHistoryHeading
+                        heading={
+                            <div className="flex flex-1 gap-3 items-center ">
+                                <Heading className="text-[22px]">
+                                    Shopping Cart
+                                </Heading>
+                                <SelectCart />
+                            </div>
+                        }
+                    />
 
                     <form
                         onSubmit={addNewCart}
-                        className={`flex items-center overflow-hidden border-2 bg-white h-[50px]  rounded-lg ${
+                        className={`flex items-center overflow-hidden border-2 bg-white h-[50px]   rounded-lg ${
                             errors.name ? "border-red-400" : "border-gray-200"
                         }`}
                     >
@@ -65,7 +72,6 @@ const Cart = ({ cart, invoice }) => {
                             </PrimaryButton>
                         </div>
                     </form>
-
                     {activeCart != "#cart_DEFAULT" && (
                         <DangerButton className="text-[13px]">
                             <TrashIcon
@@ -134,21 +140,13 @@ const Cart = ({ cart, invoice }) => {
                                 </span>
                             </div>
 
-                            <div className="rounded-[10px] w-full mt-5 flex space-x-2 bg-white shadow-md border-2 border-gray-200">
-                                <select
-                                    name=""
-                                    id=""
-                                    className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] pe-2 md:pe-auto w-full"
-                                >
-                                    <option value="Make">
-                                        Select your Career
-                                    </option>
-                                </select>
-                            </div>
-
-                            <AppButton className="w-full mt-5 flex items-center justify-center">
-                                Continue to Checkout
-                            </AppButton>
+                            {cart.length > 0 && (
+                                <Link href={route("checkout")}>
+                                    <AppButton className="w-full mt-5 flex items-center justify-center">
+                                        Continue to Checkout
+                                    </AppButton>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
