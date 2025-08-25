@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAll']);
     Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
 
+
+
     /**
      * Cart
      */

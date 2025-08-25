@@ -1,6 +1,6 @@
 import UserLayout from "@/shared/layouts/UserLayout";
-import { Head, Link, router, usePage } from "@inertiajs/react";
-import React from "react";
+import { Head, Link, router } from "@inertiajs/react";
+import React, { useEffect } from "react";
 import Heading from "@/shared/Heading";
 import { InputLabel } from "@/shared";
 
@@ -10,6 +10,12 @@ import AddressList from "./_partials/checkout/AddressList";
 import NavigateHistoryHeading from "@/shared/NavigateHistoryHeading";
 
 const Checkout = ({ products, address, invoice }) => {
+    useEffect(() => {
+        router.reload({
+            only: ["address"],
+        });
+    }, []);
+
     return (
         <UserLayout>
             <Head title="Checkout" />

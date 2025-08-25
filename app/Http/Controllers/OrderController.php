@@ -26,6 +26,11 @@ class OrderController extends Controller
 
     public function index()
     {
+
+        if ($this->cart->get()->count() < 1) {
+            return redirect(route('cart'));
+        }
+
         return Inertia::render('users/Checkout', [
             'products' => $this->cart->get(),
             'address' => Auth::user()->address,
