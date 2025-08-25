@@ -19,10 +19,9 @@ const ListItem = ({ product }) => {
         }
         return true;
     };
-  
+
     const increment = (e) => {
         e.preventDefault();
-
 
         post(route("increment.cart"), {
             onError: (error) => console.log(error),
@@ -30,15 +29,13 @@ const ListItem = ({ product }) => {
         return true;
     };
 
- 
-
     const remove = (e) => {
         e.preventDefault();
 
         post(route("remove.cart"), {
             onError: (error) => console.log(error),
         });
-    }
+    };
 
     return (
         <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-46 mb-3">
@@ -73,7 +70,10 @@ const ListItem = ({ product }) => {
                         </div>
                     </div>
 
-                    <button className="bg-yellow-50 p-[.5em] rounded-full" onClick={remove}>
+                    <button
+                        className="bg-yellow-50 p-[.5em] rounded-full"
+                        onClick={remove}
+                    >
                         <svg
                             width="17"
                             height="20"
@@ -111,7 +111,7 @@ const ListItem = ({ product }) => {
                     <div className="rounded-md w-1/2 flex flex-col items-end justify-center gap-2">
                         <div className="flex gap-1 items-center">
                             <span className="text-xl font-medium font-main text-black me-4">
-                                ₹{product.discount_price * product.quantity}
+                                ₹{product.gross_amount * product.quantity}
                             </span>
                             <button
                                 onClick={(e) => decrement(e)}

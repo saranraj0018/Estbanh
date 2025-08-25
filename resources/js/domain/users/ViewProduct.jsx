@@ -3,21 +3,17 @@ import { TimeIcon, TradeIcon, HeartIcon } from "@/components/icons";
 import UserLayout from "@/shared/layouts/UserLayout";
 import { Minus, Plus } from "lucide-react";
 import { Head, router, useForm } from "@inertiajs/react";
+import SelectCart from "./_partials/cart/SelectCart";
+import NavigateHistoryHeading from "@/shared/NavigateHistoryHeading";
 
 const ViewProduct = ({ product }) => {
     // Set initial main image to the first image in the array
     const [mainImage, setMainImage] = useState(product.image);
 
-    const {
-        data,
-        setData,
-        errors,
-        post,
-    } = useForm({
+    const { data, setData, errors, post } = useForm({
         productId: product.id,
         quantity: 1,
     });
-
 
     const decrement = (e) => {
         e.preventDefault();
@@ -34,8 +30,6 @@ const ViewProduct = ({ product }) => {
         return true;
     };
 
-
-
     const addToCart = (e) => {
         e.preventDefault();
         post(route("create.cart"), {
@@ -49,7 +43,17 @@ const ViewProduct = ({ product }) => {
         <UserLayout>
             <Head title={product.name} />
 
-            <section className="px-[8em]">
+            <section className="px-[8em] pt-5">
+                <NavigateHistoryHeading
+                    heading={
+                        <div className="flex items-center justify-between w-full">
+                            <h1 className="font-main text-xl ">
+                                {product.name}
+                            </h1>
+                            <SelectCart />
+                        </div>
+                    }
+                />
                 <div className="mt-[1em] flex items-center gap-[4em] bg-white p-5 rounded-lg border-2 border-gray-300">
                     <div className="flex gap-[3em] items-center w-1/2 min-h-[50vh]">
                         <div className="w-32 h-[50vh] overflow-auto flex flex-col gap-5">
@@ -89,8 +93,11 @@ const ViewProduct = ({ product }) => {
                                     {product.name}
                                 </h2>
                             </div>
-                            <div className="my-auto bg-[#FFEEC6] p-1 rounded-full">
-                                <HeartIcon />
+
+                            <div className="flex items-center gap-2">
+                                <div className="my-auto bg-[#FFEEC6] p-1 rounded-full">
+                                    <HeartIcon />
+                                </div>
                             </div>
                         </div>
 
@@ -145,7 +152,10 @@ const ViewProduct = ({ product }) => {
                             </span>
                         </div>
                         <div className="flex gap-3 mt-[1em]">
-                            <button onClick={addToCart}  className="border-primary border-[1px] rounded-md text-md w-full text-primary font-medium font-primary p-2">
+                            <button
+                                onClick={addToCart}
+                                className="border-primary border-[1px] rounded-md text-md w-full text-primary font-medium font-primary p-2"
+                            >
                                 Add to Cart
                             </button>
                             <button className="bg-secondary rounded-md text-md w-full text-black font-medium font-primary p-2">

@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class ProductController extends Controller {
+class ProductController extends Controller
+{
 
 
 
 
-    public function index() {
+    public function index()
+    {
 
         /* dd(dd(auth()->user()); ); */
         /* dd(auth()->user()); */
@@ -24,7 +27,8 @@ class ProductController extends Controller {
 
 
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         return response()->json([
             'products' => \App\Models\Product::where('part_number', 'like', '%' . $request->search . '%')->get()
         ]);
@@ -32,7 +36,8 @@ class ProductController extends Controller {
 
 
 
-    public function view (Request $request, Product $product) {
+    public function view(Request $request, Product $product)
+    {
         return Inertia::render('users/ViewProduct', [
             'product' => $product->load('detail')
         ]);
@@ -40,11 +45,11 @@ class ProductController extends Controller {
 
 
 
-    public function searchProduct(Request $request, string $search) {
+    public function searchProduct(Request $request, string $search)
+    {
         return Inertia::render('users/ProductList', [
             'products' => Product::where('part_number', 'like', '%' . $search . '%')->get()
         ]);
-
     }
 
 
@@ -53,7 +58,8 @@ class ProductController extends Controller {
      * Request product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function requestProduct(Request $request): RedirectResponse {
+    public function requestProduct(Request $request): RedirectResponse
+    {
         $request->validate([
             'name' => 'required|string',
             'part_number' => 'required',
@@ -72,7 +78,7 @@ class ProductController extends Controller {
                 "image" => $imagePath,
                 "description" => "A User has requested a new product with part number: " . $request->part_number,
                 "type" => 3,
-                "registered_user_id" => auth()->user()->id,
+                "registered_user_id" => Auth::user()->id,
                 "others" => json_encode([
                     'name' => $request->name,
                     'part_number' => $request->part_number,
@@ -81,7 +87,6 @@ class ProductController extends Controller {
             ]);
 
             return redirect()->back()->with('success', 'Product request submitted successfully!');
-
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Contracts\Address;
 use App\Contracts\Cart;
+use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +14,7 @@ class HandleInertiaRequests extends Middleware
 {
 
 
-    public function __construct(public readonly Cart $cart) {
-
-    }
+    public function __construct(public readonly Cart $cart, public readonly Address $address) {}
 
 
     /**
@@ -39,24 +40,34 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
 
-        $isAdmin = request()->is('admin/*') ? auth('admin')->user() : auth()->user();
+        $isAdmin = request()->is('admin/*') ? auth('admin')->user() : Auth::user();
 
 
         return [
             ...parent::share($request),
-           'auth' => [
+            'auth' => [
                 'user' => $isAdmin,
                 'permissions' =>  $isAdmin?->role?->permissions ?? [],
             ],
 
+            'wishlist_count' => wishlist(),
             'usercart' => $this->cart->getCartValue(),
+            'carts' => $this->cart->getCartList(),
+            'activeCart' => $this->cart->getActiveCartName(),
+            'default_address' => Auth::check() ? $this->address->getDefault() : null,
+
+            'make' => ProductDetail::distinct('id make')->get(['make', 'id']),
+            'model' => ProductDetail::distinct('id model')->get(['model', 'id']),
 
             'route' => $request->route(),
             'notifications' => \App\Models\Notification::where('user_id', '=', '0')->get(),
+
             'flash' => [
-                'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error')
+                'success' => fn() => $request->session()->get('success'),
+                'error' => fn() => $request->session()->get('error')
             ],
+
+            'previous_url' => url()->previous(),
         ];
     }
 }

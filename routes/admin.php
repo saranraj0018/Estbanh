@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\UserRegistrationApproved;
+
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NotificationController;
@@ -9,12 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Models\Notification;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
-
 
 Route::prefix('admin')
     ->middleware(['auth:admin'])
@@ -25,7 +20,7 @@ Route::prefix('admin')
         });
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-        
+
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
         Route::get('/notifications/{notification}', [NotificationController::class, 'viewNotification'])->name('view-notification');
         Route::get('/register-notifications/{notification}', [NotificationController::class, 'viewRegisterNotification'])->name('view-register-notification');
@@ -34,14 +29,12 @@ Route::prefix('admin')
         Route::get('/register-notifications', [NotificationController::class, 'registerNotification'])->name('register-notifications');
         Route::get('/request-notifications', [NotificationController::class, 'requestNotification'])->name('request-notification');
         Route::post('/delete-notification/{notification}', [NotificationController::class, 'delete'])->name('delete-notification');
-        
-        Route::post('/approve-user/{user}', [UserController::class, 'approve'])->name('approve-user');
 
+        Route::post('/approve-user/{user}', [UserController::class, 'approve'])->name('approve-user');
 
         Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories');
         Route::post('/save-category', [CategoryController::class, 'save'])->name('create-category');
         Route::post('/delete-category', [CategoryController::class, 'destroy'])->name('delete-category');
-
 
         Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('admin.sub-categories');
         Route::post('/save-sub-categories', [SubCategoryController::class, 'save'])->name('create-sub-category');
@@ -52,13 +45,10 @@ Route::prefix('admin')
         Route::post('/delete-product', [ProductController::class, 'destroy'])->name('delete-product');
 
         Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
-
         Route::get('/users', [UserController::class, 'index'])->name('admin.users');
         Route::get('/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
-
 
         Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
         Route::post('/roles/save', [RoleController::class, 'save'])->name('save-role');
         Route::post('/delete-role', [RoleController::class, 'destroy'])->name('delete-role');
-
     });

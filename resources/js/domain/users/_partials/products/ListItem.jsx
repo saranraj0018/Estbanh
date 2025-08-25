@@ -1,5 +1,5 @@
-import { TimeIcon } from "@/components/icons";
-import { Link, router, useForm } from "@inertiajs/react";
+import { HeartIcon, TimeIcon } from "@/components/icons";
+import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { Minus, Plus } from "lucide-react";
 import { memo, useState } from "react";
 
@@ -8,6 +8,9 @@ const ListItem = ({ product }) => {
         productId: product.id,
         quantity: 1,
     });
+
+    const wishlist = usePage().props.auth?.user?.wishlist;
+    console.log(wishlist);
 
     const decrement = (e) => {
         e.preventDefault();
@@ -34,13 +37,34 @@ const ListItem = ({ product }) => {
         });
     };
 
+    const togglewishlist = (e) => {
+        e.preventDefault();
+        post(route("wishlist.toggle", product.id), {
+            onSuccess: () => {
+                console.log("Toggled wishlist");
+            },
+        });
+    };
+
     return (
-        <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl min-h-46 mb-3">
-            <div className="bg-gray-300 w-1/4 h-46">
+        <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl max-h-46 mb-5">
+            <div className="relative w-1/4 h-[233px]">
+                <button
+                    onClick={togglewishlist}
+                    className="absolute top-2 right-2 bg-[#FFEEC6]/40 p-1 rounded-full w-fit"
+                >
+                    <HeartIcon
+                        fill={
+                            wishlist?.includes(product.id)
+                                ? "lightcoral"
+                                : "white"
+                        }
+                    />
+                </button>
                 <img
                     src={product.image}
-                    alt=""
-                    className="w-full h-full object-contain"
+                    alt="image"
+                    className="w-full h-full object-cover "
                 />
             </div>
 
@@ -66,6 +90,7 @@ const ListItem = ({ product }) => {
                             </span>
                         </div>
                     </div>
+
                     <div className="flex gap-1 items-center">
                         <span className="text-2xl font-medium font-main text-black me-4">
                             ₹{product.discount_price * data.quantity}
@@ -111,7 +136,10 @@ const ListItem = ({ product }) => {
                                 View Product
                             </button>
                         </Link>
-                        <button onClick={addToCart} className="bg-secondary rounded-md text-[13px] w-32 block text-black font-medium font-primary p-2">
+                        <button
+                            onClick={addToCart}
+                            className="bg-secondary rounded-md text-[13px] w-32 block text-black font-medium font-primary p-2"
+                        >
                             Add to Cart
                         </button>
                     </div>

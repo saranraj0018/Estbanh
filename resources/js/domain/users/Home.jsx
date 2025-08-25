@@ -14,9 +14,6 @@ import {
     WhyChooseUsMain,
 } from "@/public/images/home/index";
 
-
-
-
 import HomeScreenBannerSlider from "./_partials/home/HomeScreenBannerSlider";
 import CustomerReview from "./_partials/home/CustomerReview";
 import ProductBanner from "./_partials/home/ProductBanner";
@@ -25,6 +22,7 @@ import useSearchHistory from "@/lib/hooks/useSearchHistory";
 export default function Home({ products }) {
     const { getRepeatedSearches } = useSearchHistory();
     const user = usePage().props?.auth?.user;
+    const { make, model } = usePage().props;
 
     return (
         <UserLayout>
@@ -50,6 +48,12 @@ export default function Home({ products }) {
                             className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] pe-2 md:pe-auto w-1/2"
                         >
                             <option value="Make">Make</option>
+                            {make &&
+                                make?.map((m) => (
+                                    <option key={m.id} value={m.id}>
+                                        {m.make}
+                                    </option>
+                                ))}
                         </select>
 
                         <select
@@ -58,6 +62,12 @@ export default function Home({ products }) {
                             className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] me-2 md:pe-auto w-full"
                         >
                             <option value="Make">Select your Model</option>
+                            {model &&
+                                model?.map((m) => (
+                                    <option key={m.id} value={m.id}>
+                                        {m.model}
+                                    </option>
+                                ))}
                         </select>
                         <button className="text-gray-500 text-[13px] font-primary">
                             Clear
@@ -79,7 +89,9 @@ export default function Home({ products }) {
                                 ?.map((item, index) => (
                                     <li key={index}>
                                         <Link
-                                            href={route("products-list", { search: item[0] })}
+                                            href={route("products-list", {
+                                                search: item[0],
+                                            })}
                                             as="button"
                                             className="py-[2px] px-[3px] rounded-[5px] bg-white font-primary text-[#556174] font-medium text-[12px] border-[1px] border-[#D6DAE1]"
                                         >
